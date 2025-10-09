@@ -1,0 +1,101 @@
+				Abstraccion de objetos:
+1) Usuario:
+	- id int not null
+	- rol int not null
+	- nombre String not null
+	- celular int not null
+	- email String not null
+	- password String not null
+	- direccion String not null
+	- suspendido boolean not null
+
+2) Tarjeta:
+	- id int not null
+	- numeracion String not null
+	- fecha_vencimiento LocalDate not null
+	- id_titular int not null
+	- cvv String not null
+	- activa boolean not null
+
+3) Articulo:
+	- id int not null
+	- nombre string not null
+	- descripcion string not null
+	- imagen String not null
+	- precio double not null
+	- stock int	not null
+	- estado_articulo String ("Nuevo" o "Usado") not null
+	- categoria String ("Tecnologia", "Hogar", "Personal", "Decoracion" u "Otro") not null
+	- estado_aprobacion String ("Pendiente", "Aprobado", "Rechazado") not null
+	- id_usuario int not null
+
+4) DetalleCarrito:
+	- id int not null
+	- id_usuario int not null
+	- id_articulo int not null
+	- cantidad int not null
+
+5) ComentarioArticulo:
+	- id int not null
+	- comentario String not null
+	- fecha LocalDateTime not null
+	- id_articulo int not null
+	- id_usuario int not null
+
+6) RatingArticulo:
+	- id int not null
+	- puntuacion int not null
+	- id_articulo int not null
+	- id_usuario int not null
+	- fecha LocalDateTime not null
+
+7) Compra:
+	- id int not null
+	- fecha LocalDateTime not null
+	- total double not null
+	- estado_entrega String ("Pendiente", "Finalizada") not null
+	- comision_usuario double not null
+	- comision_pagina double not null
+	- id_usuario int not null
+	- id_tarjeta int not null
+
+8) DetalleCompra:
+	- id int not null
+	- cantidad int not null
+	- subtotal double not null
+	- id_compra int not null
+	- id_articulo int not null
+
+9) Entrega:
+	- id int not null
+	- estado String ("En curso" o "Entregado") not null
+	- fecha_estimada LocalDateTime not null
+	- fecha_entrega LocalDateTime null
+	- id_compra int not null
+
+10) DetalleEntrega:
+	- id int not null
+	- id_entrega int not null
+	- id_articulo int not null
+	- listo boolean not null (si todos los detalleEntrega de una entrega estan listos, se marca la entrega como "Entregado")
+
+11) Sancion:
+	- id int not null
+	- motivo String not null
+	- fecha LocalDateTime not null
+	- dias_sancion int not null
+	- estado String ("En curso" o "Finalizada") not null
+	- id_usuario int not null
+	- id_usuario_moderador int not null
+
+12) Notificacion:
+	- id int not null
+	- fecha LocalDateTime not null
+	- tipo String ("Entrega", "Producto Aprobado", "Producto Rechazado", "Sancion") not null
+	- titulo String not null
+	- descripcion String not null
+	- id_usuario int not null
+	- id_entrega int null (si es de pedido) 
+	- id_articulo int null (si es de subida de articulo)
+	- estado String not null (si es entrega: "En curso" o "Entregado", si es de articulo: "Aprobado" o "Rechazado") 
+	- fecha_estimada LocalDateTime null (si es una entrega) 

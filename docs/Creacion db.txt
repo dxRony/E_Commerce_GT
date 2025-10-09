@@ -1,0 +1,120 @@
+psql -U rony -h localhost -d postgres
+
+CREATE DATABASE e_commerce_gt;
+
+\c e_commerce_gt
+
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    rol INTEGER NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    celular INTEGER NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    direccion VARCHAR(200) NOT NULL,
+    suspendido BOOLEAN NOT NULL DEFAULT false
+);
+
+CREATE TABLE tarjeta (
+    id SERIAL PRIMARY KEY,
+    numeracion VARCHAR(19) NOT NULL,
+    fecha_vencimiento DATE NOT NULL,
+    id_titular INTEGER NOT NULL REFERENCES usuario(id),
+    cvv VARCHAR(4) NOT NULL,
+    activa BOOLEAN NOT NULL
+);
+
+CREATE TABLE articulo (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(200) NOT NULL,
+    descripcion VARCHAR(250) NOT NULL,
+    imagen VARCHAR(500) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    stock INTEGER NOT NULL,
+    estado_articulo VARCHAR(10) NOT NULL,
+    categoria VARCHAR(20) NOT NULL,
+    estado_aprobacion VARCHAR(15) NOT NULL,
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id)
+);
+
+CREATE TABLE detalle_carrito (
+    id SERIAL PRIMARY KEY,
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
+    id_articulo INTEGER NOT NULL REFERENCES articulo(id),
+    cantidad INTEGER NOT NULL,
+    UNIQUE(id_usuario, id_articulo)
+);
+
+CREATE TABLE comentario_articulo (
+    id SERIAL PRIMARY KEY,
+    comentario VARCHAR(250) NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    id_articulo INTEGER NOT NULL REFERENCES articulo(id),
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id)
+);
+
+CREATE TABLE rating_articulo (
+    id SERIAL PRIMARY KEY,
+    puntuacion INTEGER NOT NULL,
+    id_articulo INTEGER NOT NULL REFERENCES articulo(id),
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
+    fecha TIMESTAMP NOT NULL,
+    UNIQUE(id_articulo, id_usuario)
+);
+
+CREATE TABLE compra (
+    id SERIAL PRIMARY KEY,
+    fecha TIMESTAMP NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    estado_entrega VARCHAR(15) NOT NULL,
+    comision_usuario DECIMAL(10,2) NOT NULL,
+    comision_pagina DECIMAL(10,2) NOT NULL,
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
+    id_tarjeta INTEGER NOT NULL REFERENCES tarjeta(id)
+);
+
+CREATE TABLE detalle_compra (
+    id SERIAL PRIMARY KEY,
+    cantidad INTEGER NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    id_compra INTEGER NOT NULL REFERENCES compra(id),
+    id_articulo INTEGER NOT NULL REFERENCES articulo(id)
+);
+
+CREATE TABLE entrega (
+    id SERIAL PRIMARY KEY,
+    estado VARCHAR(10) NOT NULL,
+    fecha_estimada TIMESTAMP NOT NULL,
+    fecha_entrega TIMESTAMP NULL,
+    id_compra INTEGER NOT NULL REFERENCES compra(id)
+);
+
+CREATE TABLE detalle_entrega (
+    id SERIAL PRIMARY KEY,
+    id_entrega INTEGER NOT NULL REFERENCES entrega(id),
+    id_articulo INTEGER NOT NULL REFERENCES articulo(id),
+    listo BOOLEAN NOT NULL
+);
+
+CREATE TABLE sancion (
+    id SERIAL PRIMARY KEY,
+    motivo VARCHAR(250) NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    dias_sancion INTEGER NOT NULL,
+    estado VARCHAR(15) NOT NULL,
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
+    id_usuario_moderador INTEGER NOT NULL REFERENCES usuario(id)
+);
+
+CREATE TABLE notificacion (
+    id SERIAL PRIMARY KEY,
+    fecha TIMESTAMP NOT NULL,
+    tipo VARCHAR(30) NOT NULL,
+    titulo VARCHAR(200) NOT NULL,
+    descripcion VARCHAR(250) NOT NULL,
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
+    id_entrega INTEGER NULL REFERENCES entrega(id),
+    id_articulo INTEGER NULL REFERENCES articulo(id),
+    estado VARCHAR(20) NOT NULL,
+    fecha_estimada TIMESTAMP NULL
+);

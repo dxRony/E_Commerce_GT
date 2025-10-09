@@ -1,0 +1,83 @@
+				E-Commerce GT
+- Diseñar y desarrollar una aplicacion web de comercio electronico que permitar a los usuarios comprar y vender en linea.
+- Usando:
+	- Postgresql.
+	- REST API (peticiones Http) - Spring.
+	- Aplicacion grafica usando - Angular.
+
+Plataforma en linea que permite un e-commerce entre usuarios guatemaltecos.
+
+* GESTION DE USUARIOS
+	+ Registrarse
+
+	+ Iniciar sesion
+
+	+ Tipos de usuarios:
+		- Comun: puede vender y comprar articulos.
+		- Moderador: revisa, acepta y/o rechaza los productos a vender.
+		- Logistica: lleva el control de los paquetes que esten en curso de ser entregados.
+		- Administrador: registra empleados y administradores, genera reportes, etc.
+
+* MODULO DE USUARIO COMUN
+	+ Venta de articulos
+		- Para poner en venta algun producto es necesario tomar en cuenta las siguientes propiedades de los mismos:
+			- Nombre
+			- Descripcion
+			- Imagen
+			- Precio
+			- Stock (minimo 1)
+			- Estado (nuevo o usado)
+			- Categoria (Tecnologia, hogar, personal, decoracion u otro)
+
+		- Cada producto vendido distribuye el ingreso de 95% al usario y 5% a la pagina. Ademas al momento de realizar una compra, se tienen 5 dias para realizar la entrega de la misma. El usuario puede actualizar la info del producto que se tiene (cada que se actualice, el producto debe entrar a revision).
+	
+	+ Carrito de compras
+		- Este tipo de usuario tiene acceso a un carrito, que es una lista de productos que desea adquirir, con las siguientes funcionalidades:
+			- Agregar producto.
+			- Eliminar producto.
+			- Actualizar carrito: cambia cantidades del producto.
+			- Borrar carrito: limpia el carrito.
+			- Pagar carrito: se realiza una compra de todos los articulos en el carrito, tomando en cuenta que el unico metodo de pago valido es tarjeta de credito.
+
+		- Al momento de pagar se debe mostrar la opcion de guardar la tarjeta, para escogerla en las proximas compras. Al momento de realizar el pago se tienen 5 dias para entregar los articulos. Todos los articulos se deben entregar el mismo dia.
+	
+	+ Rating y Comentarios
+		- Se puede calificar de 1 a 5 estrellas y dejar comentarios en los productos que se hayan comprado. Y se debe mostrar un promedio de calificaciones en la vista de detalle del producto.
+
+	+ Seguimiento de pedidos
+		- se puede ver una lista de pedidos realizados, donde se podra ver la fecha en la que el pedido deberia llegar y el estado del pedido: "en curso", "entregado".
+
+* MODULO DE USUARIO MODERADOR
+	+ Solicitudes de ingreso de productos
+		- cuando un usuario comun desea poner un producto en venta, los mods podran aceptar o rechar el ingreso del producto a la pagina.
+
+	+ Gestion de sanciones
+		- se debe permitir supervisar y controlar el comportamiento de los vendedores, ofreciendo la capacidad de suspender temporalmente cuentas que incurran en fraude, incumplimientos de entrega o posteo de productos prohibidos, registrando el motivo, la fecha y estado de cada sancion para llevar un historial de sanciones.
+
+* MODULO DE USUARIO DE LOGISTICA
+	+ Seguimiento de pedidos
+		- se debe tener la capacidad de visualizar todos los pedidos que estan "en curso". Se podra modificar la fecha de entrega de cualquier pedido y marcar como entregados.
+
+* MODULO DE USUARIO ADMINISTRADOR
+	+ Registro y edicion de empleados
+		- se podra ingresar usuarios nuevos de tipo "Moderador", "Logistica" y "Administrador". Ademas se tendra la opcion de actualizar la info de cualquier empleado registrado.
+
+	+ Generacion de reportes
+		- Se podran generar los reportes siguientes:
+			- Top 10 productos mas vendidos (en intervalos de tiempo).
+			- Top 5 clientes con mas ganancias (en intervalos de tiempo).
+			- Top 5 clientes que mas productos han vendido (en intervalos de tiempo).
+			- Top 10 clientes que mas pedidos han realizado (en intervalos de tiempo).
+			- Top 10 clientes que mas productos tienen a la venta.
+			- Historial de sanciones.
+			- Historial de notificaciones.
+
+* NOTIFICACIONES
+	+ Enviar notificaciones mediante un email a los usarios cuando:
+		- El pedido cambie de estado ("en curso" -> "entregado").
+		- Cuando el producto en venta sea aprobado o rechazado.
+
+	+ Los correos deben:
+		- ser enviados en tiempo real al ocurrir un envento.
+		- Incluir informacion relevante (no. pedido o nombre del producto, estado actualizado, fecha estimada de entrega (si aplica)).
+		- Almacenarse en la db como historial de notificaciones para referencia futura.
