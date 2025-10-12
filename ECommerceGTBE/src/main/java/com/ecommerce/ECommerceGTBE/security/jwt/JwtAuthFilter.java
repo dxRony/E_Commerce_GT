@@ -25,7 +25,7 @@ import java.io.IOException;
  *
  * @author ronyrojas
  */
-public class JwtAuthFilter  extends OncePerRequestFilter{
+public class JwtAuthFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthFilter.class);
 
@@ -60,7 +60,8 @@ public class JwtAuthFilter  extends OncePerRequestFilter{
                         SecurityContextHolder.getContext().setAuthentication(authentication);
 
                         if (userDetails instanceof UsuarioDetailsImpl) {
-                            request.setAttribute("userId", ((UsuarioDetailsImpl) userDetails).getUsuario().getId());
+                            Integer userId = ((UsuarioDetailsImpl) userDetails).getUsuario().getId();
+                            request.setAttribute("userId", userId);
                         }
                     }
                 }

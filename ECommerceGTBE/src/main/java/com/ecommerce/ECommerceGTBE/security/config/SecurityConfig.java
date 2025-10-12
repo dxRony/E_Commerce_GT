@@ -82,9 +82,9 @@ public class SecurityConfig {
                 // endpoints de logistica
                 .requestMatchers("/api/logistica/**").hasRole("LOGISTICA")
                 // endpoints de domunes
-                .requestMatchers("/api/usuario/**").hasRole("COMUN")
+                .requestMatchers("/api/usuario/**").hasAnyRole("COMUN", "MODERADOR", "LOGISTICA", "ADMINISTRADOR")
                 // endpoints para autenticacion
-                .requestMatchers("/api/**").authenticated()                
+                .requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 );
 

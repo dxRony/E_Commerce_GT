@@ -30,16 +30,9 @@ public interface SancionRepository extends JpaRepository<Sancion, Integer> {
 
     List<Sancion> findByFechaBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
-    @Query("SELECT s FROM Sancion s WHERE s.estado = 'En curso' AND s.fecha + s.diasSancion * INTERVAL '1 day' BETWEEN :fechaInicio AND :fechaFin")
-    List<Sancion> findSancionesProximasAVencer(@Param("fechaInicio") LocalDateTime fechaInicio,
-            @Param("fechaFin") LocalDateTime fechaFin);
-
     Long countByUsuarioSancionado(Usuario usuario);
 
     Long countByUsuarioModerador(Usuario moderador);
-
-    @Query("SELECT s FROM Sancion s WHERE s.estado = 'En curso' AND s.fecha + s.diasSancion * INTERVAL '1 day' < :fechaActual")
-    List<Sancion> findSancionesParaFinalizar(@Param("fechaActual") LocalDateTime fechaActual);
 
     List<Sancion> findByOrderByFechaDesc();
 

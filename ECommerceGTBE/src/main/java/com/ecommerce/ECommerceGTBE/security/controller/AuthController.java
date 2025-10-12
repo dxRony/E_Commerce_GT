@@ -4,9 +4,9 @@
  */
 package com.ecommerce.ECommerceGTBE.security.controller;
 
-import com.ecommerce.ECommerceGTBE.dto.request.LoginRequest;
-import com.ecommerce.ECommerceGTBE.dto.request.RegistroRequest;
-import com.ecommerce.ECommerceGTBE.dto.response.JwtResponse;
+import com.ecommerce.ECommerceGTBE.dto.request.auth.LoginRequest;
+import com.ecommerce.ECommerceGTBE.dto.request.auth.RegistroRequest;
+import com.ecommerce.ECommerceGTBE.dto.response.auth.JwtResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.model.UsuarioDetailsImpl;
 import com.ecommerce.ECommerceGTBE.repository.UsuarioRepository;
@@ -46,7 +46,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
-            // Autenticar usuario
+            // autenticando usuario
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
             );
@@ -54,13 +54,13 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UsuarioDetailsImpl userDetails = (UsuarioDetailsImpl) authentication.getPrincipal();
 
-            // Generar token JWT
+            // creando token jwt
             String jwt = jwtService.generarToken(userDetails);
 
-            // Obtener información del usuario
+            // obteniendo data de usuario
             Usuario usuario = userDetails.getUsuario();
 
-            // Devolver respuesta
+            // respuesta
             return ResponseEntity.ok(new JwtResponse(
                     jwt,
                     usuario.getId(),
@@ -71,33 +71,32 @@ public class AuthController {
 
         } catch (Exception e) {
             return ResponseEntity.badRequest()
-                    .body(Map.of("message", "Error en login: " + e.getMessage()));
+                    .body(Map.of("message", "eror en el login: " + e.getMessage()));
         }
     }
 
     @PostMapping("/registro")
     public ResponseEntity<?> registro(@Valid @RequestBody RegistroRequest registroRequest) {
         try {
-            // Verificar si el email ya existe
+            // verificando si email ya existe
             if (usuarioRepository.existsByEmail(registroRequest.getEmail())) {
                 return ResponseEntity.badRequest()
-                        .body(Map.of("message", "Error: El email ya está en uso"));
+                        .body(Map.of("message", "Error: email no disponible"));
             }
-
-            // Crear nuevo usuario
+            // creando nuevo usuario
             Usuario usuario = new Usuario();
             usuario.setNombre(registroRequest.getNombre());
             usuario.setEmail(registroRequest.getEmail());
             usuario.setPassword(passwordEncoder.encode(registroRequest.getPassword()));
             usuario.setCelular(registroRequest.getCelular());
             usuario.setDireccion(registroRequest.getDireccion());
-            usuario.setRol(1); // Rol COMUN por defecto
+            usuario.setRol(1);//rol 1por el momenot
             usuario.setSuspendido(false);
 
-            // Guardar usuario
+            // guardando usuario en db
             Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
-            // Autenticar y generar token automáticamente
+            // autenticando y generando token al registrar
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(registroRequest.getEmail(), registroRequest.getPassword())
             );
@@ -106,7 +105,7 @@ public class AuthController {
             UsuarioDetailsImpl userDetails = (UsuarioDetailsImpl) authentication.getPrincipal();
             String jwt = jwtService.generarToken(userDetails);
 
-            // Devolver respuesta con token
+            // respuesta
             return ResponseEntity.ok(new JwtResponse(
                     jwt,
                     usuarioGuardado.getId(),
@@ -114,10 +113,9 @@ public class AuthController {
                     usuarioGuardado.getNombre(),
                     usuarioGuardado.getRol()
             ));
-
         } catch (Exception e) {
             return ResponseEntity.badRequest()
-                    .body(Map.of("message", "Error en registro: " + e.getMessage()));
+                    .body(Map.of("message", "error en registro: " + e.getMessage()));
         }
     }
 
@@ -147,4 +145,5 @@ public class AuthController {
             return ResponseEntity.ok(Map.of("valido", false));
         }
     }
+
 }

@@ -50,4 +50,7 @@ public class Notificacion {
 
     @Column(name = "fecha_estimada")
     private LocalDateTime fechaEstimada;
+    
+    @Column(name = "leida", nullable = false)
+    private Boolean leida = false;
 }

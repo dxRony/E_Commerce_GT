@@ -25,19 +25,22 @@ public class UsuarioDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = switch (usuario.getRol()) {
+            
             case 1 ->
-                "ADMINISTRADOR";
+                "ROLE_COMUN";
             case 2 ->
-                "MODERADOR";
+                "ROLE_MODERADOR";
             case 3 ->
-                "LOGISTICA";
+                "ROLE_LOGISTICA";
             case 4 ->
-                "COMUN";
+                "ROLE_ADMINISTRADOR";
             default ->
-                "COMUN";
+                "ROLE_COMUN"; // Por defecto
         };
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
+    
+    
 
     @Override
     public String getPassword() {

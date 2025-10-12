@@ -116,5 +116,6 @@ CREATE TABLE notificacion (
     id_entrega INTEGER NULL REFERENCES entrega(id),
     id_articulo INTEGER NULL REFERENCES articulo(id),
     estado VARCHAR(20) NOT NULL,
-    fecha_estimada TIMESTAMP NULL
+    fecha_estimada TIMESTAMP NULL,
+    leida BOOLEAN NOT NULL DEFAULT false
 );

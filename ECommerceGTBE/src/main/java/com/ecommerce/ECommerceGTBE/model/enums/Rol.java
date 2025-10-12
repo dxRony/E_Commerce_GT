@@ -10,9 +10,9 @@ package com.ecommerce.ECommerceGTBE.model.enums;
  */
 public class Rol {
 
-    public static final int ADMINISTRADOR = 1;
+    public static final int COMUN = 1;
     public static final int MODERADOR = 2;
     public static final int LOGISTICA = 3;
-    public static final int COMUN = 4;
+    public static final int ADMINISTRADOR = 4;
 
 }
