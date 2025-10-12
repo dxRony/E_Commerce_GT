@@ -71,19 +71,21 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                // endpoints publicos
+                // endpoinst publicos
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/articulos/public/**").permitAll()
                 .requestMatchers("/error").permitAll()
-                // endpoints de admins
+                // endpoints de admin
                 .requestMatchers("/api/admin/**").hasRole("ADMINISTRADOR")
                 // endpoints de mods
                 .requestMatchers("/api/moderador/**").hasRole("MODERADOR")
                 // endpoints de logistica
                 .requestMatchers("/api/logistica/**").hasRole("LOGISTICA")
-                // endpoints de domunes
-                .requestMatchers("/api/usuario/**").hasAnyRole("COMUN", "MODERADOR", "LOGISTICA", "ADMINISTRADOR")
-                // endpoints para autenticacion
+                // endpoints de comun
+                .requestMatchers("/api/articulos/**").hasRole("COMUN")
+                //endpoinst con un rol
+                .requestMatchers("/api/usuario/**").hasAnyRole("COMUN", "ADMINISTRADOR", "MODERADOR", "LOGISTICA")
+                // endpoints con sesion 
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 );

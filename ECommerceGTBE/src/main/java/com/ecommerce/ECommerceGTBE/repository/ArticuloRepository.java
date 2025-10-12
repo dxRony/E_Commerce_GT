@@ -24,11 +24,14 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer> {
 
     List<Articulo> findByEstadoArticulo(String estadoArticulo);
 
-    List<Articulo> findByPrecioBetween(BigDecimal precioMin, BigDecimal precioMax);
+    List<Articulo> findByNombreContainingIgnoreCaseAndEstadoAprobacion(String nombre, String estado);
+
+    List<Articulo> findByPrecioBetweenAndEstadoAprobacion(BigDecimal precioMin, BigDecimal precioMax, String estado);
 
     List<Articulo> findByStockGreaterThan(Integer stock);
 
     List<Articulo> findByUsuarioAndEstadoAprobacion(Usuario usuario, String estadoAprobacion);
 
     Long countByEstadoAprobacion(String estadoAprobacion);
+    
 }

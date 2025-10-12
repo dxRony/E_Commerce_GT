@@ -44,7 +44,7 @@ public class UsuarioController {
             return (Integer) idUser;
         }
 
-        throw new RuntimeException("No se pudo obtener el ID del usuario autenticado");
+        throw new RuntimeException("no se pudo obtener el ID del usuario autenticado");
     }
 
     // usuarios en sesion
@@ -59,7 +59,7 @@ public class UsuarioController {
         }
 
         Usuario usuario = usuarioService.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("user no encontrado"));
 
         UsuarioResponse response = new UsuarioResponse(
                 usuario.getId(),
@@ -107,10 +107,10 @@ public class UsuarioController {
                 passwordRequest.getPasswordNueva()
         );
 
-        return ResponseEntity.ok(new MensajeResponse("Contraseña actualizada"));
+        return ResponseEntity.ok(new MensajeResponse("password actualizada"));
     }
 
-    // admins
+    // admins en sesion
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<UsuarioResponse>> getAllUsuarios() {
@@ -135,7 +135,7 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable Integer id) {
         Usuario usuario = usuarioService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("usuario no encontrado con id: " + id));
 
         UsuarioResponse response = new UsuarioResponse(
                 usuario.getId(),
