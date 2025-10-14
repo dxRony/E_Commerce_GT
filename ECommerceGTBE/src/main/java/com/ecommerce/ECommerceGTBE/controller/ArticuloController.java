@@ -42,7 +42,7 @@ public class ArticuloController {
             return (Integer) userIdAttr;
         }
 
-        throw new RuntimeException("No se pudo obtener el id del usuario");
+        throw new RuntimeException("no se pudo obtener el id del usuario");
     }
 
     // usuarios sin sesion

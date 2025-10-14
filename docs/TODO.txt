@@ -10,7 +10,7 @@
 		- Publicar articulos													: ok
 		- Listar articulos														: ok
 		- Editar articulos														: ok
-		- Comprar articulos														: pendiente
+		- Comprar articulos														: ok
 		- Calificar articulos													: pendiente
 	
 	+ Carrito de compras:
@@ -18,7 +18,7 @@
 		- Eliminar productos													: ok
 		- Actualizar carrito: agregar cantidades								: ok	
 		- Limpiar carrito                                                       : ok
-		- Pagar carrito                                                         : pendiente
+		- Pagar carrito                                                         : ok
 	
 	+ Tarjetas:
 		- Agregar tarjeta                                                       : ok
