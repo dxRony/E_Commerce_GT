@@ -14,15 +14,15 @@
 		- Calificar articulos													: pendiente
 	
 	+ Carrito de compras:
-		- Agregar producto 														: pendiente 
-		- Eliminar productos													: pendiente
-		- Actualizar carrito: agregar cantidades								: pendiente	
-		- Limpiar carrito                                                       : pendiente
+		- Agregar producto 														: ok 
+		- Eliminar productos													: ok
+		- Actualizar carrito: agregar cantidades								: ok	
+		- Limpiar carrito                                                       : ok
 		- Pagar carrito                                                         : pendiente
 	
 	+ Tarjetas:
-		- Agregar tarjeta                                                       : pendiente
-		- Eliminar tarjeta 														: pendiente
+		- Agregar tarjeta                                                       : ok
+		- Eliminar tarjeta 														: ok
 	
 	+ Seguimiento de pedidos:
 		- Listar pedidos realizados (fecha y estado, entregado -> factura).     : pendiente
