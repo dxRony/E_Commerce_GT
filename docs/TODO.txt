@@ -1,0 +1,56 @@
+* MODULO DE AUTENTICACION
+	- Login																		: ok
+	- Registro																	: ok
+
+* MODULO DE USUARIO COMUN
+	+ Perfil:
+		- Editar perfil															: ok
+	
+	+ Articulos:
+		- Publicar articulos													: ok
+		- Listar articulos														: ok
+		- Editar articulos														: ok
+		- Comprar articulos														: pendiente
+		- Calificar articulos													: pendiente
+	
+	+ Carrito de compras:
+		- Agregar producto 														: pendiente 
+		- Eliminar productos													: pendiente
+		- Actualizar carrito: agregar cantidades								: pendiente	
+		- Limpiar carrito                                                       : pendiente
+		- Pagar carrito                                                         : pendiente
+	
+	+ Tarjetas:
+		- Agregar tarjeta                                                       : pendiente
+		- Eliminar tarjeta 														: pendiente
+	
+	+ Seguimiento de pedidos:
+		- Listar pedidos realizados (fecha y estado, entregado -> factura).     : pendiente
+
+* MODULO DE USUARIO MODERADOR
+	+ Productos
+		- Listar solicitudes de productos. 										: ok
+		- Aceptar o rechazar productos.											: ok
+
+	+ Sanciones
+		- Listar rating (de menor a mayor) y comentarios de articulos			: pendiente
+		- Sancionar a usuario vendedor											: pendiente 
+
+* MODULO DE USUARIO DE LOGISTICA
+	+ Pedidos
+		- Listar pedidos "en curso".											: pendiente
+			- Marcar como entregado
+			- Modificar fecha													: pendiente
+
+* MODULO DE USUARIO ADMINISTRADOR
+	+ Empleados
+		- Registro de empleados (roles 1, 2 y 3)								: pendiente
+		- Edicion de empleados													: pendiente
+
+	+ Reportes
+		- Generar reportes														: pendiente
+
+* MODULO DE NOTIFICACIONES
+	+ Enviar notificaciones via email cuando:
+		- Al comprador cuando se realice una compra 									: pendiente
+		- Al comprador cuando el pedido cambie de estado ("en curso" -> "entregado")	: pendiente
