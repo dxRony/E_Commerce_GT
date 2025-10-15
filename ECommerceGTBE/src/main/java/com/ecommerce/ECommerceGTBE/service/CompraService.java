@@ -48,6 +48,9 @@ public class CompraService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private EntregaService entregaService;
+
     @Transactional
     public Compra procesarPago(Integer usuarioId, Integer tarjetaId) {
         Usuario usuario = usuarioService.findById(usuarioId)
@@ -90,6 +93,9 @@ public class CompraService {
             //disminuir stock
             articuloService.actualizarStock(detalleCarrito.getArticulo().getId(), detalleCarrito.getCantidad());
         }
+        //creando entrega de la compra
+        entregaService.crearEntrega(compraRegistrada);
+
         //limppiar carrito luego de compra
         carritoService.limpiarCarrito(usuario);
 

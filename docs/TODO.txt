@@ -25,7 +25,7 @@
 		- Eliminar tarjeta 														: ok
 	
 	+ Seguimiento de pedidos:
-		- Listar pedidos realizados (fecha y estado, entregado -> factura).     : pendiente
+		- Listar pedidos realizados (fecha y estado, entregado -> factura).     : ok
 
 * MODULO DE USUARIO MODERADOR
 	+ Productos
@@ -38,9 +38,9 @@
 
 * MODULO DE USUARIO DE LOGISTICA
 	+ Pedidos
-		- Listar pedidos "en curso".											: pendiente
+		- Listar pedidos "en curso".											: ok
 			- Marcar como entregado
-			- Modificar fecha													: pendiente
+			- Modificar fecha
 
 * MODULO DE USUARIO ADMINISTRADOR
 	+ Empleados
