@@ -4,10 +4,10 @@
  */
 package com.ecommerce.ECommerceGTBE.controller;
 
-import com.ecommerce.ECommerceGTBE.dto.request.usuario.ChangePasswordRequest;
-import com.ecommerce.ECommerceGTBE.dto.request.usuario.UpdateUsuarioRequest;
+import com.ecommerce.ECommerceGTBE.dto.request.usuario.CambiarPasswordRequest;
+import com.ecommerce.ECommerceGTBE.dto.request.usuario.ActualizarVendedorRequest;
 import com.ecommerce.ECommerceGTBE.dto.response.auth.MensajeResponse;
-import com.ecommerce.ECommerceGTBE.dto.response.usuario.UsuarioResponse;
+import com.ecommerce.ECommerceGTBE.dto.response.usuario.VendedorResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -50,7 +50,7 @@ public class UsuarioController {
     // usuarios en sesion
     @GetMapping("/perfil")
     @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
-    public ResponseEntity<UsuarioResponse> getMiPerfil() {
+    public ResponseEntity<VendedorResponse> getMiPerfil() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Integer usuarioId = this.obtenerIdUsuarioSesion();
@@ -61,7 +61,7 @@ public class UsuarioController {
         Usuario usuario = usuarioService.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("user no encontrado"));
 
-        UsuarioResponse response = new UsuarioResponse(
+        VendedorResponse response = new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),
@@ -74,7 +74,7 @@ public class UsuarioController {
 
     @PutMapping("/perfil")
     @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
-    public ResponseEntity<UsuarioResponse> updatePerfil(@Valid @RequestBody UpdateUsuarioRequest updateRequest) {
+    public ResponseEntity<VendedorResponse> updatePerfil(@Valid @RequestBody ActualizarVendedorRequest updateRequest) {
         Integer usuarioId = obtenerIdUsuarioSesion();
 
         Usuario usuarioActualizado = new Usuario();
@@ -84,7 +84,7 @@ public class UsuarioController {
 
         Usuario usuario = usuarioService.updateUsuario(usuarioId, usuarioActualizado);
 
-        UsuarioResponse response = new UsuarioResponse(
+        VendedorResponse response = new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),
@@ -98,7 +98,7 @@ public class UsuarioController {
 
     @PutMapping("/cambiar-pass")
     @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
-    public ResponseEntity<MensajeResponse> changePassword(@Valid @RequestBody ChangePasswordRequest passwordRequest) {
+    public ResponseEntity<MensajeResponse> changePassword(@Valid @RequestBody CambiarPasswordRequest passwordRequest) {
         Integer usuarioId = this.obtenerIdUsuarioSesion();
 
         usuarioService.cambiarPassword(
@@ -113,11 +113,11 @@ public class UsuarioController {
     // admins en sesion
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public ResponseEntity<List<UsuarioResponse>> getAllUsuarios() {
+    public ResponseEntity<List<VendedorResponse>> getAllUsuarios() {
         List<Usuario> usuarios = usuarioService.findAll();
 
-        List<UsuarioResponse> response = usuarios.stream()
-                .map(usuario -> new UsuarioResponse(
+        List<VendedorResponse> response = usuarios.stream()
+                .map(usuario -> new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),
@@ -133,11 +133,11 @@ public class UsuarioController {
 
     @GetMapping("/admin/usuarios/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
-    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable Integer id) {
+    public ResponseEntity<VendedorResponse> getUsuarioById(@PathVariable Integer id) {
         Usuario usuario = usuarioService.findById(id)
                 .orElseThrow(() -> new RuntimeException("usuario no encontrado con id: " + id));
 
-        UsuarioResponse response = new UsuarioResponse(
+        VendedorResponse response = new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),
@@ -152,10 +152,10 @@ public class UsuarioController {
 
     @PutMapping("/admin/usuarios/{id}/suspender")
     @PreAuthorize("hasAnyRole('MODERADOR', 'ADMINISTRADOR')")
-    public ResponseEntity<UsuarioResponse> suspenderUsuario(@PathVariable Integer id) {
+    public ResponseEntity<VendedorResponse> suspenderUsuario(@PathVariable Integer id) {
         Usuario usuario = usuarioService.alternarActivoUsuario(id);
 
-        UsuarioResponse response = new UsuarioResponse(
+        VendedorResponse response = new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),
@@ -170,11 +170,11 @@ public class UsuarioController {
 
     @GetMapping("/admin/usuarios/rol/{rol}")
     @PreAuthorize("hasAnyRole('MODERADOR', 'ADMINISTRADOR')")
-    public ResponseEntity<List<UsuarioResponse>> getUsuariosByRol(@PathVariable Integer rol) {
+    public ResponseEntity<List<VendedorResponse>> getUsuariosByRol(@PathVariable Integer rol) {
         List<Usuario> usuarios = usuarioService.findByRol(rol);
 
-        List<UsuarioResponse> response = usuarios.stream()
-                .map(usuario -> new UsuarioResponse(
+        List<VendedorResponse> response = usuarios.stream()
+                .map(usuario -> new VendedorResponse(
                 usuario.getId(),
                 usuario.getNombre(),
                 usuario.getEmail(),

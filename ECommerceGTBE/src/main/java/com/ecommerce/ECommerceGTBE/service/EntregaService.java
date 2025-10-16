@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.context.annotation.Lazy;
 
 /**
  *
@@ -40,6 +41,7 @@ public class EntregaService {
     private CompraRepository compraRepository;
 
     @Autowired
+    @Lazy
     private CompraService compraService;
     
     @Autowired

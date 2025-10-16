@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RegistroRequest {
+public class RegistroVendedorRequest {
 
     @NotBlank(message = "nombre obligatorio")
     @Size(min = 2, max = 100, message = "el nombre debe tener entre 2 y 100 caracteres")

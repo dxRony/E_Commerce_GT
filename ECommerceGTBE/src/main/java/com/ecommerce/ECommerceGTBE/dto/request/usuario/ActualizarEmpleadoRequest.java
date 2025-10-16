@@ -4,9 +4,7 @@
  */
 package com.ecommerce.ECommerceGTBE.dto.request.usuario;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,17 +14,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UpdateUsuarioRequest {
+public class ActualizarEmpleadoRequest {
 
-    @NotBlank(message = "nombre es obligatorio")
+    @NotBlank(message = "nombre  obligatorio")
     @Size(min = 2, max = 100, message = "nombre debe tener entre 2 y 100 caracteres")
     private String nombre;
 
-    @NotNull(message = "celular es obligatorio")
+    @NotNull(message = "celular obligatorio")
     private Integer celular;
 
-    @NotBlank(message = "direccion obligatoria")
-    @Size(max = 200, message = "direccion no puede exceder 200 caracteres")
+    @NotBlank(message = "direccion  obligatoria")
+    @Size(max = 200, message = "dirección debe ser menor de 200 caracteres")
     private String direccion;
-
 }

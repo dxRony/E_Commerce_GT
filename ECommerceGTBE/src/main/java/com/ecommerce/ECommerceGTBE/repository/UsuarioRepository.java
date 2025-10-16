@@ -26,4 +26,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<Usuario> findBySuspendidoFalse();
 
     Long countByRol(Integer rol);
+
+    Long countByRolInAndSuspendidoFalse(List<Integer> roles);
+
+    Long countByRolInAndSuspendidoTrue(List<Integer> roles);
 }

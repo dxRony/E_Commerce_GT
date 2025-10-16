@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UsuarioResponse {
+public class VendedorResponse {
 
     private Integer id;
     private String nombre;
@@ -23,7 +23,7 @@ public class UsuarioResponse {
     private Integer rol;
     private Boolean suspendido;
 
-    public UsuarioResponse(Integer id, String nombre, String email, Integer celular,
+    public VendedorResponse(Integer id, String nombre, String email, Integer celular,
             String direccion, Integer rol, Boolean suspendido) {
         this.id = id;
         this.nombre = nombre;
@@ -34,7 +34,7 @@ public class UsuarioResponse {
         this.suspendido = suspendido;
     }
 
-    public UsuarioResponse(Integer id, String nombre, String email, Integer celular,
+    public VendedorResponse(Integer id, String nombre, String email, Integer celular,
             String direccion, Integer rol) {
         this(id, nombre, email, celular, direccion, rol, null);
     }

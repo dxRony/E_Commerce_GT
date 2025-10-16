@@ -5,7 +5,7 @@
 package com.ecommerce.ECommerceGTBE.security.controller;
 
 import com.ecommerce.ECommerceGTBE.dto.request.auth.LoginRequest;
-import com.ecommerce.ECommerceGTBE.dto.request.auth.RegistroRequest;
+import com.ecommerce.ECommerceGTBE.dto.request.auth.RegistroVendedorRequest;
 import com.ecommerce.ECommerceGTBE.dto.response.auth.JwtResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.model.UsuarioDetailsImpl;
@@ -76,7 +76,7 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<?> registro(@Valid @RequestBody RegistroRequest registroRequest) {
+    public ResponseEntity<?> registro(@Valid @RequestBody RegistroVendedorRequest registroRequest) {
         try {
             // verificando si email ya existe
             if (usuarioRepository.existsByEmail(registroRequest.getEmail())) {

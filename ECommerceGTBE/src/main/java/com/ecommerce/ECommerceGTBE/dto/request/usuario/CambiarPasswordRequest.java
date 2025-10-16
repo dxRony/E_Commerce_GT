@@ -15,7 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ChangePasswordRequest {
+public class CambiarPasswordRequest {
 
     @NotBlank(message = "contraseña actual es obligatoria")
     private String passwordActual;

@@ -44,11 +44,29 @@
 
 * MODULO DE USUARIO ADMINISTRADOR
 	+ Empleados
-		- Registro de empleados (roles 1, 2 y 3)								: pendiente
-		- Edicion de empleados													: pendiente
+		- Registro de empleados (roles 1, 2 y 3)								: ok
+		- Edicion de empleados													: ok
 
 	+ Reportes
 		- Generar reportes														: pendiente
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 * MODULO DE NOTIFICACIONES
 	+ Enviar notificaciones via email cuando:
