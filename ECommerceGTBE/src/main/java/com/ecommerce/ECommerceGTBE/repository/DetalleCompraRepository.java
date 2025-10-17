@@ -44,4 +44,7 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, In
     Integer sumCantidadVendidaByArticulo(@Param("articulo") Articulo articulo);
 
     Boolean existsByArticulo(Articulo articulo);
+
+    @Query("SELECT COUNT(dc) > 0 FROM DetalleCompra dc WHERE dc.compra.usuario.id = :usuarioId AND dc.articulo.id = :articuloId")
+    Boolean existsByUsuarioAndArticulo(@Param("usuarioId") Integer usuarioId, @Param("articuloId") Integer articuloId);
 }
