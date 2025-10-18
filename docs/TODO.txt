@@ -11,7 +11,7 @@
 		- Listar articulos														: ok
 		- Editar articulos														: ok
 		- Comprar articulos														: ok
-		- Calificar articulos													: pendiente
+		- Calificar articulos													: ok
 	
 	+ Carrito de compras:
 		- Agregar producto 														: ok 
