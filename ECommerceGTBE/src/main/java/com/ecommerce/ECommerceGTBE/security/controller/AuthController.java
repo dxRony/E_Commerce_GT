@@ -90,7 +90,7 @@ public class AuthController {
             usuario.setPassword(passwordEncoder.encode(registroRequest.getPassword()));
             usuario.setCelular(registroRequest.getCelular());
             usuario.setDireccion(registroRequest.getDireccion());
-            usuario.setRol(1);//rol 1por el momenot
+            usuario.setRol(1);
             usuario.setSuspendido(false);
 
             // guardando usuario en db

@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #004D98 0%, #A50044 100%);
+}
+
+.main {
+    color: white;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.btn-start {
+    background-color: #ffc107;
+    color: #212529;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-start:hover {
+    background-color: #e0a800;
+    color: white;
+}
+
+main {
+    flex: 1;
+}
+
+.lbl-1 {
+    color: #ffc107;
+}

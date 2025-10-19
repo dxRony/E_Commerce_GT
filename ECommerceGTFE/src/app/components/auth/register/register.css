@@ -1,0 +1,205 @@
+.btn-start {
+  background-color: #ffc107;
+  color: #212529;
+  font-weight: bold;
+  border-radius: 50px;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.register-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #004D98 0%, #A50044 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.register-wrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+.register-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.card-header {
+  background: #ffc107;
+  padding: 20px;
+}
+
+.card-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #004D98;
+  box-shadow: 0 0 0 2px rgba(0, 77, 152, 0.2);
+}
+
+.input-error {
+  border-color: red !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.submit-button {
+  width: 100%;
+  background: #004D98;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #003366;
+}
+
+.button-disabled {
+  background: #6c757d !important;
+  cursor: not-allowed !important;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.link-container {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.link-text {
+  color: #666;
+  margin: 0;
+}
+
+.link {
+  color: #004D98;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #003366;
+  text-decoration: underline;
+}
+
+.error-container {
+  background: #fee;
+  border: 1px solid #f00;
+  color: #c00;
+  padding: 12px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.back-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.back-button {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #ffc107;
+}
+
+/* Animación del spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .register-container {
+    padding: 10px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .card-header {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+}
