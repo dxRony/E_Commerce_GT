@@ -45,10 +45,7 @@
             [disabled]="loginForm.invalid || loading()"
             [class.button-disabled]="loginForm.invalid || loading()"
           >
-            <div class="button-content">
-              <span *ngIf="loading()" class="loading-spinner"></span>
-              {{ loading() ? 'Iniciando sesion...' : 'Iniciar Sesion' }}
-            </div>
+            <div class="button-content">Iniciar Sesion</div>
           </button>
 
           <div class="link-container">

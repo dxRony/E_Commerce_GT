@@ -69,12 +69,13 @@ export class AuthService {
   }
 
   estaLogueado(): boolean {
-    return this.tokenService.estaLogueado();
-  }
+  return this.tokenService.estaLogueado();
+}
 
-  obtenerRolUser(): number | null {
-    return this.tokenService.obtenerRolUser();
-  }
+  obtenerRolUser(): number {
+  const user = this.tokenService.obtenerUsuario();
+  return user?.rol || 0;
+}
 
   obtenerUsuario(): any {
     return this.tokenService.obtenerUsuario();

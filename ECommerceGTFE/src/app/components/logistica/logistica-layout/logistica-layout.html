@@ -1,0 +1,45 @@
+<div class="admin-layout">
+  <nav class="admin-navbar">
+    <div class="navbar-container">
+      <a class="navbar-brand" routerLink="/logistica/dashboard">E-Commerce GT Logistica</a>
+      
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon">☰</span>
+      </button>
+
+      <div class="navbar-collapse" [class.show]="isNavbarOpen">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/logistica/dashboard" routerLinkActive="active">Inicio</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link" (click)="toggleDropdown('orders')">
+              Gestion de pedidos
+            </a>
+            <ul class="dropdown-menu" [class.show]="openDropdown === 'orders'">
+              <li><a class="dropdown-item" routerLink="#">Listar pedidos en curso</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item">
+            <span class="nav-text">Bienvenido, {{userName}}</span>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn-logout" (click)="logout()">
+              Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

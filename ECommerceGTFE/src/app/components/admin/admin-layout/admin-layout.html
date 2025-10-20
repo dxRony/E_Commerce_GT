@@ -1,0 +1,67 @@
+<div class="admin-layout">
+  <nav class="admin-navbar">
+    <div class="navbar-container">
+      <a class="navbar-brand" routerLink="/admin/dashboard">E-Commerce GT Admin</a>
+      
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon">☰</span>
+      </button>
+
+      <div class="navbar-collapse" [class.show]="isNavbarOpen">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Inicio</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link" (click)="toggleDropdown('users')">
+              Gestión de usuarios
+            </a>
+            <ul class="dropdown-menu" [class.show]="openDropdown === 'users'">
+              <li><a class="dropdown-item" routerLink="#">Listar usuarios</a></li>
+              <li><a class="dropdown-item" routerLink="#">Registrar empleado</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link" (click)="toggleDropdown('products')">
+              Gestión de productos
+            </a>
+            <ul class="dropdown-menu" [class.show]="openDropdown === 'products'">
+              <li><a class="dropdown-item" routerLink="/admin/productos/listar">Listar productos</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link " (click)="toggleDropdown('reports')">
+              Visualización de reportes
+            </a>
+            <ul class="dropdown-menu" [class.show]="openDropdown === 'reports'">
+              <li><a class="dropdown-item" routerLink="#">Ver ventas</a></li>
+              <li><a class="dropdown-item" routerLink="#">Ver pedidos</a></li>
+              <li><a class="dropdown-item" routerLink="#">Productos más vendidos</a></li>
+              <li><a class="dropdown-item" routerLink="#">Mejores clientes</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item">
+            <span class="nav-text">Bienvenido, {{userName}}</span>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn-logout" (click)="logout()">
+              Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

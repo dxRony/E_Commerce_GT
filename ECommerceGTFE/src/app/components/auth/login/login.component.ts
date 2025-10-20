@@ -50,11 +50,9 @@ export class LoginComponent {
 
     switch (role) {
       case 1: this.router.navigate(['/comun']); {
-        confirm('Redirigiendo a Usuario Común');
         break;
       }
       case 2: this.router.navigate(['/moderador']); {
-        confirm('Redirigiendo a Moderador');
         break;
       }
       case 3: this.router.navigate(['/logistica']); {
@@ -62,11 +60,8 @@ export class LoginComponent {
         break;
       }
       case 4: this.router.navigate(['/admin']); {
-        confirm('Redirigiendo al admin');
         break;
       }
-
-
       default: this.router.navigate(['/welcome']); {
         console.warn('Rol de usuario desconocido, redirigiendo a la pantalla principal.');
       }
