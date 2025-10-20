@@ -1,0 +1,171 @@
+<div class="register-container">
+  <div class="page-header">    
+    <h1>Registrar Nuevo Empleado</h1>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            formControlName="nombre"
+            class="form-input"
+            [class.input-error]="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"
+          >
+          <div class="error-message" 
+               *ngIf="registerForm.get('nombre')?.errors?.['required'] && registerForm.get('nombre')?.touched">
+            El nombre es obligatorio
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('nombre')?.errors?.['minlength'] && registerForm.get('nombre')?.touched">
+            El nombre debe tener al menos 2 caracteres
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('nombre')?.errors?.['maxlength'] && registerForm.get('nombre')?.touched">
+            El nombre no puede tener mas de 100 caracteres
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-input"
+            [class.input-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          >
+          <div class="error-message" 
+               *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">
+            El email es obligatorio
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched">
+            El formato del email es invalido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="celular" class="form-label">Celular</label>
+          <input
+            type="tel"
+            id="celular"
+            formControlName="celular"
+            class="form-input"
+            [class.input-error]="registerForm.get('celular')?.invalid && registerForm.get('celular')?.touched"
+          >
+          <div class="error-message" 
+               *ngIf="registerForm.get('celular')?.errors?.['required'] && registerForm.get('celular')?.touched">
+            El celular es obligatorio
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('celular')?.errors?.['pattern'] && registerForm.get('celular')?.touched">
+            El celular debe tener exactamente 8 digitos
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rol" class="form-label">Rol</label>
+          <select
+            id="rol"
+            formControlName="rol"
+            class="form-select"
+            [class.input-error]="registerForm.get('rol')?.invalid && registerForm.get('rol')?.touched"
+          >
+            <option value="">Seleccione un rol</option>
+            <option *ngFor="let rol of roles" [value]="rol.id">
+              {{ rol.nombre }}
+            </option>
+          </select>
+          <div class="error-message" 
+               *ngIf="registerForm.get('rol')?.errors?.['required'] && registerForm.get('rol')?.touched">
+            El rol es obligatorio
+          </div>          
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Contrasenia</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-input"
+            [class.input-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          >
+          <div class="error-message" 
+               *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched">
+            La contrasenia es obligatoria
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched">
+            La contrasenia debe tener al menos 6 caracteres
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirmar Contrasenia</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-input"
+            [class.input-error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
+          >
+          <div class="error-message" 
+               *ngIf="registerForm.get('confirmPassword')?.errors?.['required'] && registerForm.get('confirmPassword')?.touched">
+            Confirme la contrasenia
+          </div>
+          <div class="error-message" 
+               *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
+            Las contrasenias no coinciden
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="direccion" class="form-label">Direccion</label>
+        <textarea
+          id="direccion"
+          formControlName="direccion"
+          class="form-textarea"
+          [class.input-error]="registerForm.get('direccion')?.invalid && registerForm.get('direccion')?.touched"
+          rows="3"
+        ></textarea>
+        <div class="error-message" 
+             *ngIf="registerForm.get('direccion')?.errors?.['required'] && registerForm.get('direccion')?.touched">
+          La direccion es obligatoria
+        </div>
+        <div class="error-message" 
+             *ngIf="registerForm.get('direccion')?.errors?.['maxlength'] && registerForm.get('direccion')?.touched">
+          La direccion no puede tener mas de 200 caracteres
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn-cancel"
+          (click)="volverALista()"
+          [disabled]="isSubmitting"
+        >
+        Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="registerForm.invalid || isSubmitting"
+        >
+          <span *ngIf="isSubmitting" class="loading-spinner"></span>
+          {{ isSubmitting ? 'Registrando...' : 'Registrar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -18,7 +18,7 @@ export const routes: Routes = [
     path: 'registro',
     loadComponent: () => import('./components/auth/register/register').then(m => m.RegisterComponent)
   },
-   {
+  {
     //ruta de articulos al publico
     path: 'articulos',
     loadComponent: () => import('./components/articulos/articulos').then(m => m.Articulos)
@@ -38,12 +38,19 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./components/admin/dashboard/dashboard').then(m => m.AdminDashboardComponent)
-      },/**
-      
+      },
       {
         path: 'usuarios/listar',
-        loadComponent: () => import('./components/admin/users/user-list/user-list.component').then(m => m.UserListComponent)
-      }, */
+        loadComponent: () => import('./components/admin/usuarios/lista-usuarios/lista-usuarios').then(m => m.ListaUsuarios)
+      },
+      {
+        path: 'usuarios/editar/:id',
+        loadComponent: () => import('./components/admin/usuarios/editar-usuario/editar-usuario').then(m => m.EditarUsuario)
+      },
+      {
+        path: 'usuarios/registrar',
+        loadComponent: () => import('./components/admin/usuarios/registrar-usuario/registrar-usuario').then(m => m.RegistrarUsuario)
+      },
     ]
   },
   {

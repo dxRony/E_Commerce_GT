@@ -1,0 +1,98 @@
+<div class="user-list-container">
+  <div class="page-header">
+    <h1>Gestión de Usuarios</h1>
+  </div>
+
+  <div class="filters-card">
+    <div class="filters-header">
+      <h3>Filtros</h3>
+      <button class="btn-clear" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </div>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label class="filter-label">Buscar</label>
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="aplicarFiltros()"
+          placeholder="busca por nombre-email-direccion"
+          class="filter-input"
+        >
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Rol</label>
+        <select
+          [(ngModel)]="selectedRol"
+          (change)="aplicarFiltros()"
+          class="filter-select"
+        >
+          <option value="all">Cualquiera</option>
+          <option *ngFor="let rol of roles" [value]="rol.id">
+            {{ rol.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Estado</label>
+        <select
+          [(ngModel)]="selectedEstado"
+          (change)="aplicarFiltros()"
+          class="filter-select"
+        >
+          <option value="all">Cualquiera</option>
+          <option value="activo">Activo</option>
+          <option value="suspendido">Suspendido</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card">   
+    <div *ngIf="error && !isLoading" class="error-state">
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="cargarEmpleados()">Reintentar</button>
+    </div>
+    <div *ngIf="!isLoading && !error">
+      <div class="table-header">
+        <div class="table-info">         
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Celular</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let empleado of empleadosFiltrados" class="table-row">
+              <td class="cell-id">{{ empleado.id }}</td>
+              <td class="cell-name">{{ empleado.nombre }}</td>
+              <td class="cell-email">{{ empleado.email }}</td>
+              <td class="cell-phone">{{ empleado.celular }}</td>
+              <td class="cell-role">{{ getRolNombre(empleado.rol) }}
+              </td>
+              <td class="cell-status">{{ getEstadoTexto(empleado.suspendido) }}
+              </td>
+              <td class="cell-actions">
+                <button class="btn-edit" [routerLink]="['/admin/usuarios/editar', empleado.id]" title="Editar usuario">Editar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="empleadosFiltrados.length === 0" class="empty-state">
+          <p>Sin resultados</p>
+          <button class="btn-clear" (click)="limpiarFiltros()">Mostrar todos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

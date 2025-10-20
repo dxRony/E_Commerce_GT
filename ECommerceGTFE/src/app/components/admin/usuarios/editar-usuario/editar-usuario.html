@@ -1,0 +1,103 @@
+<div class="edit-container">
+
+    <div *ngIf="!isLoading && empleado" class="edit-form-container">
+        <div class="page-header">
+            <h1>Editar Empleado</h1>
+        </div>
+        <div class="employee-info-card">
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>ID:</label>
+                    <span class="info-value">{{ empleado.id }}</span>
+                </div>
+                <div class="info-item">
+                    <label>Email:</label>
+                    <span class="info-value">{{ empleado.email }}</span>
+                </div>
+                <p></p>
+                <div class="info-item">
+                    <label>Rol:</label>
+                    <span class="info-value">{{ getRolNombre(empleado.rol) }}</span>
+                </div>
+                <div class="info-item">
+                    <label>Estado:</label>
+                    <span [class]="getEstadoClase(empleado.suspendido)" class="info-value">
+                        {{ getEstadoTexto(empleado.suspendido) }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="status-action">
+                <button *ngIf="!empleado.suspendido" class="btn-suspend" (click)="suspenderEmpleado()">
+                    Suspender
+                </button>
+                <button *ngIf="empleado.suspendido" class="btn-activate" (click)="suspenderEmpleado()">
+                    Activar
+                </button>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" formControlName="nombre" class="form-input"
+                        [class.input-error]="editForm.get('nombre')?.invalid && editForm.get('nombre')?.touched"
+                        placeholder="Ingrese el nombre completo">
+                    <div class="error-message"
+                        *ngIf="editForm.get('nombre')?.errors?.['required'] && editForm.get('nombre')?.touched">
+                        El nombre es obligatorio
+                    </div>
+                    <div class="error-message"
+                        *ngIf="editForm.get('nombre')?.errors?.['minlength'] && editForm.get('nombre')?.touched">
+                        El nombre debe tener al menos 2 caracteres
+                    </div>
+                    <div class="error-message"
+                        *ngIf="editForm.get('nombre')?.errors?.['maxlength'] && editForm.get('nombre')?.touched">
+                        El nombre no puede tener más de 100 caracteres
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="celular" class="form-label">Celular</label>
+                    <input type="tel" id="celular" formControlName="celular" class="form-input"
+                        [class.input-error]="editForm.get('celular')?.invalid && editForm.get('celular')?.touched"
+                        placeholder="Ingrese el número de celular (8 dígitos)">
+                    <div class="error-message"
+                        *ngIf="editForm.get('celular')?.errors?.['required'] && editForm.get('celular')?.touched">
+                        El celular es obligatorio
+                    </div>
+                    <div class="error-message"
+                        *ngIf="editForm.get('celular')?.errors?.['pattern'] && editForm.get('celular')?.touched">
+                        El celular debe tener exactamente 8 digitos
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion" class="form-label">Direccion</label>
+                    <textarea id="direccion" formControlName="direccion" class="form-textarea"
+                        [class.input-error]="editForm.get('direccion')?.invalid && editForm.get('direccion')?.touched"
+                        placeholder="Ingrese la dirección completa" rows="3"></textarea>
+                    <div class="error-message"
+                        *ngIf="editForm.get('direccion')?.errors?.['required'] && editForm.get('direccion')?.touched">
+                        La dirección es obligatoria
+                    </div>
+                    <div class="error-message"
+                        *ngIf="editForm.get('direccion')?.errors?.['maxlength'] && editForm.get('direccion')?.touched">
+                        La direccion no puede tener más de 200 caracteres
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" (click)="volverALista()" [disabled]="isSubmitting">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn-submit" [disabled]="editForm.invalid || isSubmitting">
+                        <span *ngIf="isSubmitting" class="loading-spinner"></span>
+                        {{ isSubmitting ? 'Guardando...' : 'Guardar Cambios' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

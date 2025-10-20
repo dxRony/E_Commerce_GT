@@ -2,7 +2,7 @@
   <nav class="admin-navbar">
     <div class="navbar-container">
       <a class="navbar-brand" routerLink="/admin/dashboard">E-Commerce GT Admin</a>
-      
+
       <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
         <span class="navbar-toggler-icon">☰</span>
       </button>
@@ -18,8 +18,8 @@
               Gestión de usuarios
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'users'">
-              <li><a class="dropdown-item" routerLink="#">Listar usuarios</a></li>
-              <li><a class="dropdown-item" routerLink="#">Registrar empleado</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/usuarios/listar">Listar usuarios</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/usuarios/registrar">Registrar empleado</a></li>
             </ul>
           </li>
 
