@@ -113,6 +113,10 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./components/logistica/dashboard/dashboard').then(m => m.Dashboard)
       },
+      {
+      path: 'pedidos/en-curso',
+      loadComponent: () => import('./components/logistica/pedidos/pedidos-en-curso/pedidos-en-curso').then(m => m.PedidosEnCurso)
+    }
     ]
   },
   {

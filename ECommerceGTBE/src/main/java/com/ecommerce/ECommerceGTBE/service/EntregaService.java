@@ -137,8 +137,4 @@ public class EntregaService {
         List<DetalleEntrega> detalles = detalleEntregaRepository.findByEntrega(entrega);
         return detalles.stream().allMatch(DetalleEntrega::getListo);
     }
-
-    public List<Entrega> obtenerEntregasAtrasadas() {
-        return entregaRepository.findEntregasAtrasadas(LocalDateTime.now());
-    }
 }

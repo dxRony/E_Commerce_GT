@@ -26,9 +26,6 @@ public interface EntregaRepository extends JpaRepository<Entrega, Integer> {
 
     List<Entrega> findByFechaEstimadaBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
-    @Query("SELECT e FROM Entrega e WHERE e.fechaEstimada < :fechaActual AND e.estado = 'En curso'")
-    List<Entrega> findEntregasAtrasadas(@Param("fechaActual") LocalDateTime fechaActual);
-
     List<Entrega> findByFechaEntregaBetween(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
     Long countByEstado(String estado);

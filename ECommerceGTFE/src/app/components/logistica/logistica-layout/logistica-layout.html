@@ -18,7 +18,7 @@
               Gestion de pedidos
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'orders'">
-              <li><a class="dropdown-item" routerLink="#">Listar pedidos en curso</a></li>
+              <li><a class="dropdown-item" routerLink="/logistica/pedidos/en-curso">Listar pedidos en curso</a></li>
             </ul>
           </li>
         </ul>
@@ -29,7 +29,7 @@
           </li>
           <li class="nav-item">
             <button class="nav-link btn-logout" (click)="logout()">
-              Cerrar sesión
+              Cerrar sesion
             </button>
           </li>
         </ul>

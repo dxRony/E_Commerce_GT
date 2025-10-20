@@ -85,18 +85,6 @@ public class EntregaController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/logistica/atrasadas")
-    @PreAuthorize("hasRole('LOGISTICA')")
-    public ResponseEntity<List<EntregaResponse>> obtenerEntregasAtrasadas() {
-        List<Entrega> entregas = entregaService.obtenerEntregasAtrasadas();
-
-        List<EntregaResponse> response = entregas.stream()
-                .map(this::crearEntregaResponse)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(response);
-    }
-
     @PutMapping("/logistica/{entregaId}/fecha-estimada")
     @PreAuthorize("hasRole('LOGISTICA')")
     public ResponseEntity<EntregaResponse> actualizarFechaEstimada(
@@ -136,7 +124,7 @@ public class EntregaController {
                 entrega.getCompra().getId(),
                 entrega.getCompra().getTotal(),
                 entrega.getCompra().getUsuario().getNombre(),
-                entrega.getCompra().getUsuario().getDireccion()
+                entrega.getCompra().getUsuario().getDireccion()                
         );
     }
 
