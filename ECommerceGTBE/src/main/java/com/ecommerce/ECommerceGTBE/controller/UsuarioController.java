@@ -4,7 +4,6 @@
  */
 package com.ecommerce.ECommerceGTBE.controller;
 
-import com.ecommerce.ECommerceGTBE.dto.request.usuario.CambiarPasswordRequest;
 import com.ecommerce.ECommerceGTBE.dto.request.usuario.ActualizarVendedorRequest;
 import com.ecommerce.ECommerceGTBE.dto.response.auth.MensajeResponse;
 import com.ecommerce.ECommerceGTBE.dto.response.usuario.VendedorResponse;
@@ -94,20 +93,6 @@ public class UsuarioController {
         );
 
         return ResponseEntity.ok(response);
-    }
-
-    @PutMapping("/cambiar-pass")
-    @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
-    public ResponseEntity<MensajeResponse> changePassword(@Valid @RequestBody CambiarPasswordRequest passwordRequest) {
-        Integer usuarioId = this.obtenerIdUsuarioSesion();
-
-        usuarioService.cambiarPassword(
-                usuarioId,
-                passwordRequest.getPasswordActual(),
-                passwordRequest.getPasswordNueva()
-        );
-
-        return ResponseEntity.ok(new MensajeResponse("password actualizada"));
     }
 
     // admins en sesion

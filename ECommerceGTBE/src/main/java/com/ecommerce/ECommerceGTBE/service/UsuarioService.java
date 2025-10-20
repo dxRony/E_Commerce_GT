@@ -59,19 +59,6 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
-    public Usuario cambiarPassword(Integer id, String currentPassword, String newPassword) {
-        return usuarioRepository.findById(id)
-                .map(usuario -> {
-                    if (!passwordEncoder.matches(currentPassword, usuario.getPassword())) {
-                        throw new RuntimeException("contraseña actual es incorrecta");
-                    }
-
-                    usuario.setPassword(passwordEncoder.encode(newPassword));
-                    return usuarioRepository.save(usuario);
-                })
-                .orElseThrow(() -> new RuntimeException("user no encontrado con id: " + id));
-    }
-
     public Usuario alternarActivoUsuario(Integer id) {
         return usuarioRepository.findById(id)
                 .map(usuario -> {

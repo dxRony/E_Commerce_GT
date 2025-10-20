@@ -1,24 +1,3 @@
-export interface User {
-  id: number;
-  nombre: string;
-  email: string;
-  celular: number;
-  direccion: string;
-  rol: number;
-  suspendido: boolean;
-}
-
-export interface UpdateUserRequest {
-  nombre: string;
-  celular: number;
-  direccion: string;
-}
-
-export interface ChangePasswordRequest {
-  currentPassword: string;
-  newPassword: string;
-}
-
 export interface Empleado {
   id: number;
   nombre: string;
@@ -52,4 +31,20 @@ export interface RegistroEmpleadoRequest {
   celular: number;
   direccion: string;
   rol: number;
+}
+
+export interface VendedorResponse {
+  id: number;
+  nombre: string;
+  email: string;
+  celular: number;
+  direccion: string;
+  rol: number;
+  suspendido: boolean;
+}
+
+export interface ActualizarVendedorRequest {
+  nombre: string;
+  celular: number;
+  direccion: string;
 }

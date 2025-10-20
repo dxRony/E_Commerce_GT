@@ -73,6 +73,10 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./components/comun/dashboard/dashboard').then(m => m.Dashboard)
       },
+      {
+        path: 'perfil',
+        loadComponent: () => import('./components/comun/editar-perfil/editar-perfil').then(m => m.EditarPerfil)
+      }
     ]
   },
   {
@@ -92,9 +96,9 @@ export const routes: Routes = [
         loadComponent: () => import('./components/moderador/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
-      path: 'productos/pendientes',
-      loadComponent: () => import('./components/moderador/articulos/articulos-pendientes/articulos-pendientes').then(m => m.ArticulosPendientes)
-    }
+        path: 'productos/pendientes',
+        loadComponent: () => import('./components/moderador/articulos/articulos-pendientes/articulos-pendientes').then(m => m.ArticulosPendientes)
+      }
     ]
   },
   {
@@ -114,9 +118,9 @@ export const routes: Routes = [
         loadComponent: () => import('./components/logistica/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
-      path: 'pedidos/en-curso',
-      loadComponent: () => import('./components/logistica/pedidos/pedidos-en-curso/pedidos-en-curso').then(m => m.PedidosEnCurso)
-    }
+        path: 'pedidos/en-curso',
+        loadComponent: () => import('./components/logistica/pedidos/pedidos-en-curso/pedidos-en-curso').then(m => m.PedidosEnCurso)
+      }
     ]
   },
   {
