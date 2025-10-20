@@ -2,7 +2,6 @@
   <div class="page-header">
     <h1>Gestión de Usuarios</h1>
   </div>
-
   <div class="filters-card">
     <div class="filters-header">
       <h3>Filtros</h3>
@@ -19,7 +18,6 @@
           class="filter-input"
         >
       </div>
-
       <div class="filter-group">
         <label class="filter-label">Rol</label>
         <select
@@ -33,7 +31,6 @@
           </option>
         </select>
       </div>
-
       <div class="filter-group">
         <label class="filter-label">Estado</label>
         <select
@@ -48,7 +45,6 @@
       </div>
     </div>
   </div>
-
   <div class="table-card">   
     <div *ngIf="error && !isLoading" class="error-state">
       <p>{{ error }}</p>
