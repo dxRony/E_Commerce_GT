@@ -209,7 +209,6 @@ public class ArticuloController {
                 articulo.getUsuario().getId(),
                 articulo.getUsuario().getNombre()
         );
-        //preparar rating
         return response;
     }
 

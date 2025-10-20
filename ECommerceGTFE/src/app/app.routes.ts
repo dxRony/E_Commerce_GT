@@ -91,6 +91,10 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./components/moderador/dashboard/dashboard').then(m => m.Dashboard)
       },
+      {
+      path: 'productos/pendientes',
+      loadComponent: () => import('./components/moderador/articulos/articulos-pendientes/articulos-pendientes').then(m => m.ArticulosPendientes)
+    }
     ]
   },
   {

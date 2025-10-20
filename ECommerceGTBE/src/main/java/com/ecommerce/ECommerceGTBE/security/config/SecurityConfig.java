@@ -75,6 +75,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/articulos/public/**").permitAll()
                 .requestMatchers("/error").permitAll()
+                .requestMatchers("/api/articulos/moderador/**").hasRole("MODERADOR")
                 // endpoints de admin
                 .requestMatchers("/api/admin/**").hasRole("ADMINISTRADOR")
                 // endpoints de mods

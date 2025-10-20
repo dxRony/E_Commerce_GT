@@ -18,7 +18,7 @@
               Gestión de productos
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'productos'">
-              <li><a class="dropdown-item" routerLink="#">Listar productos pendientes</a></li>
+              <li><a class="dropdown-item" routerLink="/moderador/productos/pendientes">Listar productos pendientes</a></li>
             </ul>
           </li>
 
@@ -26,10 +26,6 @@
             <a class="nav-link" (click)="toggleDropdown('sanciones')">
               Sanciones
             </a>
-            <ul class="dropdown-menu" [class.show]="openDropdown === 'sanciones'">
-              <li><a class="dropdown-item" routerLink="#">Sancionar un usuario</a></li>
-              <li><a class="dropdown-item" routerLink="#">Listar sanciones en curso</a></li>
-            </ul>
           </li>
         </ul>
 

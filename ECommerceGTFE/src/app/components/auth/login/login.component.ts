@@ -56,14 +56,12 @@ export class LoginComponent {
         break;
       }
       case 3: this.router.navigate(['/logistica']); {
-        confirm('Redirigiendo a Logística');
         break;
       }
       case 4: this.router.navigate(['/admin']); {
         break;
       }
       default: this.router.navigate(['/welcome']); {
-        console.warn('Rol de usuario desconocido, redirigiendo a la pantalla principal.');
       }
     }
   }
