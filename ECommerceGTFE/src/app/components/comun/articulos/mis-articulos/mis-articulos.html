@@ -1,0 +1,88 @@
+<div class="my-articles-container">
+    <div class="page-header">
+        <div class="header-actions">
+            <button class="btn-back" routerLink="/comun/dashboard">Regresar</button>
+        </div>
+        <h1>Mis Productos</h1>
+    </div>
+    <div class="filters-card">
+        <div class="filters-header">
+            <h3>Filtros</h3>
+            <button class="btn-clear" (click)="limpiarFiltros()">Limpiar filtros</button>
+        </div>
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label class="filter-label">Buscar</label>
+                <input type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" class="filter-input">
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Categoria</label>
+                <select [(ngModel)]="selectedCategoria" (change)="onCategoryChange()" class="filter-select">
+                    <option value="all">Todas las categorias</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria">
+                        {{ categoria }}
+                    </option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Estado de Aprobacion</label>
+                <select [(ngModel)]="selectedEstadoAprobacion" (change)="onEstadoAprobacionChange()"
+                    class="filter-select">
+                    <option *ngFor="let estado of estadosAprobacion" [value]="estado.value">
+                        {{ estado.label }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="table-card">
+        <div *ngIf="isLoading" class="loading-state">
+            <div class="spinner"></div>
+        </div>
+        <div *ngIf="error && !isLoading" class="error-state">
+            <p>{{ error }}</p>
+            <button class="btn-retry" (click)="cargarMisArticulos()">Reintentar</button>
+        </div>
+        <div *ngIf="!isLoading && !error">
+            <div class="table-responsive">
+                <table class="articles-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoria</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Aprobacion</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let articulo of articulosFiltrados" class="table-row">
+                            <td class="cell-product">
+                                <div class="product-info">
+                                    <h4 class="product-name">{{ articulo.nombre }}</h4>
+                                    <p class="product-description">{{ articulo.descripcion }}</p>
+                                </div>
+                            </td>
+                            <td class="cell-category">{{ articulo.categoria }}</td>
+                            <td class="cell-price">{{ formatearPrecio(articulo.precio) }}</td>
+                            <td class="cell-stock">{{ articulo.stock }}</td>
+                            <td class="cell-status">{{ getEstadoArticuloTexto(articulo.estadoArticulo) }}</td>
+                            <td class="cell-approval">{{ getEstadoAprobacionTexto(articulo.estadoAprobacion) }}</td>
+                            <td class="cell-actions">
+                                <button class="btn-edit" [routerLink]="['/comun/editar-articulo', articulo.id]"
+                                    title="Editar producto">
+                                    Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="articulosFiltrados.length === 0 && !isLoading" class="empty-state">
+                    <p *ngIf="articulos.length === 0">no has publicado ningun producto</p>
+                    <p *ngIf="articulos.length > 0">No hay coincidencias</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

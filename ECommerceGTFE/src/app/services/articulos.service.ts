@@ -44,5 +44,31 @@ export class ArticuloService {
     return this.http.post<ArticuloResponse>(this.apiUrl, request);
   }
 
-  
+  /**
+   * metodo que obtiene los articulos del usuario autenticado
+   * @returns lista de articulos del usuario
+   */
+  getMisArticulos(): Observable<ArticuloResponse[]> {
+    return this.http.get<ArticuloResponse[]>(`${this.apiUrl}/mis-articulos`);
+  }
+
+  /**
+   * metodo que obtiene un articulo por su id
+   * @param id del articulo
+   * @returns articulo con el id
+   */
+  getArticuloById(id: number): Observable<ArticuloResponse> {
+    return this.http.get<ArticuloResponse>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * metodo que actualiza un articulo
+   * @param id del articulo
+   * @param request 
+   * @returns articulo actualizado
+   */
+  updateArticulo(id: number, request: ArticuloRequest): Observable<ArticuloResponse> {
+    return this.http.put<ArticuloResponse>(`${this.apiUrl}/${id}`, request);
+  }
+
 }

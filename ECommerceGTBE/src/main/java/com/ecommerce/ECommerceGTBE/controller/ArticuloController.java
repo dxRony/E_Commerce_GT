@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -132,6 +133,15 @@ public class ArticuloController {
         Articulo articuloCreado = articuloService.crearArticulo(articulo, usuario);
 
         ArticuloResponse response = crearResponse(articuloCreado);
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('COMUN')")
+    public ResponseEntity<ArticuloResponse> obtenerArticulo(@PathVariable Integer id) {
+        Articulo articulo = articuloService.findById(id)
+                .orElseThrow(() -> new RuntimeException("articulo no encontrado"));
+        ArticuloResponse response = crearResponse(articulo);
         return ResponseEntity.ok(response);
     }
 

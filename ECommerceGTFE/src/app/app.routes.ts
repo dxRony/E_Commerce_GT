@@ -80,6 +80,14 @@ export const routes: Routes = [
       {
         path: 'publicar-producto',
         loadComponent: () => import('./components/comun/articulos/publicar-articulo/publicar-articulo').then(m => m.PublicarArticulo)
+      },
+      {
+        path: 'mis-productos',
+        loadComponent: () => import('./components/comun/articulos/mis-articulos/mis-articulos').then(m => m.MisArticulos)
+      },
+      {
+        path: 'editar-articulo/:id',
+        loadComponent: () => import('./components/comun/articulos/editar-articulo/editar-articulo').then(m => m.EditarArticulo)
       }
     ]
   },
