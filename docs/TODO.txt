@@ -4,16 +4,9 @@
 
 * MODULO DE USUARIO COMUN
 	
-	+ Articulos:
-		- Listar articulos														: ok
-		- Editar articulos														: ok
-		- Comprar articulos														: ok
+	+ Articulos:		
 	
-	+ Carrito de compras:
-		- Agregar producto 														: ok 
-		- Eliminar productos													: ok
-		- Actualizar carrito: agregar cantidades								: ok	
-		- Limpiar carrito                                                       : ok
+	+ Carrito de compras:		
 		- Pagar carrito                                                         : ok
 	
 	+ Tarjetas:

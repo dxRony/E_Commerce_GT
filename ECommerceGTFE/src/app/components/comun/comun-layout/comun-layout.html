@@ -14,12 +14,12 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link" (click)="toggleDropdown('products')">
-              Gestión de productos
+              Gestion de productos
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'products'">
               <li><a class="dropdown-item" routerLink="/comun/publicar-producto">Publicar producto</a></li>
               <li><a class="dropdown-item" routerLink="/comun/mis-productos">Listar mis productos</a></li>
-              <li><a class="dropdown-item" routerLink="#">Comprar productos</a></li>
+              <li><a class="dropdown-item" routerLink="/comun/articulos-disponibles">Ver productos disponibles</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -37,6 +37,9 @@
             <ul class="dropdown-menu" [class.show]="openDropdown === 'users'">
               <li><a class="dropdown-item" routerLink="/comun/perfil">Ver mi perfil</a></li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/comun/carrito" routerLinkActive="active">Carrito</a>
           </li>
         </ul>
         <ul class="navbar-nav navbar-right">

@@ -88,6 +88,14 @@ export const routes: Routes = [
       {
         path: 'editar-articulo/:id',
         loadComponent: () => import('./components/comun/articulos/editar-articulo/editar-articulo').then(m => m.EditarArticulo)
+      },
+      {
+        path: 'articulos-disponibles',
+        loadComponent: () => import('./components/comun/articulos/articulos-disponibles/articulos-disponibles').then(m => m.ArticulosDisponibles)
+      },
+      {
+        path: 'carrito',
+        loadComponent: () => import('./components/comun/carrito/carrito').then(m => m.Carrito)
       }
     ]
   },

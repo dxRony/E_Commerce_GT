@@ -1,0 +1,103 @@
+<div *ngIf="mostrarAlerta" [class]="getAlertClasses()" class="notification-alert">
+    <div class="alert-content">
+        <span class="alert-message">{{ mensajeAlerta }}</span>
+    </div>
+</div>
+<div class="carrito-container">
+    <div class="carrito-content">
+        <div class="carrito-header">
+            <h1 class="carrito-title">Carrito de Compras</h1>
+        </div>
+
+        <div *ngIf="!isLoading && !error && (!carrito || carrito.detalles.length === 0)" >
+            <h3>Tu carrito esta vacio</h3>
+        </div>
+
+        <div *ngIf="!isLoading && !error && carrito && carrito.detalles.length > 0" class="cart-with-items">
+            <div class="cart-items-section">
+                <div class="cart-items-header">
+                    <h2 class="cart-items-title">
+                        Productos en el carrito ({{ carrito.totalDetalles }})
+                    </h2>
+                    <button (click)="limpiarCarrito()" >
+                        Limpiar Carrito
+                    </button>
+                </div>
+
+                <div class="cart-table-container">
+                    <table class="cart-table">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="table-header-cell">Producto</th>
+                                <th class="table-header-cell">Precio</th>
+                                <th class="table-header-cell">Cantidad</th>
+                                <th class="table-header-cell">Subtotal</th>
+                                <th class="table-header-cell">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <tr *ngFor="let item of carrito.detalles" class="table-row">
+                                <td class="table-cell product-cell">
+                                    <div class="product-info">
+                                        <div class="product-details">
+                                            <h3 class="product-name">{{ item.articuloNombre }}</h3>
+                                            <p class="stock-info">
+                                                Stock disponible: {{ item.stockDisponible }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table-cell price-cell">
+                                    <div class="price-amount">
+                                        {{ formatearPrecio(item.articuloPrecio) }}
+                                    </div>
+                                </td>
+                                <td class="table-cell quantity-cell">
+                                    <div class="quantity-controls">
+                                        <button (click)="actualizarCantidad(item, item.cantidad - 1)"
+                                            class="quantity-btn">
+                                            -
+                                        </button>
+                                        <span class="quantity-display">{{ item.cantidad }}</span>
+                                        <button (click)="actualizarCantidad(item, item.cantidad + 1)"
+                                            [disabled]="item.cantidad >= item.stockDisponible" class="quantity-btn"
+                                            [class.disabled]="item.cantidad >= item.stockDisponible">
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="table-cell subtotal-cell">
+                                    <div class="subtotal-amount">
+                                        {{ formatearPrecio(item.articuloPrecio * item.cantidad) }}
+                                    </div>
+                                </td>
+                                <td class="table-cell actions-cell">
+                                    <button (click)="eliminarDelCarrito(item.id)">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-content">
+                    <div class="total-info">
+                        <p class="total-amount">
+                            Total: {{ formatearPrecio(carrito.totalPrecio) }}
+                        </p>
+                    </div>
+                    <div class="summary-actions">
+                        <a routerLink="/comun/articulos-disponibles">
+                            Agregar más productos
+                        </a>
+                        <button (click)="pagarCarrito()" class="">
+                            Proceder al Pago
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
