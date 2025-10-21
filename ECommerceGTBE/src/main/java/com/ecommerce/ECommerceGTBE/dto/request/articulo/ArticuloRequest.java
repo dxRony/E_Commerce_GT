@@ -36,10 +36,10 @@ public class ArticuloRequest {
     @Min(value = 1, message = "El stock mínimo es 1")
     private Integer stock;
 
-    @NotBlank(message = "El estado del artículo es obligatorio")
-    private String estadoArticulo; // "Nuevo" o "Usado"
+    @NotBlank(message = "El estado del arteculo es obligatorio")
+    private String estadoArticulo;
 
-    @NotBlank(message = "La categoría es obligatoria")
-    private String categoria; // "Tecnologia", "Hogar", etc.
+    @NotBlank(message = "La categoria es obligatoria")
+    private String categoria;
 
 }

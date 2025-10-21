@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../../services/articulos.service';
+import { ArticuloService } from '../../services/articulos.service';
 import { ArticuloResponse } from '../../models/articulos.model';
 
 @Component({
@@ -23,7 +23,7 @@ export class Articulos implements OnInit {
     selectedCategory: string = 'all';
     sortBy: string = 'name';
   
-    constructor(private productService: ProductService) { }
+    constructor(private productService: ArticuloService) { }
   
     ngOnInit(): void {
       this.cargarProductos();

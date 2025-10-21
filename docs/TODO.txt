@@ -3,15 +3,11 @@
 	- Registro																	: ok
 
 * MODULO DE USUARIO COMUN
-	+ Perfil:
-		- Editar perfil															: ok
 	
 	+ Articulos:
-		- Publicar articulos													: ok
 		- Listar articulos														: ok
 		- Editar articulos														: ok
 		- Comprar articulos														: ok
-		- Calificar articulos													: ok
 	
 	+ Carrito de compras:
 		- Agregar producto 														: ok 

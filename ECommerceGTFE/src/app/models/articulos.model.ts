@@ -14,3 +14,12 @@ export interface ArticuloResponse {
   totalCalificaciones: number;
 }
 
+export interface ArticuloRequest {
+  nombre: string;
+  descripcion: string;
+  imagen: string;
+  precio: number;
+  stock: number;
+  estadoArticulo: string;
+  categoria: string;
+}

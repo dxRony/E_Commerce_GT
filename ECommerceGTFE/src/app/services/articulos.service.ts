@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ArticuloResponse } from '../models/articulos.model';
+import { ArticuloRequest, ArticuloResponse } from '../models/articulos.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ArticuloService {
   private apiUrl = 'http://localhost:8080/api/articulos';
 
   constructor(private http: HttpClient) { }
@@ -34,4 +34,15 @@ export class ProductService {
   buscarProductos(busqueda: string): Observable<ArticuloResponse[]> {
     return this.http.get<ArticuloResponse[]>(`${this.apiUrl}/public/buscar?q=${busqueda}`);
   }
+
+  /**
+   * metodoq ue crea un articulo
+   * @param request 
+   * @returns 
+   */
+  crearArticulo(request: ArticuloRequest): Observable<ArticuloResponse> {
+    return this.http.post<ArticuloResponse>(this.apiUrl, request);
+  }
+
+  
 }

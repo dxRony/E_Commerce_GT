@@ -76,6 +76,10 @@ export const routes: Routes = [
       {
         path: 'perfil',
         loadComponent: () => import('./components/comun/editar-perfil/editar-perfil').then(m => m.EditarPerfil)
+      },
+      {
+        path: 'publicar-producto',
+        loadComponent: () => import('./components/comun/articulos/publicar-articulo/publicar-articulo').then(m => m.PublicarArticulo)
       }
     ]
   },

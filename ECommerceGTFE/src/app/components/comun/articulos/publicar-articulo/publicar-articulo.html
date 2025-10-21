@@ -1,0 +1,107 @@
+<div class="publish-container">
+    <div class="page-header">
+        <h1>Publicar Nuevo Producto</h1>
+    </div>
+    <div class="form-card">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre del Producto</label>
+                    <input type="text" id="nombre" formControlName="nombre" class="form-input"
+                        [class.input-error]="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched"
+                        maxlength="200">
+                    <div class="error-message"
+                        *ngIf="productForm.get('nombre')?.errors?.['required'] && productForm.get('nombre')?.touched">
+                        El nombre del producto es obligatorio
+                    </div>
+                    <div class="error-message"
+                        *ngIf="productForm.get('nombre')?.errors?.['maxlength'] && productForm.get('nombre')?.touched">
+                        El nombre no puede tener más de 200 caracteres
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select id="categoria" formControlName="categoria" class="form-select"
+                        [class.input-error]="productForm.get('categoria')?.invalid && productForm.get('categoria')?.touched">
+                        <option value="">Selecciona una categoria</option>
+                        <option *ngFor="let categoria of categorias" [value]="categoria">
+                            {{ categoria }}
+                        </option>
+                    </select>
+                    <div class="error-message"
+                        *ngIf="productForm.get('categoria')?.errors?.['required'] && productForm.get('categoria')?.touched">
+                        La categoraa es obligatoria
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="estadoArticulo" class="form-label">Estado del Producto</label>
+                    <select id="estadoArticulo" formControlName="estadoArticulo" class="form-select"
+                        [class.input-error]="productForm.get('estadoArticulo')?.invalid && productForm.get('estadoArticulo')?.touched">
+                        <option value="">Selecciona el estado</option>
+                        <option *ngFor="let estado of estadoArticulo" [value]="estado.value">
+                            {{ estado.label }}
+                        </option>
+                    </select>
+                    <div class="error-message"
+                        *ngIf="productForm.get('estadoArticulo')?.errors?.['required'] && productForm.get('estadoArticulo')?.touched">
+                        El estado del producto es obligatorio
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="precio" class="form-label">(Q) Precio</label>
+                    <input type="number" id="precio" formControlName="precio" class="form-input"
+                        [class.input-error]="productForm.get('precio')?.invalid && productForm.get('precio')?.touched"
+                        step="0.01" min="0.01">
+                    <div class="error-message"
+                        *ngIf="productForm.get('precio')?.errors?.['required'] && productForm.get('precio')?.touched">
+                        El precio es obligatorio
+                    </div>
+                    <div class="error-message"
+                        *ngIf="productForm.get('precio')?.errors?.['min'] && productForm.get('precio')?.touched">
+                        El precio debe ser mayor a 0
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input type="number" id="stock" formControlName="stock" class="form-input"
+                        [class.input-error]="productForm.get('stock')?.invalid && productForm.get('stock')?.touched"
+                        min="1">
+                    <div class="error-message"
+                        *ngIf="productForm.get('stock')?.errors?.['required'] && productForm.get('stock')?.touched">
+                        El stock es obligatorio
+                    </div>
+                    <div class="error-message"
+                        *ngIf="productForm.get('stock')?.errors?.['min'] && productForm.get('stock')?.touched">
+                        El stock minimo es 1
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="descripcion" class="form-label">Descripcion del Producto</label>
+                <textarea id="descripcion" formControlName="descripcion" class="form-textarea"
+                    [class.input-error]="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched"
+                    rows="4" maxlength="250"></textarea>
+                <div class="error-message"
+                    *ngIf="productForm.get('descripcion')?.errors?.['required'] && productForm.get('descripcion')?.touched">
+                    La descripcion es obligatoria
+                </div>
+                <div class="error-message"
+                    *ngIf="productForm.get('descripcion')?.errors?.['maxlength'] && productForm.get('descripcion')?.touched">
+                    La descripcion no puede tener mas de 250 caracteres
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" (click)="volverAInicio()" [disabled]="isSubmitting">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn-submit" [disabled]="productForm.invalid || isSubmitting">
+                    <span *ngIf="isSubmitting" class="loading-spinner"></span>
+                    {{ isSubmitting ? 'Publicando...' : 'Publicar Producto' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

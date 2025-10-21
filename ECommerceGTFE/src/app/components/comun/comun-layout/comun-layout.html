@@ -2,7 +2,7 @@
   <nav class="admin-navbar">
     <div class="navbar-container">
       <a class="navbar-brand" routerLink="/comun/dashboard">E-Commerce GT Comun</a>
-      
+
       <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
         <span class="navbar-toggler-icon">☰</span>
       </button>
@@ -17,7 +17,7 @@
               Gestión de productos
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'products'">
-              <li><a class="dropdown-item" routerLink="#">Publicar producto</a></li>
+              <li><a class="dropdown-item" routerLink="/comun/publicar-producto">Publicar producto</a></li>
               <li><a class="dropdown-item" routerLink="#">Listar mis productos</a></li>
               <li><a class="dropdown-item" routerLink="#">Comprar productos</a></li>
             </ul>

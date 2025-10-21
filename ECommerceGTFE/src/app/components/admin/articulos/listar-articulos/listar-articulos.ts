@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ArticuloResponse } from '../../../../models/articulos.model';
-import { ProductService } from '../../../../services/articulos.service';
+import { ArticuloService } from '../../../../services/articulos.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ productos: ArticuloResponse[] = [];
     selectedCategory: string = 'all';
     sortBy: string = 'name';
   
-    constructor(private productService: ProductService) { }
+    constructor(private articuloService: ArticuloService) { }
   
     ngOnInit(): void {
       this.cargarProductos();
@@ -32,7 +32,7 @@ productos: ArticuloResponse[] = [];
   
     cargarProductos(): void {
       this.isLoading = true;
-      this.productService.getCatalogoPublico().subscribe({
+      this.articuloService.getCatalogoPublico().subscribe({
         next: (productos) => {
           this.productos = productos;
           this.productosFiltrados = productos;
