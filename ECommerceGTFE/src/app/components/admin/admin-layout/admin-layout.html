@@ -37,10 +37,11 @@
               Visualización de reportes
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'reports'">
-              <li><a class="dropdown-item" routerLink="#">Ver ventas</a></li>
-              <li><a class="dropdown-item" routerLink="#">Ver pedidos</a></li>
-              <li><a class="dropdown-item" routerLink="#">Productos más vendidos</a></li>
-              <li><a class="dropdown-item" routerLink="#">Mejores clientes</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/reportes/reporte1">Top 10 productos mas vendidos en un intervalor de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas ganancias generan en un intervalo de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas han vendido en un intervalo de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 10 clientes con mas pedidos en un intervalo de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 10 clientes que mas productos tienen a la venta</a></li>
             </ul>
           </li>
         </ul>

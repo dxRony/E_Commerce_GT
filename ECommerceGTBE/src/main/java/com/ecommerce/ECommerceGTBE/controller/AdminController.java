@@ -5,11 +5,14 @@
 package com.ecommerce.ECommerceGTBE.controller;
 
 import com.ecommerce.ECommerceGTBE.dto.request.auth.RegistroEmpleadoRequest;
+import com.ecommerce.ECommerceGTBE.dto.request.reporte.ReporteRequest;
 import com.ecommerce.ECommerceGTBE.dto.request.usuario.ActualizarEmpleadoRequest;
 import com.ecommerce.ECommerceGTBE.dto.response.auth.MensajeResponse;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.usuario.EmpleadoResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.service.AdminService;
+import com.ecommerce.ECommerceGTBE.service.ReporteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -106,6 +109,20 @@ public class AdminController {
 
         EmpleadoResponse response = crearResponse(empleado);
         return ResponseEntity.ok(response);
+    }
+    
+    @Autowired
+    private ReporteService reporteService;
+
+    @PostMapping("/reportes/top10-productos-vendidos")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<Reporte1Response>> obtenerTop10ProductosVendidos(
+            @Valid @RequestBody ReporteRequest request) {
+
+        List<Reporte1Response> productos = reporteService
+                .obtenerTop10ProductosMasVendidos(request.getFechaInicio(), request.getFechaFin());
+
+        return ResponseEntity.ok(productos);
     }
 
     private EmpleadoResponse crearResponse(Usuario empleado) {

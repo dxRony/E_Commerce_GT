@@ -54,6 +54,10 @@ export const routes: Routes = [
       {
         path: 'articulos',
         loadComponent: () => import('./components/admin/articulos/listar-articulos/listar-articulos').then(m => m.ListarArticulos)
+      }, 
+      {
+        path: 'reportes/reporte1',
+        loadComponent: () => import('./components/admin/reportes/reporte1/reporte1').then(m=> m.Reporte1)
       }
     ]
   },
@@ -99,11 +103,11 @@ export const routes: Routes = [
       },
       {
         path: 'compras',
-        loadComponent: () => import('./components/comun/compras/compras').then(m=> m.Compras)
+        loadComponent: () => import('./components/comun/compras/compras').then(m => m.Compras)
       },
       {
         path: 'ventas',
-        loadComponent: () => import('./components/comun/ventas/ventas').then(m=>m.Ventas)
+        loadComponent: () => import('./components/comun/ventas/ventas').then(m => m.Ventas)
       }
     ]
   },
