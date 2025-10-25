@@ -1,6 +1,9 @@
 <div class="orders-container">
     <div class="page-header">
         <h1>Gestion de Pedidos en Curso</h1>
+    </div>    
+    <div *ngIf="success" class="success-message">
+        {{ success }}
     </div>
     <div *ngIf="error" class="error-message">
         {{ error }}
@@ -18,54 +21,75 @@
             </div>
         </div>
     </div>
-
     <div class="orders-card">
         <div *ngIf="!isLoading && !error">
-
             <div *ngIf="entregasFiltradas.length > 0" class="orders-grid">
                 <div *ngFor="let entrega of entregasFiltradas" class="order-card">
                     <div class="order-header">
                         <div class="order-info">
-                            <h3 class="order-id">Pedido #{{ entrega.compraId }} - </h3>
-                            {{ getEstadoTexto(entrega.estado) }}
+                            <h3 class="order-id">Pedido NO. {{ entrega.compraId }}</h3>
                         </div>
                         <div>
                             {{ formatearPrecio(entrega.compraTotal) }}
                         </div>
-                    </div>
+                    </div>                    
                     <div class="customer-info">
                         <div class="info-item">
                             <strong>Cliente:</strong> {{ entrega.usuarioNombre }}
                         </div>
                         <div class="info-item">
-                            <strong>Dirección:</strong> {{ entrega.usuarioDireccion }}
+                            <strong>Direccion:</strong> {{ entrega.usuarioDireccion }}
                         </div>
                         <div class="info-item">
-                            <strong>Fecha estimada:</strong> {{ formatearFecha(entrega.fechaEstimada) }}
+                            <strong>Fecha estimada:</strong> {{ entrega.fechaEstimada }}
                         </div>
-                        <div *ngIf="entrega.fechaEntrega" class="info-item">
-                            <strong>Fecha de entrega:</strong> {{ formatearFecha(entrega.fechaEntrega) }}
+                    </div>
+                    <div class="order-items-section">
+                        <h4 class="items-title">Articulos en la compra:</h4>
+
+                        <div class="items-list">
+                            <div *ngFor="let detalle of entrega.detalles || []" 
+                                 class="item-row" 
+                                 [class.item-ready]="detalle.listo">
+                                <div class="item-info">
+                                    <div class="item-details">
+                                        <h5 class="item-name">{{ detalle.articuloNombre }}</h5>
+                                        <p class="item-quantity">cantidad: {{ detalle.cantidad }}</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <span *ngIf="detalle.listo">Listo</span>
+                                    <button *ngIf="!detalle.listo" 
+                                            (click)="marcarDetalleListo(detalle, entrega.id)"
+                                            class="btn btn-primary">
+                                        Marcar como Listo
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="order-actions">
                         <button class="btn-update-date" (click)="abrirModalFecha(entrega)">
                             Modificar Fecha
                         </button>
-                        <button class="btn-deliver" (click)="marcarComoEntregada(entrega)"
-                            [disabled]="entrega.detalles && !todosDetallesListos(entrega.detalles)"
-                            title="Marcar como entregado">
-                            Marcar Entregado
+                        <button class="btn-deliver" 
+                                (click)="marcarComoEntregada(entrega)"
+                                [disabled]="!todosDetallesListos(entrega.detalles || [])"
+                                [class.disabled]="!todosDetallesListos(entrega.detalles || [])"
+                                title="{{ todosDetallesListos(entrega.detalles || []) ? 'Marcar entrega como entregada' : 'Todos los artículos deben estar listos' }}">
+                            {{ todosDetallesListos(entrega.detalles || []) ? 'Marcar Entregado' : 'Esperando artículos (' + contarDetallesListos(entrega.detalles) + '/' + (entrega.detalles?.length || 0) + ')' }}
                         </button>
                     </div>
                 </div>
             </div>
-
             <div *ngIf="entregasFiltradas.length === 0 && !isLoading" class="empty-state">
                 <h3>No hay pedidos en curso</h3>
             </div>
         </div>
     </div>
 </div>
+
 <div *ngIf="showDateModal" class="modal-overlay">
     <div class="modal-content">
         <div class="modal-header">

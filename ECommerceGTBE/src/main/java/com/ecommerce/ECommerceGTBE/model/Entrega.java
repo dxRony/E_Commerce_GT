@@ -6,7 +6,7 @@ package com.ecommerce.ECommerceGTBE.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +31,10 @@ public class Entrega {
     private String estado;
 
     @Column(name = "fecha_estimada", nullable = false)
-    private LocalDateTime fechaEstimada;
+    private LocalDate fechaEstimada;
 
     @Column(name = "fecha_entrega")
-    private LocalDateTime fechaEntrega;
+    private LocalDate fechaEntrega;
 
     @ManyToOne
     @JoinColumn(name = "id_compra", nullable = false)

@@ -6,8 +6,7 @@ package com.ecommerce.ECommerceGTBE.dto.request.entrega;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +20,6 @@ public class ModificarEntregaRequest {
 
     @NotNull(message = "La fecha estimada es obligatoria")
     @Future(message = "La fecha estimada debe ser despues de la fecha actual")
-    private LocalDateTime fechaEstimada;
+    private LocalDate fechaEstimada;
 
 }

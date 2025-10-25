@@ -116,7 +116,9 @@ public class EntregaController {
     }
 
     private EntregaResponse crearEntregaResponse(Entrega entrega) {
-        return new EntregaResponse(
+        List<DetalleEntrega> detalles = entregaService.obtenerDetallesEntrega(entrega.getId());
+
+        EntregaResponse response = new EntregaResponse(
                 entrega.getId(),
                 entrega.getEstado(),
                 entrega.getFechaEstimada(),
@@ -124,8 +126,16 @@ public class EntregaController {
                 entrega.getCompra().getId(),
                 entrega.getCompra().getTotal(),
                 entrega.getCompra().getUsuario().getNombre(),
-                entrega.getCompra().getUsuario().getDireccion()                
+                entrega.getCompra().getUsuario().getDireccion()
         );
+        List<DetalleEntregaResponse> detallesResponse = detalles.stream()
+                .map(this::crearDetalleEntregaResponse)
+                .collect(Collectors.toList());
+
+        response.setDetalles(detallesResponse);
+
+        return response;
+
     }
 
     private DetalleEntregaResponse crearDetalleEntregaResponse(DetalleEntrega detalle) {

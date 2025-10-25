@@ -13,6 +13,7 @@ import com.ecommerce.ECommerceGTBE.repository.CompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleCompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleEntregaRepository;
 import com.ecommerce.ECommerceGTBE.repository.EntregaRepository;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +54,7 @@ public class EntregaService {
         //creando entrega
         Entrega entrega = new Entrega();
         entrega.setEstado("En curso");
-        entrega.setFechaEstimada(LocalDateTime.now().plusDays(5));
+        entrega.setFechaEstimada(LocalDate.now().plusDays(5));
         entrega.setCompra(compra);
         //registrando entrega en db
         Entrega entregaRegistrada = entregaRepository.save(entrega);
@@ -90,7 +91,7 @@ public class EntregaService {
                 .orElseThrow(() -> new RuntimeException("Entrega no encontrada"));
     }
 
-    public Entrega actualizarFechaEstimada(Integer entregaId, LocalDateTime nuevaFechaEstimada) {
+    public Entrega actualizarFechaEstimada(Integer entregaId, LocalDate nuevaFechaEstimada) {
         Entrega entrega = obtenerEntrega(entregaId);
         entrega.setFechaEstimada(nuevaFechaEstimada);
         return entregaRepository.save(entrega);
@@ -109,7 +110,7 @@ public class EntregaService {
         }
         //marcando entrega
         entrega.setEstado("Entregado");
-        entrega.setFechaEntrega(LocalDateTime.now());
+        entrega.setFechaEntrega(LocalDate.now());
 
         //marcando compra como finalizada
         Compra compra = entrega.getCompra();

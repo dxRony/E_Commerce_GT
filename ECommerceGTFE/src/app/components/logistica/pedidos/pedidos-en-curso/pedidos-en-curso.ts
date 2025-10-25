@@ -13,7 +13,7 @@ import { LogisticaService } from '../../../../services/logistica.service';
   styleUrl: './pedidos-en-curso.css'
 })
 export class PedidosEnCurso implements OnInit {
- entregas: EntregaResponse[] = [];
+  entregas: EntregaResponse[] = [];
   isLoading: boolean = true;
   error: string = '';
   success: string = '';
@@ -25,7 +25,7 @@ export class PedidosEnCurso implements OnInit {
   showDateModal: boolean = false;
   newFechaEstimada: string = '';
 
-  constructor(private logisticaService: LogisticaService) {}
+  constructor(private logisticaService: LogisticaService) { }
 
   ngOnInit(): void {
     this.cargarEntregasEnCurso();
@@ -77,14 +77,6 @@ export class PedidosEnCurso implements OnInit {
     }).format(precio);
   }
 
-  formatearFecha(fecha: string): string {
-    return new Date(fecha).toLocaleDateString('es-GT', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  }
-
   getEstadoTexto(estado: string): string {
     const estados: { [key: string]: string } = {
       'EN_CURSO': 'En Curso',
@@ -116,6 +108,7 @@ export class PedidosEnCurso implements OnInit {
 
   actualizarFechaEstimada(): void {
     if (this.selectedEntrega && this.newFechaEstimada) {
+      console.error('new fechaEstimada:', this.newFechaEstimada);
       const request: ModificarEntregaRequest = {
         fechaEstimada: this.newFechaEstimada
       };
@@ -137,10 +130,22 @@ export class PedidosEnCurso implements OnInit {
     }
   }
 
+  contarDetallesListos(detalles: DetalleEntregaResponse[] | undefined): number {
+    if (!detalles) return 0;
+    return detalles.filter(detalle => detalle.listo).length;
+  }
+
+  calcularProgreso(detalles: DetalleEntregaResponse[] | undefined): number {
+    if (!detalles || detalles.length === 0) return 0;
+    const listos = this.contarDetallesListos(detalles);
+    return (listos / detalles.length) * 100;
+  }
+
   marcarDetalleListo(detalle: DetalleEntregaResponse, entregaId: number): void {
     this.logisticaService.marcarDetalleListo(detalle.id).subscribe({
       next: (detalleActualizado) => {
         this.success = `Artículo "${detalle.articuloNombre}" marcado como listo.`;
+
         const entregaIndex = this.entregas.findIndex(e => e.id === entregaId);
         if (entregaIndex !== -1 && this.entregas[entregaIndex].detalles) {
           const detalleIndex = this.entregas[entregaIndex].detalles!.findIndex(d => d.id === detalle.id);
@@ -148,10 +153,12 @@ export class PedidosEnCurso implements OnInit {
             this.entregas[entregaIndex].detalles![detalleIndex] = detalleActualizado;
           }
         }
+        this.success = '';
       },
       error: (error) => {
         this.error = 'Error al marcar el artículo como listo.';
         console.error('Error marking detail as ready:', error);
+        this.error = '';
       }
     });
   }
