@@ -4,6 +4,10 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CarritoDetalleResponse, CarritoResponse } from '../../../models/carrito.model';
 import { CarritoService } from '../../../services/carrito.service';
+import { TarjetaService } from '../../../services/tarjeta.service';
+import { CompraService } from '../../../services/compra.service';
+import { TarjetaResponse } from '../../../models/tarjeta.model';
+import { CompraRequest } from '../../../models/compra.model';
 
 @Component({
   selector: 'app-carrito',
@@ -14,10 +18,24 @@ import { CarritoService } from '../../../services/carrito.service';
 })
 export class Carrito implements OnInit {
   private carritoService = inject(CarritoService);
+  private tarjetaService = inject(TarjetaService);
+  private compraService = inject(CompraService);
 
   carrito: CarritoResponse | null = null;
   isLoading: boolean = true;
   error: string = '';
+
+  mostrarModalPago: boolean = false;
+  tarjetas: TarjetaResponse[] = [];
+  tarjetaSeleccionada: number | null = null;
+  procesandoPago: boolean = false;
+
+  mostrarFormTarjeta: boolean = false;
+  nuevaTarjeta = {
+    numeracion: '',
+    fechaVencimiento: '',
+    cvv: ''
+  };
 
   mensajeAlerta: string = '';
   mostrarAlerta: boolean = false;
@@ -40,6 +58,78 @@ export class Carrito implements OnInit {
         this.mostrarNotificacion('Error al cargar el carrito', 'error');
       }
     });
+  }
+
+  abrirModalPago(): void {
+    this.mostrarModalPago = true;
+    this.cargarTarjetas();
+  }
+
+  cerrarModalPago(): void {
+    this.mostrarModalPago = false;
+    this.mostrarFormTarjeta = false;
+    this.tarjetaSeleccionada = null;
+    this.nuevaTarjeta = { numeracion: '', fechaVencimiento: '', cvv: '' };
+  }
+
+  cargarTarjetas(): void {
+    this.tarjetaService.getMisTarjetas().subscribe({
+      next: (tarjetas) => {
+        this.tarjetas = tarjetas;
+      },
+      error: (error) => {
+        console.error('Error al cargar tarjetas:', error);
+        this.mostrarNotificacion('Error al cargar tarjetas', 'error');
+      }
+    });
+  }
+
+  procesarPago(): void {
+    if (!this.tarjetaSeleccionada) {
+      this.mostrarNotificacion('Por favor selecciona una tarjeta', 'warning');
+      return;
+    }
+
+    this.procesandoPago = true;
+    const compraRequest: CompraRequest = {
+      tarjetaId: this.tarjetaSeleccionada
+    };
+
+    this.compraService.procesarPago(compraRequest).subscribe({
+      next: (compra) => {
+        this.procesandoPago = false;
+        this.mostrarNotificacion('¡Pago procesado exitosamente!', 'success');
+        this.cerrarModalPago();
+        this.cargarCarrito();
+
+        console.log('Compra realizada:', compra);
+      },
+      error: (error) => {
+        this.procesandoPago = false;
+        console.error('Error al procesar pago:', error);
+        this.mostrarNotificacion('Error al procesar el pago', 'error');
+      }
+    });
+  }
+
+  agregarNuevaTarjeta(): void {
+    this.tarjetaService.agregarTarjeta(this.nuevaTarjeta).subscribe({
+      next: (tarjeta) => {
+        this.mostrarNotificacion('Tarjeta agregada exitosamente', 'success');
+        this.mostrarFormTarjeta = false;
+        this.nuevaTarjeta = { numeracion: '', fechaVencimiento: '', cvv: '' };
+        this.cargarTarjetas();
+        this.tarjetaSeleccionada = tarjeta.id;
+      },
+      error: (error) => {
+        console.error('Error al agregar tarjeta:', error);
+        this.mostrarNotificacion('Error al agregar tarjeta', 'error');
+      }
+    });
+  }
+
+  ocutlarNumeroTarjeta(numeracion: string): string {
+    return `****-****-****-${numeracion.slice(-4)}`;
   }
 
   actualizarCantidad(item: CarritoDetalleResponse, nuevaCantidad: number): void {
@@ -87,7 +177,7 @@ export class Carrito implements OnInit {
       return;
     }
 
-    if (confirm('¿Estás seguro de que quieres limpiar todo el carrito?')) {
+    if (confirm('seguro de que quieres limpiar todo el carrito?')) {
       this.carritoService.limpiarCarrito().subscribe({
         next: () => {
           this.mostrarNotificacion('Carrito limpiado exitosamente');
@@ -99,10 +189,6 @@ export class Carrito implements OnInit {
         }
       });
     }
-  }
-
-  pagarCarrito(): void {
-    this.mostrarNotificacion('Funcionalidad de pago por implementar', 'warning');
   }
 
   formatearPrecio(precio: number): string {
@@ -124,17 +210,17 @@ export class Carrito implements OnInit {
 
   getAlertClasses(): string {
     const baseClasses = '';
-    
+
     switch (this.tipoAlerta) {
-        case 'success':
-            return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
-        case 'error':
-            return `${baseClasses} bg-red-100 border border-red-400 text-red-700`;
-        case 'warning':
-            return `${baseClasses} bg-yellow-100 border border-yellow-400 text-yellow-700`;
-        default:
-            return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
+      case 'success':
+        return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
+      case 'error':
+        return `${baseClasses} bg-red-100 border border-red-400 text-red-700`;
+      case 'warning':
+        return `${baseClasses} bg-yellow-100 border border-yellow-400 text-yellow-700`;
+      default:
+        return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
     }
-}
+  }
 
 }

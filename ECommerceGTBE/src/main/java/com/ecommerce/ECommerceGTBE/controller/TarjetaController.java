@@ -62,22 +62,6 @@ public class TarjetaController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/todas")
-    @PreAuthorize("hasRole('COMUN')")
-    public ResponseEntity<List<TarjetaResponse>> getTodasMisTarjetas() {
-        Integer usuarioId = obtenerIdUsuarioSesion();
-        Usuario usuario = usuarioService.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        List<Tarjeta> tarjetas = tarjetaService.findByUsuario(usuario);
-
-        List<TarjetaResponse> response = tarjetas.stream()
-                .map(this::crearResponse)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<?> agregarTarjeta(@Valid @RequestBody TarjetaRequest tarjetaRequest) {
