@@ -12,17 +12,15 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Inicio</a>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link" (click)="toggleDropdown('users')">
-              Gestión de usuarios
+              Gestion de usuarios
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'users'">
               <li><a class="dropdown-item" routerLink="/admin/usuarios/listar">Listar usuarios</a></li>
               <li><a class="dropdown-item" routerLink="/admin/usuarios/registrar">Registrar empleado</a></li>
             </ul>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link" (click)="toggleDropdown('products')">
               Gestión de productos
@@ -31,21 +29,23 @@
               <li><a class="dropdown-item" routerLink="/admin/articulos">Listar productos</a></li>
             </ul>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link " (click)="toggleDropdown('reports')">
-              Visualización de reportes
+              Visualizacion de reportes
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'reports'">
-              <li><a class="dropdown-item" routerLink="/admin/reportes/reporte1">Top 10 productos mas vendidos en un intervalor de tiempo</a></li>
-              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas ganancias generan en un intervalo de tiempo</a></li>
-              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas han vendido en un intervalo de tiempo</a></li>
-              <li><a class="dropdown-item" routerLink="#">Top 10 clientes con mas pedidos en un intervalo de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/reportes/reporte1">Top 10 productos mas vendidos en un
+                  intervalor de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/reportes/reporte2">Top 5 clientes que mas ganancias
+                  generan en un intervalo de tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas han vendido en un intervalo de
+                  tiempo</a></li>
+              <li><a class="dropdown-item" routerLink="#">Top 10 clientes con mas pedidos en un intervalo de tiempo</a>
+              </li>
               <li><a class="dropdown-item" routerLink="#">Top 10 clientes que mas productos tienen a la venta</a></li>
             </ul>
           </li>
         </ul>
-
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">
             <span class="nav-text">Bienvenido, {{userName}}</span>

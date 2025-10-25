@@ -5,6 +5,8 @@
 package com.ecommerce.ECommerceGTBE.service;
 
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
+import com.ecommerce.ECommerceGTBE.repository.CompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleCompraRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,30 +22,54 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReporteService {
-    
-     @Autowired
+
+    @Autowired
     private DetalleCompraRepository detalleCompraRepository;
-    
+
+    @Autowired
+    private CompraRepository compraRepository;
+
     public List<Reporte1Response> obtenerTop10ProductosMasVendidos(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.atTime(23, 59, 59);
-        
+
         List<Object[]> resultados = detalleCompraRepository.findTop10ProductosMasVendidos(inicio, fin);
-        
+
         return resultados.stream()
-                .map(this::crearResponse)
+                .map(this::crearResponse1)
                 .collect(Collectors.toList());
     }
-    
-    private Reporte1Response crearResponse(Object[] resultado) {
+
+    private Reporte1Response crearResponse1(Object[] resultado) {
         return new Reporte1Response(
-            ((Number) resultado[0]).intValue(),    // productoId
-            (String) resultado[1],                 // productoNombre
-            (String) resultado[2],                 // productoCategoria
-            ((Number) resultado[3]).intValue(),    // cantidadVendida
-            (BigDecimal) resultado[4],             // totalVendido
-            (String) resultado[5]                  // vendedorNombre
+                ((Number) resultado[0]).intValue(),
+                (String) resultado[1],
+                (String) resultado[2],
+                ((Number) resultado[3]).intValue(),
+                (BigDecimal) resultado[4],
+                (String) resultado[5]
         );
     }
-    
+
+    public List<Reporte2Response> obtenerTop5ClientesMasGanancias(LocalDate fechaInicio, LocalDate fechaFin) {
+        LocalDateTime inicio = fechaInicio.atStartOfDay();
+        LocalDateTime fin = fechaFin.atTime(23, 59, 59);
+
+        List<Object[]> resultados = compraRepository.findTop5ClientesMasGanancias(inicio, fin);
+        return resultados.stream()
+                .map(this::crearResponse2)
+                .collect(Collectors.toList());
+    }
+
+    private Reporte2Response crearResponse2(Object[] resultado) {
+        return new Reporte2Response(
+                ((Number) resultado[0]).intValue(),
+                (String) resultado[1],
+                (String) resultado[2],
+                ((Number) resultado[3]).intValue(),
+                (BigDecimal) resultado[4],
+                (BigDecimal) resultado[5]
+        );
+    }
+
 }

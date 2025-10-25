@@ -11,3 +11,12 @@ export interface Reporte1Response {
   totalVendido: number;
   vendedorNombre: string;
 }
+
+export interface Reporte2Response {
+  clienteId: number;
+  clienteNombre: string;
+  clienteEmail: string;
+  totalCompras: number;
+  totalGastado: number;
+  gananciaGenerada: number;
+}

@@ -1,0 +1,54 @@
+<div class="reporte-container">
+    <div class="page-header">
+        <h1>Top 5 clientes que mas ganancias generan</h1>
+    </div>
+    <div class="filtros-card">
+        <div class="filtros-header">
+            <h3>Seleccionar intervalo de tiempo</h3>
+        </div>
+        <div class="filtros-body">
+            <div class="filtros-grid">
+                <div class="filtro-group">
+                    <label class="filtro-label">Inicio</label>
+                    <input type="date" [(ngModel)]="fechaInicio" class="filtro-input">
+                </div>
+                <div class="filtro-group">
+                    <label class="filtro-label">Fin</label>
+                    <input type="date" [(ngModel)]="fechaFin" class="filtro-input">
+                </div>
+            </div>
+            <div class="filtros-actions">
+                <button (click)="generarReporte()" [disabled]="isLoading" class="btn btn-primary">Generar Reporte</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="mostrarResultados && !isLoading" class="resultados-container">
+        <div class="tabla-container">
+            <table class="reporte-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Cliente</th>
+                        <th>Email</th>
+                        <th>Compras</th>
+                        <th>Gastado</th>
+                        <th>Ganancias Generadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes; let i = index">
+                        <td class="ranking">{{ i + 1 }}</td>
+                        <td class="cliente-info">{{ cliente.clienteNombre }}</td>
+                        <td class="cliente-email">{{ cliente.clienteEmail }}</td>
+                        <td class="compras">{{ cliente.totalCompras }}</td>
+                        <td class="gastado">{{ formatearPrecio(cliente.totalGastado) }}</td>
+                        <td class="ganancias">{{ formatearPrecio(cliente.gananciaGenerada) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="clientes.length === 0" class="empty-state">
+            <h3>No se encontraron compras</h3>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ import com.ecommerce.ECommerceGTBE.dto.request.reporte.ReporteRequest;
 import com.ecommerce.ECommerceGTBE.dto.request.usuario.ActualizarEmpleadoRequest;
 import com.ecommerce.ECommerceGTBE.dto.response.auth.MensajeResponse;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
 import com.ecommerce.ECommerceGTBE.dto.response.usuario.EmpleadoResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.service.AdminService;
@@ -33,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private ReporteService reporteService;
 
     // admins en sesion
     @PostMapping("/empleados")
@@ -110,9 +114,6 @@ public class AdminController {
         EmpleadoResponse response = crearResponse(empleado);
         return ResponseEntity.ok(response);
     }
-    
-    @Autowired
-    private ReporteService reporteService;
 
     @PostMapping("/reportes/top10-productos-vendidos")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
@@ -123,6 +124,17 @@ public class AdminController {
                 .obtenerTop10ProductosMasVendidos(request.getFechaInicio(), request.getFechaFin());
 
         return ResponseEntity.ok(productos);
+    }
+
+    @PostMapping("/reportes/top5-clientes-ganancias")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<Reporte2Response>> obtenerTop5ClientesMasGanancias(
+            @Valid @RequestBody ReporteRequest request) {
+
+        List<Reporte2Response> clientes = reporteService
+                .obtenerTop5ClientesMasGanancias(request.getFechaInicio(), request.getFechaFin());
+
+        return ResponseEntity.ok(clientes);
     }
 
     private EmpleadoResponse crearResponse(Usuario empleado) {

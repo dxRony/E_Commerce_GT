@@ -54,10 +54,14 @@ export const routes: Routes = [
       {
         path: 'articulos',
         loadComponent: () => import('./components/admin/articulos/listar-articulos/listar-articulos').then(m => m.ListarArticulos)
-      }, 
+      },
       {
         path: 'reportes/reporte1',
-        loadComponent: () => import('./components/admin/reportes/reporte1/reporte1').then(m=> m.Reporte1)
+        loadComponent: () => import('./components/admin/reportes/reporte1/reporte1').then(m => m.Reporte1)
+      },
+      {
+        path: 'reportes/reporte2',
+        loadComponent: () => import('./components/admin/reportes/reporte2/reporte2').then(m => m.Reporte2)
       }
     ]
   },

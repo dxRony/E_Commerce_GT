@@ -47,4 +47,15 @@ public interface CompraRepository extends JpaRepository<Compra, Integer> {
     List<Compra> findByUsuarioOrderByFechaDesc(Usuario usuario);
 
     Boolean existsByUsuario(Usuario usuario);
+
+    @Query("SELECT u.id, u.nombre, u.email, COUNT(c) as totalCompras, "
+            + "SUM(c.total) as totalGastado, SUM(c.comisionPagina) as gananciaGenerada "
+            + "FROM Compra c "
+            + "JOIN c.usuario u "
+            + "WHERE c.fecha BETWEEN :fechaInicio AND :fechaFin "
+            + "GROUP BY u.id, u.nombre, u.email "
+            + "ORDER BY gananciaGenerada DESC "
+            + "LIMIT 5")
+    List<Object[]> findTop5ClientesMasGanancias(@Param("fechaInicio") LocalDateTime fechaInicio,
+            @Param("fechaFin") LocalDateTime fechaFin);
 }
