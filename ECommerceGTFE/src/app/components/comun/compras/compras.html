@@ -1,0 +1,52 @@
+<div class="compras-container">
+    <div class="page-header">
+        <h1>Mis Compras</h1>
+        <p>Historial de todas tus compras realizadas</p>
+    </div>
+    <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-spinner"></div>
+    </div>
+    <div *ngIf="error && !isLoading" class="error-container">
+        <p>{{ error }}</p>
+        <button (click)="cargarCompras()" class="retry-btn">Reintentar</button>
+    </div>
+    <div *ngIf="!isLoading && !error">
+        <div *ngIf="compras.length > 0" class="compras-table-container">
+            <table class="compras-table">
+                <thead>
+                    <tr>
+                        <th>ID Compra</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Tarjeta</th>
+                        <th>Articulos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let compra of compras" class="compra-row">
+                        <td class="compra-id">#{{ compra.id }}</td>
+                        <td class="compra-fecha">{{ formatearFecha(compra.fecha) }}</td>
+                        <td class="compra-total">{{ formatearPrecio(compra.total) }}</td>
+                        <td>
+                            <span [class]="getEstadoClase(compra.estadoEntrega)" class="estado-badge">
+                                {{ getEstadoTexto(compra.estadoEntrega) }}
+                            </span>
+                        </td>
+                        <td class="compra-tarjeta">{{ compra.tarjetaNumeracion }}</td>
+                        <td class="compra-articulos">
+                            <div class="articulos-list">
+                                <div *ngFor="let detalle of compra.detalles" class="articulo-item">
+                                    {{ detalle.cantidad }}x {{ detalle.articuloNombre }}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="compras.length === 0" class="empty-state">
+            <h3>No tienes compras</h3>
+        </div>
+    </div>
+</div>

@@ -24,10 +24,11 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link" (click)="toggleDropdown('buys')">
-              Seguimiento de pedidos
+              Gestion de compras
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'buys'">
-              <li><a class="dropdown-item" routerLink="#">Listar mis pedidos</a></li>
+              <li><a class="dropdown-item" routerLink="/comun/compras">Listar mis compras</a></li>
+              <li><a class="dropdown-item" routerLink="/comun/ventas">Listar mis ventas</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">

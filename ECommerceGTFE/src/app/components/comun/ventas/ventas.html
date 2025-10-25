@@ -1,0 +1,49 @@
+<div class="ventas-container">
+    <div class="page-header">
+        <h1>Mis Ventas</h1>
+        <p>Historial de productos vendidos</p>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div *ngIf="error && !isLoading" class="error-container">
+        <p>{{ error }}</p>
+        <button (click)="cargarVentas()" class="retry-btn">Reintentar</button>
+    </div>
+
+    <div *ngIf="!isLoading && !error">
+        <div *ngIf="ventas.length > 0" class="ventas-table-container">
+            <table class="ventas-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Comprador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venta of ventas" class="venta-row">
+                        <td class="venta-producto">
+                            <div class="producto-info">
+                                <div class="producto-datos">
+                                    <strong>{{ venta.articuloNombre }}</strong>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="venta-precio">{{ formatearPrecio(venta.precioUnitario) }}</td>
+                        <td class="venta-cantidad">{{ venta.cantidad }}</td>
+                        <td class="venta-subtotal">{{ formatearPrecio(venta.subtotal) }}</td>
+                        <td class="venta-comprador">{{ venta.vendedorNombre }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="ventas.length === 0" class="empty-state">
+            <h3>No tienes ventas </h3>
+        </div>
+    </div>
+</div>
