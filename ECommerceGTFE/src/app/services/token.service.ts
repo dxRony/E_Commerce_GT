@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,27 +11,47 @@ export class TokenService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'user_data';
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any) { }
+
+  private getLocalStorage(): Storage | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage;
+    }
+    return null;
+  }
 
   guardarToken(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
+    const storage = this.getLocalStorage();
+    if (storage) {
+      storage.setItem(this.TOKEN_KEY, token);
+    }
   }
 
   obtenerToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    const storage = this.getLocalStorage();
+    return storage ? storage.getItem(this.TOKEN_KEY) : null;
   }
 
   eliminarToken(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
+    const storage = this.getLocalStorage();
+    if (storage) {
+      storage.removeItem(this.TOKEN_KEY);
+      storage.removeItem(this.USER_KEY);
+    }
   }
 
   guardarUsuario(usuario: any): void {
-    localStorage.setItem(this.USER_KEY, JSON.stringify(usuario));
+    const storage = this.getLocalStorage();
+    if (storage) {
+      storage.setItem(this.USER_KEY, JSON.stringify(usuario));
+    }
   }
 
   obtenerUsuario(): any {
-    const usuario = localStorage.getItem(this.USER_KEY);
+    const storage = this.getLocalStorage();
+    if (!storage) return null;
+    
+    const usuario = storage.getItem(this.USER_KEY);
     return usuario ? JSON.parse(usuario) : null;
   }
 
