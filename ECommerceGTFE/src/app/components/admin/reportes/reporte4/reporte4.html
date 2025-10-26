@@ -1,6 +1,6 @@
 <div class="reporte-container">
     <div class="page-header">
-        <h1>Top 5 Clientes que mas han vendido</h1>
+        <h1>Top 10 clientes con mas pedidos</h1>
     </div>
     <div class="filtros-card">
         <div class="filtros-header">
@@ -18,12 +18,10 @@
                 </div>
             </div>
             <div class="filtros-actions">
-                <button (click)="generarReporte()" class="btn btn-primary">Generar Reporte</button>
+                <button (click)="generarReporte()" [disabled]="isLoading" class=" btn btn-primary">Generar
+                    Reporte</button>
             </div>
         </div>
-    </div>
-    <div *ngIf="error" class="error-message">
-        {{ error }}
     </div>
     <div *ngIf="mostrarResultados && !isLoading" class="resultados-container">
         <div class="tabla-container">
@@ -31,27 +29,26 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Vendedor</th>
+                        <th>Cliente</th>
                         <th>Email</th>
-                        <th>Productos Vendidos</th>
-                        <th>Unidades Vendidas</th>
-                        <th>Total Ventas</th>
+                        <th>Pedidos</th>
+                        <th>Gastado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let vendedor of vendedores; let i = index" class="vendedor-row">
+                    <tr *ngFor="let cliente of clientes; let i = index" class="cliente-row" [class.top-1]="i === 0"
+                        [class.top-2]="i === 1" [class.top-3]="i === 2">
                         <td class="ranking">{{ i + 1 }}</td>
-                        <td class="vendedor-info">{{ vendedor.vendedorNombre }}</td>
-                        <td class="vendedor-email">{{ vendedor.vendedorEmail }}</td>
-                        <td class="productos">{{ vendedor.totalProductosVendidos }}</td>
-                        <td class="unidades">{{ vendedor.totalArticulosVendidos }}</td>
-                        <td class="ventas">{{ formatearPrecio(vendedor.totalVentas) }}</td>
+                        <td class="cliente-info">{{ cliente.clienteNombre }}</td>
+                        <td class="cliente-email">{{ cliente.clienteEmail }}</td>
+                        <td class="pedidos">{{ cliente.totalPedidos }}</td>
+                        <td class="gastado">{{ formatearPrecio(cliente.totalGastado) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div *ngIf="vendedores.length === 0" class="empty-state">
-            <h3>No se encontraron ventas en el intervalo seleccionado</h3>
+        <div *ngIf="clientes.length === 0" class="empty-state">
+            <h3>No se encontraron pedidos en el período seleccionado</h3>
         </div>
     </div>
 </div>

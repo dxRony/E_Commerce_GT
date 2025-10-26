@@ -7,6 +7,7 @@ package com.ecommerce.ECommerceGTBE.service;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte3Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte4Response;
 import com.ecommerce.ECommerceGTBE.repository.CompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleCompraRepository;
 import java.math.BigDecimal;
@@ -92,6 +93,32 @@ public class ReporteService {
                 ((Number) resultado[4]).intValue(),
                 (BigDecimal) resultado[5],
                 (BigDecimal) resultado[6]
+        );
+    }
+
+    public List<Reporte4Response> obtenerTop10ClientesMasPedidos(LocalDate fechaInicio, LocalDate fechaFin) {
+        LocalDateTime inicio = fechaInicio.atStartOfDay();
+        LocalDateTime fin = fechaFin.atTime(23, 59, 59);
+
+        List<Object[]> resultados = compraRepository.findTop10ClientesMasPedidos(inicio, fin);
+        return resultados.stream()
+                .map(this::mapearClientePedidosAResponse)
+                .collect(Collectors.toList());
+    }
+
+    private Reporte4Response mapearClientePedidosAResponse(Object[] resultado) {
+        BigDecimal totalGastado = (BigDecimal) resultado[4];
+        Integer totalPedidos = ((Number) resultado[3]).intValue();
+        Double promedioPorPedido = totalPedidos > 0 ? totalGastado.doubleValue() / totalPedidos : 0.0;
+
+        return new Reporte4Response(
+                ((Number) resultado[0]).intValue(),
+                (String) resultado[1],
+                (String) resultado[2],
+                totalPedidos,
+                totalGastado,
+                promedioPorPedido,
+                (LocalDateTime) resultado[5]
         );
     }
 

@@ -58,4 +58,16 @@ public interface CompraRepository extends JpaRepository<Compra, Integer> {
             + "LIMIT 5")
     List<Object[]> findTop5ClientesMasGanancias(@Param("fechaInicio") LocalDateTime fechaInicio,
             @Param("fechaFin") LocalDateTime fechaFin);
+
+    @Query("SELECT u.id, u.nombre, u.email, COUNT(c) as totalPedidos, "
+            + "SUM(c.total) as totalGastado, MAX(c.fecha) as ultimaCompra "
+            + "FROM Compra c "
+            + "JOIN c.usuario u "
+            + "WHERE c.fecha BETWEEN :fechaInicio AND :fechaFin "
+            + "GROUP BY u.id, u.nombre, u.email "
+            + "ORDER BY totalPedidos DESC "
+            + "LIMIT 10")
+    List<Object[]> findTop10ClientesMasPedidos(@Param("fechaInicio") LocalDateTime fechaInicio,
+            @Param("fechaFin") LocalDateTime fechaFin);
+
 }

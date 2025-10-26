@@ -30,3 +30,13 @@ export interface Reporte3Response {
   totalVentas: number;
   gananciasVendedor: number;
 }
+
+export interface Reporte4Response {
+  clienteId: number;
+  clienteNombre: string;
+  clienteEmail: string;
+  totalPedidos: number;
+  totalGastado: number;
+  promedioPorPedido: number;
+  ultimaCompra: string;
+}
