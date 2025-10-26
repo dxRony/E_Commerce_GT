@@ -12,6 +12,7 @@ import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte3Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte4Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte5Response;
 import com.ecommerce.ECommerceGTBE.dto.response.usuario.EmpleadoResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.service.AdminService;
@@ -157,6 +158,16 @@ public class AdminController {
         List<Reporte4Response> clientes = reporteService
                 .obtenerTop10ClientesMasPedidos(request.getFechaInicio(), request.getFechaFin());
         return ResponseEntity.ok(clientes);
+    }
+
+    @GetMapping("/reportes/top10-clientes-productos-venta")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<Reporte5Response>> obtenerTop10ClientesMasProductosVenta() {
+
+        List<Reporte5Response> vendedores = reporteService
+                .obtenerTop10ClientesMasProductosVenta();
+
+        return ResponseEntity.ok(vendedores);
     }
 
     private EmpleadoResponse crearResponse(Usuario empleado) {

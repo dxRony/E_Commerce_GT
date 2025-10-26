@@ -1,0 +1,66 @@
+.reporte-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 2rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.page-header h1 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.tabla-container {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.reporte-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reporte-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.reporte-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.vendedor-row:hover {
+    background: #f8f9fa;
+}
+
+.email-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.productos-badge {
+    padding: 0.25rem 0.75rem;
+    background: #e83e8c;
+    color: white;
+    border-radius: 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}

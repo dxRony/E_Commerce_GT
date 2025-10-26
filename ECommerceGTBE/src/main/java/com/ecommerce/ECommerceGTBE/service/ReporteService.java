@@ -8,6 +8,8 @@ import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte3Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte4Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte5Response;
+import com.ecommerce.ECommerceGTBE.repository.ArticuloRepository;
 import com.ecommerce.ECommerceGTBE.repository.CompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleCompraRepository;
 import java.math.BigDecimal;
@@ -30,6 +32,9 @@ public class ReporteService {
 
     @Autowired
     private CompraRepository compraRepository;
+
+    @Autowired
+    private ArticuloRepository articuloRepository;
 
     public List<Reporte1Response> obtenerTop10ProductosMasVendidos(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
@@ -80,11 +85,11 @@ public class ReporteService {
 
         List<Object[]> resultados = detalleCompraRepository.findTop5ClientesMasVentas(inicio, fin);
         return resultados.stream()
-                .map(this::mapearClienteVentasAResponse)
+                .map(this::crearResponse3)
                 .collect(Collectors.toList());
     }
 
-    private Reporte3Response mapearClienteVentasAResponse(Object[] resultado) {
+    private Reporte3Response crearResponse3(Object[] resultado) {
         return new Reporte3Response(
                 ((Number) resultado[0]).intValue(),
                 (String) resultado[1],
@@ -102,11 +107,11 @@ public class ReporteService {
 
         List<Object[]> resultados = compraRepository.findTop10ClientesMasPedidos(inicio, fin);
         return resultados.stream()
-                .map(this::mapearClientePedidosAResponse)
+                .map(this::crearResponse4)
                 .collect(Collectors.toList());
     }
 
-    private Reporte4Response mapearClientePedidosAResponse(Object[] resultado) {
+    private Reporte4Response crearResponse4(Object[] resultado) {
         BigDecimal totalGastado = (BigDecimal) resultado[4];
         Integer totalPedidos = ((Number) resultado[3]).intValue();
         Double promedioPorPedido = totalPedidos > 0 ? totalGastado.doubleValue() / totalPedidos : 0.0;
@@ -119,6 +124,25 @@ public class ReporteService {
                 totalGastado,
                 promedioPorPedido,
                 (LocalDateTime) resultado[5]
+        );
+    }
+
+    public List<Reporte5Response> obtenerTop10ClientesMasProductosVenta() {
+        List<Object[]> resultados = articuloRepository.findTop10ClientesMasProductosVenta();
+
+        return resultados.stream()
+                .map(this::crearResponse5)
+                .collect(Collectors.toList());
+    }
+
+    private Reporte5Response crearResponse5(Object[] resultado) {
+        Integer totalProductos = ((Number) resultado[3]).intValue();
+
+        return new Reporte5Response(
+                ((Number) resultado[0]).intValue(),
+                (String) resultado[1],
+                (String) resultado[2],
+                totalProductos
         );
     }
 

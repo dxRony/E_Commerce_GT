@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EmpleadoResponse, ActualizarEmpleadoRequest, RegistroEmpleadoRequest } from '../models/user.model';
-import { Reporte1Response, Reporte2Response, Reporte3Response, Reporte4Response, ReporteRequest } from '../models/reporte.model';
+import { Reporte1Response, Reporte2Response, Reporte3Response, Reporte4Response, Reporte5Response, ReporteRequest } from '../models/reporte.model';
 
 @Injectable({
     providedIn: 'root'
@@ -50,6 +50,10 @@ export class AdminService {
 
     obtenerTop10ClientesMasPedidos(request: ReporteRequest): Observable<Reporte4Response[]> {
         return this.http.post<Reporte4Response[]>(`${this.apiUrl}/reportes/top10-clientes-pedidos`, request);
+    }
+
+    obtenerTop10ClientesMasProductosVenta(): Observable<Reporte5Response[]> {
+        return this.http.get<Reporte5Response[]>(`${this.apiUrl}/reportes/top10-clientes-productos-venta`);
     }
 
 }

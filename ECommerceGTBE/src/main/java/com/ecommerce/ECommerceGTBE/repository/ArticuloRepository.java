@@ -9,6 +9,7 @@ import com.ecommerce.ECommerceGTBE.model.Usuario;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -33,5 +34,15 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer> {
     List<Articulo> findByUsuarioAndEstadoAprobacion(Usuario usuario, String estadoAprobacion);
 
     Long countByEstadoAprobacion(String estadoAprobacion);
-    
+
+    @Query("SELECT u.id, u.nombre, u.email, "
+            + "COUNT(a) as totalProductos, "
+            + "SUM(a.precio) as valorTotal "
+            + "FROM Articulo a "
+            + "JOIN a.usuario u "
+            + "GROUP BY u.id, u.nombre, u.email "
+            + "ORDER BY totalProductos DESC "
+            + "LIMIT 10")
+    List<Object[]> findTop10ClientesMasProductosVenta();
+
 }

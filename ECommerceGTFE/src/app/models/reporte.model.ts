@@ -40,3 +40,10 @@ export interface Reporte4Response {
   promedioPorPedido: number;
   ultimaCompra: string;
 }
+
+export interface Reporte5Response {
+  vendedorId: number;
+  vendedorNombre: string;
+  vendedorEmail: string;
+  totalProductos: number;
+}

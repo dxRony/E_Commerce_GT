@@ -1,0 +1,30 @@
+<div class="reporte-container">
+    <div class="page-header">
+        <h1>Top 10 Clientes con Más Productos a la Venta</h1>
+    </div>
+    <div *ngIf="mostrarResultados && !isLoading" class="resultados-container">
+        <div class="tabla-container">
+            <table class="reporte-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Vendedor</th>
+                        <th>Email</th>
+                        <th>Productos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vendedor of vendedores; let i = index">
+                        <td class="ranking">{{ i + 1 }}</td>
+                        <td class="vendedor-info">{{vendedor.vendedorNombre }}</td>
+                        <td class="vendedor-email">{{ vendedor.vendedorEmail }}</td>
+                        <td class="total-productos">{{ vendedor.totalProductos }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="vendedores.length === 0" class="empty-state">
+            <h3>No se encontraron vendedores con productos</h3>
+        </div>
+    </div>
+</div>
