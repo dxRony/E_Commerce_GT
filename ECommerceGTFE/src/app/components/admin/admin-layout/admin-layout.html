@@ -31,14 +31,14 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link " (click)="toggleDropdown('reports')">
-              Visualizacion de reportes
+              Reportes
             </a>
             <ul class="dropdown-menu" [class.show]="openDropdown === 'reports'">
               <li><a class="dropdown-item" routerLink="/admin/reportes/reporte1">Top 10 productos mas vendidos en un
                   intervalor de tiempo</a></li>
               <li><a class="dropdown-item" routerLink="/admin/reportes/reporte2">Top 5 clientes que mas ganancias
                   generan en un intervalo de tiempo</a></li>
-              <li><a class="dropdown-item" routerLink="#">Top 5 clientes que mas han vendido en un intervalo de
+              <li><a class="dropdown-item" routerLink="/admin/reportes/reporte3">Top 5 clientes que mas han vendido en un intervalo de
                   tiempo</a></li>
               <li><a class="dropdown-item" routerLink="#">Top 10 clientes con mas pedidos en un intervalo de tiempo</a>
               </li>

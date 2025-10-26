@@ -6,6 +6,7 @@ package com.ecommerce.ECommerceGTBE.service;
 
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte3Response;
 import com.ecommerce.ECommerceGTBE.repository.CompraRepository;
 import com.ecommerce.ECommerceGTBE.repository.DetalleCompraRepository;
 import java.math.BigDecimal;
@@ -69,6 +70,28 @@ public class ReporteService {
                 ((Number) resultado[3]).intValue(),
                 (BigDecimal) resultado[4],
                 (BigDecimal) resultado[5]
+        );
+    }
+
+    public List<Reporte3Response> obtenerTop5ClientesMasVentas(LocalDate fechaInicio, LocalDate fechaFin) {
+        LocalDateTime inicio = fechaInicio.atStartOfDay();
+        LocalDateTime fin = fechaFin.atTime(23, 59, 59);
+
+        List<Object[]> resultados = detalleCompraRepository.findTop5ClientesMasVentas(inicio, fin);
+        return resultados.stream()
+                .map(this::mapearClienteVentasAResponse)
+                .collect(Collectors.toList());
+    }
+
+    private Reporte3Response mapearClienteVentasAResponse(Object[] resultado) {
+        return new Reporte3Response(
+                ((Number) resultado[0]).intValue(),
+                (String) resultado[1],
+                (String) resultado[2],
+                ((Number) resultado[3]).intValue(),
+                ((Number) resultado[4]).intValue(),
+                (BigDecimal) resultado[5],
+                (BigDecimal) resultado[6]
         );
     }
 

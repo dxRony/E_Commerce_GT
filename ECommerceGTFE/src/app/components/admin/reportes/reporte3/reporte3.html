@@ -1,0 +1,57 @@
+<div class="reporte-container">
+    <div class="page-header">
+        <h1>Top 5 Clientes que mas han vendido</h1>
+    </div>
+    <div class="filtros-card">
+        <div class="filtros-header">
+            <h3>Intervalo de tiempo</h3>
+        </div>
+        <div class="filtros-body">
+            <div class="filtros-grid">
+                <div class="filtro-group">
+                    <label class="filtro-label">Inicio</label>
+                    <input type="date" [(ngModel)]="fechaInicio" class="filtro-input">
+                </div>
+                <div class="filtro-group">
+                    <label class="filtro-label">Fin</label>
+                    <input type="date" [(ngModel)]="fechaFin" class="filtro-input">
+                </div>
+            </div>
+            <div class="filtros-actions">
+                <button (click)="generarReporte()" class="btn btn-primary">Generar Reporte</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+    <div *ngIf="mostrarResultados && !isLoading" class="resultados-container">
+        <div class="tabla-container">
+            <table class="reporte-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Vendedor</th>
+                        <th>Email</th>
+                        <th>Productos Vendidos</th>
+                        <th>Unidades Vendidas</th>
+                        <th>Total Ventas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vendedor of vendedores; let i = index" class="vendedor-row">
+                        <td class="ranking">{{ i + 1 }}</td>
+                        <td class="vendedor-info">{{ vendedor.vendedorNombre }}</td>
+                        <td class="vendedor-email">{{ vendedor.vendedorEmail }}</td>
+                        <td class="productos">{{ vendedor.totalProductosVendidos }}</td>
+                        <td class="unidades">{{ vendedor.totalArticulosVendidos }}</td>
+                        <td class="ventas">{{ formatearPrecio(vendedor.totalVentas) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="vendedores.length === 0" class="empty-state">
+            <h3>No se encontraron ventas en el intervalo seleccionado</h3>
+        </div>
+    </div>
+</div>

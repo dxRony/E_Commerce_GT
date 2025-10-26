@@ -10,6 +10,7 @@ import com.ecommerce.ECommerceGTBE.dto.request.usuario.ActualizarEmpleadoRequest
 import com.ecommerce.ECommerceGTBE.dto.response.auth.MensajeResponse;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte1Response;
 import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte2Response;
+import com.ecommerce.ECommerceGTBE.dto.response.reporte.Reporte3Response;
 import com.ecommerce.ECommerceGTBE.dto.response.usuario.EmpleadoResponse;
 import com.ecommerce.ECommerceGTBE.model.Usuario;
 import com.ecommerce.ECommerceGTBE.service.AdminService;
@@ -135,6 +136,16 @@ public class AdminController {
                 .obtenerTop5ClientesMasGanancias(request.getFechaInicio(), request.getFechaFin());
 
         return ResponseEntity.ok(clientes);
+    }
+
+    @PostMapping("/reportes/top5-clientes-ventas")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<List<Reporte3Response>> obtenerTop5ClientesMasVentas(
+            @Valid @RequestBody ReporteRequest request) {
+
+        List<Reporte3Response> vendedores = reporteService
+                .obtenerTop5ClientesMasVentas(request.getFechaInicio(), request.getFechaFin());
+        return ResponseEntity.ok(vendedores);
     }
 
     private EmpleadoResponse crearResponse(Usuario empleado) {

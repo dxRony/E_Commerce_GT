@@ -20,3 +20,13 @@ export interface Reporte2Response {
   totalGastado: number;
   gananciaGenerada: number;
 }
+
+export interface Reporte3Response {
+  vendedorId: number;
+  vendedorNombre: string;
+  vendedorEmail: string;
+  totalProductosVendidos: number;
+  totalArticulosVendidos: number;
+  totalVentas: number;
+  gananciasVendedor: number;
+}

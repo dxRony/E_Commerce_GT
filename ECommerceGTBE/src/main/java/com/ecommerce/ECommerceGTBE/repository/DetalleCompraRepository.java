@@ -60,4 +60,18 @@ public interface DetalleCompraRepository extends JpaRepository<DetalleCompra, In
             + "LIMIT 10")
     List<Object[]> findTop10ProductosMasVendidos(@Param("fechaInicio") LocalDateTime fechaInicio,
             @Param("fechaFin") LocalDateTime fechaFin);
+
+    @Query("SELECT u.id, u.nombre, u.email, COUNT(DISTINCT dc.articulo) as totalProductos, "
+            + "SUM(dc.cantidad) as totalArticulos, SUM(dc.subtotal) as totalVentas, "
+            + "SUM(dc.subtotal * (1 - (c.comisionPagina / c.total))) as gananciasVendedor "
+            + "FROM DetalleCompra dc "
+            + "JOIN dc.articulo a "
+            + "JOIN a.usuario u "
+            + "JOIN dc.compra c "
+            + "WHERE c.fecha BETWEEN :fechaInicio AND :fechaFin "
+            + "GROUP BY u.id, u.nombre, u.email "
+            + "ORDER BY totalVentas DESC "
+            + "LIMIT 5")
+    List<Object[]> findTop5ClientesMasVentas(@Param("fechaInicio") LocalDateTime fechaInicio,
+            @Param("fechaFin") LocalDateTime fechaFin);
 }
