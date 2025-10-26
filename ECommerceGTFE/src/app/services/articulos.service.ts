@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ArticuloRequest, ArticuloResponse } from '../models/articulos.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticuloService {
-  private apiUrl = 'http://localhost:8080/api/articulos';
+  private apiUrl = `${environment.apiUrl}/articulos`;
 
   constructor(private http: HttpClient) { }
 

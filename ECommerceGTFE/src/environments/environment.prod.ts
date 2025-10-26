@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://e_commerce_gt.com/api'
+  apiUrl: 'https://melba-subprofessional-nickolas.ngrok-free.dev/api'
 };

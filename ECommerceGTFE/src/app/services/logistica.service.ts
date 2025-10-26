@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EntregaResponse, DetalleEntregaResponse, ModificarEntregaRequest } from '../models/entrega.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogisticaService {
-  private apiUrl = 'http://localhost:8080/api/entregas';
+  private apiUrl = `${environment.apiUrl}/entregas`;
 
   constructor(private http: HttpClient) { }
 

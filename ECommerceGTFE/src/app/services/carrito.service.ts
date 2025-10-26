@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CarritoDetalleRequest, CarritoDetalleResponse, CarritoResponse, MensajeResponse } from '../models/carrito.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8080/api/carrito';
+  private apiUrl = `${environment.apiUrl}/carrito`;
 
   constructor(private http: HttpClient) { }
 
