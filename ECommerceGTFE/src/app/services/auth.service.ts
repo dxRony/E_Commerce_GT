@@ -16,7 +16,7 @@ export class AuthService {
     private http: HttpClient,
     private tokenService: TokenService,
     private router: Router
-  ) {}
+  ) { }
 
   /**
    * envia los datos de login al backend y guarda el token y datos del usuario en el almacenamiento local
@@ -65,35 +65,67 @@ export class AuthService {
     this.tokenService.eliminarToken();
   }
 
+  /**
+   * verifica que el token sea valido
+   * @returns 
+   */
   verificarToken(): Observable<TokenValidation> {
     return this.http.get<TokenValidation>(`${this.apiUrl}/verificar`);
   }
 
+  /**
+   * verifica que haya una sesion en curso
+   * @returns 
+   */
   estaLogueado(): boolean {
-  return this.tokenService.estaLogueado();
-}
+    return this.tokenService.estaLogueado();
+  }
 
+  /**
+   * obtiene el rol del usuario
+   * @returns 
+   */
   obtenerRolUser(): number {
-  const user = this.tokenService.obtenerUsuario();
-  return user?.rol || 0;
-}
+    const user = this.tokenService.obtenerUsuario();
+    return user?.rol || 0;
+  }
 
+  /**
+   * obtiene al usuario
+   * @returns 
+   */
   obtenerUsuario(): any {
     return this.tokenService.obtenerUsuario();
   }
 
+  /**
+   * valida si el usuario es admin
+   * @returns 
+   */
   esAdmin(): boolean {
     return this.obtenerRolUser() === 4;
   }
 
-  esModerador(): boolean {
-    return this.obtenerRolUser() === 2;
-  }
-
+  /**
+   * valida si el usuario es de logistica
+   * @returns 
+   */
   esLogistica(): boolean {
     return this.obtenerRolUser() === 3;
   }
 
+  /**
+   * valida si el usuario es mod
+   * @returns 
+   */
+  esModerador(): boolean {
+    return this.obtenerRolUser() === 2;
+  }
+
+  /**
+   * valida si el usuario es comun
+   * @returns 
+   */
   esComun(): boolean {
     return this.obtenerRolUser() === 1;
   }

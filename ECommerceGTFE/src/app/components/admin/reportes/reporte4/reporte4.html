@@ -36,8 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of clientes; let i = index" class="cliente-row" [class.top-1]="i === 0"
-                        [class.top-2]="i === 1" [class.top-3]="i === 2">
+                    <tr *ngFor="let cliente of clientes; let i = index" class="cliente-row">
                         <td class="ranking">{{ i + 1 }}</td>
                         <td class="cliente-info">{{ cliente.clienteNombre }}</td>
                         <td class="cliente-email">{{ cliente.clienteEmail }}</td>
@@ -48,7 +47,7 @@
             </table>
         </div>
         <div *ngIf="clientes.length === 0" class="empty-state">
-            <h3>No se encontraron pedidos en el período seleccionado</h3>
+            <h3>No se encontraron pedidos en el ranjo seleccionado</h3>
         </div>
     </div>
 </div>

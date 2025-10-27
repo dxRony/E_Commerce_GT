@@ -20,7 +20,7 @@ registerForm: FormGroup;
 
   roles = [
     { id: 2, nombre: 'Moderador' },
-    { id: 3, nombre: 'Logística' },
+    { id: 3, nombre: 'Logistica' },
     { id: 4, nombre: 'Administrador' }
   ];
 
@@ -40,6 +40,11 @@ registerForm: FormGroup;
     }, { validators: this.passwordMatchValidator });
   }
 
+  /**
+   * metodo que valida que las contrasenias sean iguales
+   * @param form
+   * @returns 
+   */
   passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
@@ -53,6 +58,9 @@ registerForm: FormGroup;
     }
   }
 
+  /**
+   * disparador del registro de empleado
+   */
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.isSubmitting = true;

@@ -23,6 +23,9 @@ export class Reporte5 implements OnInit {
     this.generarReporte();
   }
 
+  /**
+   * metodo que genera los reportes
+   */
   generarReporte(): void {
     this.isLoading = true;
     this.error = '';
@@ -42,6 +45,11 @@ export class Reporte5 implements OnInit {
     });
   }
 
+  /**
+   * metodo que calcula el total de los productos 
+   * que un vendedor tiene a la venta
+   * @returns 
+   */
   calcularTotalProductos(): number {
     return this.vendedores.reduce((total, vendedor) => total + vendedor.totalProductos, 0);
   }

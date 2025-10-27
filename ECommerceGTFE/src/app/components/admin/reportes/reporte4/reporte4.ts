@@ -27,6 +27,9 @@ export class Reporte4 implements OnInit {
     this.establecerFechasPorDefecto();
   }
 
+  /**
+   * metodo que carga las fechas por defecto (hoy)
+   */
   establecerFechasPorDefecto(): void {
     const hoy = new Date();
 
@@ -34,19 +37,21 @@ export class Reporte4 implements OnInit {
     this.fechaInicio = hoy.toISOString().split('T')[0];
   }
 
+  /**
+   * metodo que generea los reportes dados las fechas
+   * @returns 
+   */
   generarReporte(): void {
     if (!this.fechaInicio || !this.fechaFin) {
       this.error = 'selecciona ambas fechas';
       alert(this.error);
       return;
     }
-
     if (this.fechaInicio > this.fechaFin) {
       this.error = 'La fecha de inicio no puede ser mayor a la fecha fin';
       alert(this.error);
       return;
     }
-
     this.isLoading = true;
     this.error = '';
     this.mostrarResultados = false;
@@ -55,7 +60,6 @@ export class Reporte4 implements OnInit {
       fechaInicio: this.fechaInicio,
       fechaFin: this.fechaFin
     };
-
     this.adminService.obtenerTop10ClientesMasPedidos(request).subscribe({
       next: (clientes) => {
         this.clientes = clientes;
@@ -77,6 +81,11 @@ export class Reporte4 implements OnInit {
     }).format(precio);
   }
 
+  /**
+   * metodo que formatea el precioa  la moneda local
+   * @param precio 
+   * @returns 
+   */
   formatearFecha(fecha: string): string {
     return new Date(fecha).toLocaleDateString('es-GT', {
       year: 'numeric',
@@ -87,10 +96,18 @@ export class Reporte4 implements OnInit {
     });
   }
 
+  /**
+   * metodo que calcula el total de los pedidos de los clientes
+   * @returns 
+   */
   calcularTotalPedidos(): number {
     return this.clientes.reduce((total, cliente) => total + cliente.totalPedidos, 0);
   }
 
+  /**
+   * metodo que calcula el total que un cliente ha gastado
+   * @returns 
+   */
   calcularTotalGastado(): number {
     return this.clientes.reduce((total, cliente) => total + cliente.totalGastado, 0);
   }

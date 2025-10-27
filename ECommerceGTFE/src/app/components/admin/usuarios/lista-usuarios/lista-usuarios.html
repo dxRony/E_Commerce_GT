@@ -10,21 +10,12 @@
     <div class="filters-grid">
       <div class="filter-group">
         <label class="filter-label">Buscar</label>
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (input)="aplicarFiltros()"
-          placeholder="busca por nombre-email-direccion"
-          class="filter-input"
-        >
+        <input type="text" [(ngModel)]="searchTerm" (input)="aplicarFiltros()"
+          placeholder="busca por nombre-email-direccion" class="filter-input">
       </div>
       <div class="filter-group">
         <label class="filter-label">Rol</label>
-        <select
-          [(ngModel)]="selectedRol"
-          (change)="aplicarFiltros()"
-          class="filter-select"
-        >
+        <select [(ngModel)]="selectedRol" (change)="aplicarFiltros()" class="filter-select">
           <option value="all">Cualquiera</option>
           <option *ngFor="let rol of roles" [value]="rol.id">
             {{ rol.nombre }}
@@ -33,11 +24,7 @@
       </div>
       <div class="filter-group">
         <label class="filter-label">Estado</label>
-        <select
-          [(ngModel)]="selectedEstado"
-          (change)="aplicarFiltros()"
-          class="filter-select"
-        >
+        <select [(ngModel)]="selectedEstado" (change)="aplicarFiltros()" class="filter-select">
           <option value="all">Cualquiera</option>
           <option value="activo">Activo</option>
           <option value="suspendido">Suspendido</option>
@@ -45,14 +32,14 @@
       </div>
     </div>
   </div>
-  <div class="table-card">   
+  <div class="table-card">
     <div *ngIf="error && !isLoading" class="error-state">
       <p>{{ error }}</p>
       <button class="btn-retry" (click)="cargarEmpleados()">Reintentar</button>
     </div>
     <div *ngIf="!isLoading && !error">
       <div class="table-header">
-        <div class="table-info">         
+        <div class="table-info">
         </div>
       </div>
       <div class="table-responsive">
@@ -79,7 +66,8 @@
               <td class="cell-status">{{ getEstadoTexto(empleado.suspendido) }}
               </td>
               <td class="cell-actions">
-                <button class="btn-edit" [routerLink]="['/admin/usuarios/editar', empleado.id]" title="Editar usuario">Editar</button>
+                <button class="btn-edit" [routerLink]="['/admin/usuarios/editar', empleado.id]"
+                  title="Editar usuario">Editar</button>
               </td>
             </tr>
           </tbody>

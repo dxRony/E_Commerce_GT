@@ -45,6 +45,10 @@ export class Carrito implements OnInit {
     this.cargarCarrito();
   }
 
+  /**
+   * metodoq ue obtiene el carrito del usuario
+   * junto con sus detalles (articulos)
+   */
   cargarCarrito(): void {
     this.isLoading = true;
     this.carritoService.obtenerCarrito().subscribe({
@@ -60,11 +64,18 @@ export class Carrito implements OnInit {
     });
   }
 
+  /**
+   * metodo que abre el modal del pago donde se
+   * elije la tarjeta a usar
+   */
   abrirModalPago(): void {
     this.mostrarModalPago = true;
     this.cargarTarjetas();
   }
 
+  /**
+   * metodo que cierra el modal
+   */
   cerrarModalPago(): void {
     this.mostrarModalPago = false;
     this.mostrarFormTarjeta = false;
@@ -72,6 +83,10 @@ export class Carrito implements OnInit {
     this.nuevaTarjeta = { numeracion: '', fechaVencimiento: '', cvv: '' };
   }
 
+  /**
+   * metodo que obtiene las tarjetas del usuario
+   * para que elija una y realice el pago
+   */
   cargarTarjetas(): void {
     this.tarjetaService.getMisTarjetas().subscribe({
       next: (tarjetas) => {
@@ -84,6 +99,10 @@ export class Carrito implements OnInit {
     });
   }
 
+  /**
+   * metodo que realiza el pago de los productos, dada una tarjeta seleccionada
+   * @returns 
+   */
   procesarPago(): void {
     if (!this.tarjetaSeleccionada) {
       this.mostrarNotificacion('Por favor selecciona una tarjeta', 'warning');
@@ -98,47 +117,60 @@ export class Carrito implements OnInit {
     this.compraService.procesarPago(compraRequest).subscribe({
       next: (compra) => {
         this.procesandoPago = false;
-        this.mostrarNotificacion('¡Pago procesado exitosamente!', 'success');
+        this.mostrarNotificacion('pago realizado!', 'success');
         this.cerrarModalPago();
         this.cargarCarrito();
-
-        console.log('Compra realizada:', compra);
       },
       error: (error) => {
         this.procesandoPago = false;
-        console.error('Error al procesar pago:', error);
         this.mostrarNotificacion('Error al procesar el pago', 'error');
       }
     });
   }
 
+  /**
+   * metodo que agrega una tarjeta para el usuario y realice compras con
+   * esta tarjeta
+   */
   agregarNuevaTarjeta(): void {
     this.tarjetaService.agregarTarjeta(this.nuevaTarjeta).subscribe({
       next: (tarjeta) => {
-        this.mostrarNotificacion('Tarjeta agregada exitosamente', 'success');
+        this.mostrarNotificacion('trajeta agregada', 'success');
         this.mostrarFormTarjeta = false;
         this.nuevaTarjeta = { numeracion: '', fechaVencimiento: '', cvv: '' };
         this.cargarTarjetas();
         this.tarjetaSeleccionada = tarjeta.id;
       },
       error: (error) => {
-        console.error('Error al agregar tarjeta:', error);
         this.mostrarNotificacion('Error al agregar tarjeta', 'error');
       }
     });
   }
 
+  /**
+   * metodo que oculta los primeros numeros de la tarjeta de 
+   * un usuario
+   * @param numeracion 
+   * @returns 
+   */
   ocutlarNumeroTarjeta(numeracion: string): string {
     return `****-****-****-${numeracion.slice(-4)}`;
   }
 
+  /**
+   * metodo que actualiza la cantidad de un articulo en el carrito
+   * validando stock o eliminacion si es 0 la cantidad
+   * @param item 
+   * @param nuevaCantidad 
+   * @returns 
+   */
   actualizarCantidad(item: CarritoDetalleResponse, nuevaCantidad: number): void {
     if (nuevaCantidad < 1) {
       this.eliminarDelCarrito(item.id);
       return;
     }
     if (nuevaCantidad > item.stockDisponible) {
-      this.mostrarNotificacion(`No hay suficiente stock, disponible: ${item.stockDisponible}`, 'warning');
+      this.mostrarNotificacion(`No hay stock, disponible: ${item.stockDisponible}`, 'warning');
       return;
     }
     this.carritoService.actualizarCantidad(item.id, nuevaCantidad).subscribe({
@@ -158,6 +190,10 @@ export class Carrito implements OnInit {
     });
   }
 
+  /**
+   * metodo que elimina el articulo seleccionado del carrito
+   * @param itemId 
+   */
   eliminarDelCarrito(itemId: number): void {
     this.carritoService.eliminarDelCarrito(itemId).subscribe({
       next: () => {
@@ -198,6 +234,12 @@ export class Carrito implements OnInit {
     }).format(precio);
   }
 
+  /**
+   * metodo que calcula el total de los detalles en el carrito
+   * dado el precio del articulo y las cantidades seleccionadas
+   * @param item 
+   * @returns 
+   */
   calcularSubtotal(item: CarritoDetalleResponse): number {
     return item.articuloPrecio * item.cantidad;
   }
@@ -206,21 +248,6 @@ export class Carrito implements OnInit {
     this.mensajeAlerta = mensaje;
     this.tipoAlerta = tipo;
     this.mostrarAlerta = true;
-  }
-
-  getAlertClasses(): string {
-    const baseClasses = '';
-
-    switch (this.tipoAlerta) {
-      case 'success':
-        return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
-      case 'error':
-        return `${baseClasses} bg-red-100 border border-red-400 text-red-700`;
-      case 'warning':
-        return `${baseClasses} bg-yellow-100 border border-yellow-400 text-yellow-700`;
-      default:
-        return `${baseClasses} bg-green-100 border border-green-400 text-green-700`;
-    }
   }
 
 }

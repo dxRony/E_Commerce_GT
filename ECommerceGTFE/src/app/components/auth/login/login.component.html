@@ -4,17 +4,12 @@
       <div class="card-header">
         <h3 class="card-title">Iniciar Sesion</h3>
       </div>
-
       <div class="card-body">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input 
-              type="email"
-              class="form-input"
-              formControlName="email"
-              [class.input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-            >
+            <input type="email" class="form-input" formControlName="email"
+              [class.input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
             <div class="error-message"
               *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
               El email es obligatorio
@@ -24,27 +19,18 @@
               Formato de email invalido
             </div>
           </div>
-
           <div class="form-group">
             <label class="form-label">Contrasenia</label>
-            <input 
-              type="password"
-              class="form-input"
-              formControlName="password"
-              [class.input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-            >
+            <input type="password" class="form-input" formControlName="password"
+              [class.input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
             <div class="error-message"
               *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched">
               La contrasenia es obligatoria
             </div>
           </div>
 
-          <button 
-            type="submit"
-            class="submit-button"
-            [disabled]="loginForm.invalid || loading()"
-            [class.button-disabled]="loginForm.invalid || loading()"
-          >
+          <button type="submit" class="submit-button" [disabled]="loginForm.invalid || loading()"
+            [class.button-disabled]="loginForm.invalid || loading()">
             <div class="button-content">Iniciar Sesion</div>
           </button>
 
@@ -61,7 +47,6 @@
         </form>
       </div>
     </div>
-
     <div class="back-link">
       <a href="/welcome" class="btn-start">← Volver a la pagina principal</a>
     </div>

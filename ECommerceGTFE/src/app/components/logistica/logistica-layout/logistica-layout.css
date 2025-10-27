@@ -8,7 +8,7 @@
   background: linear-gradient(135deg, #004D98 0%, #A50044 100%);
   color: white;
   padding: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 60px;
 }
 
@@ -78,7 +78,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown-menu {
@@ -87,7 +87,7 @@
   left: 0;
   background: white;
   min-width: 200px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   list-style: none;
   padding: 0.5rem 0;
@@ -133,8 +133,8 @@
 }
 
 .btn-logout {
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
@@ -145,7 +145,7 @@
 }
 
 .btn-logout:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .admin-main {

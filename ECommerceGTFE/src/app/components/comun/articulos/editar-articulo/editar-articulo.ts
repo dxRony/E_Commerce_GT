@@ -21,6 +21,7 @@ export class EditarArticulo implements OnInit {
   error: string = '';
   success: string = '';
 
+  //categorias trackeadas
   categorias = [
     'Tecnologia',
     'Hogar',
@@ -29,6 +30,7 @@ export class EditarArticulo implements OnInit {
     'Otro'
   ];
 
+  //estados de los articulos
   estadosArticulo = [
     { value: 'Nuevo', label: 'Nuevo' },
     { value: 'Usado', label: 'Usado' }
@@ -56,6 +58,9 @@ export class EditarArticulo implements OnInit {
     this.cargarArticulo();
   }
 
+  /**
+   * metodo que garga el articulo para realizar la edicion
+   */
   cargarArticulo(): void {
     this.isLoading = true;
     this.articleService.getArticuloById(this.articuloId).subscribe({
@@ -72,6 +77,9 @@ export class EditarArticulo implements OnInit {
     });
   }
 
+  /**
+   * metodo que carga el articulo en el form de edicion
+   */
   cargarDatosEnFormulario(): void {
     if (this.articulo) {
       this.editForm.patchValue({
@@ -86,12 +94,16 @@ export class EditarArticulo implements OnInit {
     }
   }
 
+  /**
+   * disparadora para actualizar el articulo
+   */
   onSubmit(): void {
     if (this.editForm.valid && this.articulo) {
       this.isSubmitting = true;
       this.error = '';
       this.success = '';
 
+      //creando request del articulo
       const request: ArticuloRequest = {
         nombre: this.editForm.get('nombre')?.value,
         descripcion: this.editForm.get('descripcion')?.value,
@@ -102,6 +114,7 @@ export class EditarArticulo implements OnInit {
         categoria: this.editForm.get('categoria')?.value
       };
 
+      //actualizandolo
       this.articleService.updateArticulo(this.articuloId, request).subscribe({
         next: (articuloActualizado) => {
           this.articulo = articuloActualizado;
@@ -128,6 +141,12 @@ export class EditarArticulo implements OnInit {
     }
   }
 
+  /**
+   * metodo que le da formato al precio en la 
+   * moneda loical
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',

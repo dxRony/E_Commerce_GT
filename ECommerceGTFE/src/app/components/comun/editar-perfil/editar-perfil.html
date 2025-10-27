@@ -19,19 +19,16 @@
         <div *ngIf="success" class="success-message">
             {{ success }}
         </div>
-
         <div *ngIf="error" class="error-message">
             {{ error }}
         </div>
-
         <div class="form-card">
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" id="nombre" formControlName="nombre" class="form-input"
-                            [class.input-error]="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched"
-                            >
+                            [class.input-error]="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched">
                         <div class="error-message"
                             *ngIf="profileForm.get('nombre')?.errors?.['required'] && profileForm.get('nombre')?.touched">
                             El nombre es obligatorio
@@ -42,52 +39,46 @@
                         </div>
                         <div class="error-message"
                             *ngIf="profileForm.get('nombre')?.errors?.['maxlength'] && profileForm.get('nombre')?.touched">
-                            El nombre no puede tener más de 100 caracteres
+                            El nombre no puede tener mas de 100 caracteres
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="celular" class="form-label">Celular</label>
                         <input type="tel" id="celular" formControlName="celular" class="form-input"
-                            [class.input-error]="profileForm.get('celular')?.invalid && profileForm.get('celular')?.touched"
-                            placeholder="Ingrese su celular">
+                            [class.input-error]="profileForm.get('celular')?.invalid && profileForm.get('celular')?.touched">
                         <div class="error-message"
                             *ngIf="profileForm.get('celular')?.errors?.['required'] && profileForm.get('celular')?.touched">
                             El celular es obligatorio
                         </div>
                         <div class="error-message"
                             *ngIf="profileForm.get('celular')?.errors?.['pattern'] && profileForm.get('celular')?.touched">
-                            El celular debe tener exactamente 8 dígitos
+                            El celular debe tener 8 digitos
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="rol" class="form-label">Rol</label>
                         <input type="text" id="rol" formControlName="rol" class="form-input readonly" readonly>
                     </div>
                 </div>
-
                 <div class="form-group full-width">
-                    <label for="direccion" class="form-label">Dirección</label>
+                    <label for="direccion" class="form-label">Direccion</label>
                     <textarea id="direccion" formControlName="direccion" class="form-textarea"
                         [class.input-error]="profileForm.get('direccion')?.invalid && profileForm.get('direccion')?.touched"
-                        placeholder="Ingrese su dirección completa" rows="3"></textarea>
+                        rows="3"></textarea>
                     <div class="error-message"
                         *ngIf="profileForm.get('direccion')?.errors?.['required'] && profileForm.get('direccion')?.touched">
-                        La dirección es obligatoria
+                        La direccion es obligatoria
                     </div>
                     <div class="error-message"
                         *ngIf="profileForm.get('direccion')?.errors?.['maxlength'] && profileForm.get('direccion')?.touched">
-                        La dirección no puede tener más de 200 caracteres
+                        La direccion no puede tener más de 200 caracteres
                     </div>
                 </div>
-
                 <div class="form-actions">
                     <button type="button" class="btn-cancel" (click)="volverAInicio()" [disabled]="isSubmitting">
                         Cancelar
                     </button>
                     <button type="submit" class="btn-submit" [disabled]="profileForm.invalid || isSubmitting">
-                        <span *ngIf="isSubmitting" class="loading-spinner"></span>
                         {{ isSubmitting ? 'Guardando.' : 'Guardar' }}
                     </button>
                 </div>

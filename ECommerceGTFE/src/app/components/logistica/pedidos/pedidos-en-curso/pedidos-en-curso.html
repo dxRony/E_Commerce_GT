@@ -1,7 +1,7 @@
 <div class="orders-container">
     <div class="page-header">
         <h1>Gestion de Pedidos en Curso</h1>
-    </div>    
+    </div>
     <div *ngIf="success" class="success-message">
         {{ success }}
     </div>
@@ -32,7 +32,7 @@
                         <div>
                             {{ formatearPrecio(entrega.compraTotal) }}
                         </div>
-                    </div>                    
+                    </div>
                     <div class="customer-info">
                         <div class="info-item">
                             <strong>Cliente:</strong> {{ entrega.usuarioNombre }}
@@ -48,21 +48,19 @@
                         <h4 class="items-title">Articulos en la compra:</h4>
 
                         <div class="items-list">
-                            <div *ngFor="let detalle of entrega.detalles || []" 
-                                 class="item-row" 
-                                 [class.item-ready]="detalle.listo">
+                            <div *ngFor="let detalle of entrega.detalles || []" class="item-row"
+                                [class.item-ready]="detalle.listo">
                                 <div class="item-info">
                                     <div class="item-details">
                                         <h5 class="item-name">{{ detalle.articuloNombre }}</h5>
                                         <p class="item-quantity">cantidad: {{ detalle.cantidad }}</p>
                                     </div>
                                 </div>
-                                
+
                                 <div>
                                     <span *ngIf="detalle.listo">Listo</span>
-                                    <button *ngIf="!detalle.listo" 
-                                            (click)="marcarDetalleListo(detalle, entrega.id)"
-                                            class="btn btn-primary">
+                                    <button *ngIf="!detalle.listo" (click)="marcarDetalleListo(detalle, entrega.id)"
+                                        class="btn btn-primary">
                                         Marcar como Listo
                                     </button>
                                 </div>
@@ -73,12 +71,13 @@
                         <button class="btn-update-date" (click)="abrirModalFecha(entrega)">
                             Modificar Fecha
                         </button>
-                        <button class="btn-deliver" 
-                                (click)="marcarComoEntregada(entrega)"
-                                [disabled]="!todosDetallesListos(entrega.detalles || [])"
-                                [class.disabled]="!todosDetallesListos(entrega.detalles || [])"
-                                title="{{ todosDetallesListos(entrega.detalles || []) ? 'Marcar entrega como entregada' : 'Todos los artículos deben estar listos' }}">
-                            {{ todosDetallesListos(entrega.detalles || []) ? 'Marcar como entregado' : 'Esperando artículos (' + contarDetallesListos(entrega.detalles) + '/' + (entrega.detalles?.length || 0) + ')' }}
+                        <button class="btn-deliver" (click)="marcarComoEntregada(entrega)"
+                            [disabled]="!todosDetallesListos(entrega.detalles || [])"
+                            [class.disabled]="!todosDetallesListos(entrega.detalles || [])"
+                            title="{{ todosDetallesListos(entrega.detalles || []) ? 'Marcar entrega como entregada' : 'Todos los artículos deben estar listos' }}">
+                            {{ todosDetallesListos(entrega.detalles || []) ? 'Marcar como entregado' : 'Esperando
+                            artículos (' + contarDetallesListos(entrega.detalles) + '/' + (entrega.detalles?.length ||
+                            0) + ')' }}
                         </button>
                     </div>
                 </div>

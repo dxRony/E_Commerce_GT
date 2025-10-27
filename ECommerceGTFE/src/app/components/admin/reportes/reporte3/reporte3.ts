@@ -25,6 +25,9 @@ export class Reporte3 implements OnInit {
     this.establecerFechasPorDefecto();
   }
 
+  /**
+   * metodo que establece las fechas por fefecto (hoy)
+   */
   establecerFechasPorDefecto(): void {
     const hoy = new Date();
 
@@ -32,6 +35,10 @@ export class Reporte3 implements OnInit {
     this.fechaInicio = hoy.toISOString().split('T')[0];
   }
 
+  /**
+   * metodo que generea los reportes dados las fechas
+   * @returns 
+   */
   generarReporte(): void {
     if (!this.fechaInicio || !this.fechaFin) {
       this.error = 'selecciona ambas fechas';
@@ -68,6 +75,11 @@ export class Reporte3 implements OnInit {
     });
   }
 
+   /**
+   * metodo que formatea el precioa  la moneda local
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',
@@ -75,14 +87,26 @@ export class Reporte3 implements OnInit {
     }).format(precio);
   }
 
+  /**
+   * calcula el total de las ventas (suma los presio de los productos vendidos)
+   * @returns 
+   */
   calcularTotalVentas(): number {
     return this.vendedores.reduce((total, vendedor) => total + vendedor.totalVentas, 0);
   }
 
+  /**
+   * calcula el total de los articulos 
+   * @returns 
+   */
   calcularTotalArticulos(): number {
     return this.vendedores.reduce((total, vendedor) => total + vendedor.totalArticulosVendidos, 0);
   }
 
+  /**
+   * calcula el total de los precios de los productos vendidos
+   * @returns 
+   */
   calcularTotalProductos(): number {
     return this.vendedores.reduce((total, vendedor) => total + vendedor.totalProductosVendidos, 0);
   }

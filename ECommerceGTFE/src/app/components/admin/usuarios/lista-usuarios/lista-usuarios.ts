@@ -13,7 +13,7 @@ import { EmpleadoResponse } from '../../../../models/user.model';
   styleUrl: './lista-usuarios.css'
 })
 export class ListaUsuarios implements OnInit {
-empleados: EmpleadoResponse[] = [];
+  empleados: EmpleadoResponse[] = [];
   empleadosFiltrados: EmpleadoResponse[] = [];
   isLoading: boolean = true;
   error: string = '';
@@ -22,18 +22,22 @@ empleados: EmpleadoResponse[] = [];
   selectedRol: string = 'all';
   selectedEstado: string = 'all';
 
+  //roles de empleados
   roles = [
     { id: 4, nombre: 'Administrador' },
     { id: 2, nombre: 'Moderador' },
     { id: 3, nombre: 'Logistica' }
   ];
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.cargarEmpleados();
   }
 
+  /**
+   * metodo que carga a los empleados en la tabla
+   */
   cargarEmpleados(): void {
     this.isLoading = true;
     this.adminService.obtenerTodosEmpleados().subscribe({
@@ -50,6 +54,10 @@ empleados: EmpleadoResponse[] = [];
     });
   }
 
+  /**
+   * metodo que aplica los filtros 
+   * nombre, emaik, direccion, rol, estado
+   */
   aplicarFiltros(): void {
     let filtered = this.empleados;
 

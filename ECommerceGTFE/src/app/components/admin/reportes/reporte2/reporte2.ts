@@ -26,13 +26,20 @@ export class Reporte2 implements OnInit {
     this.establecerFechasPorDefecto();
   }
 
+  /**
+   * metodoq que carga las fechas por defecto (hoy)
+   */
   establecerFechasPorDefecto(): void {
-    const hoy = new Date();   
+    const hoy = new Date();
 
     this.fechaFin = hoy.toISOString().split('T')[0];
     this.fechaInicio = hoy.toISOString().split('T')[0];
   }
 
+   /**
+   * metodo que generea los reportes dados las fechas
+   * @returns 
+   */
   generarReporte(): void {
     if (!this.fechaInicio || !this.fechaFin) {
       this.error = 'selecciona ambas fechas';
@@ -69,6 +76,11 @@ export class Reporte2 implements OnInit {
     });
   }
 
+  /**
+   * metodo que formatea el precioa  la moneda local
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',
@@ -76,14 +88,26 @@ export class Reporte2 implements OnInit {
     }).format(precio);
   }
 
+  /**
+   * metodo que calcula el total de las ganancias
+   * @returns 
+   */
   calcularTotalGanancias(): number {
     return this.clientes.reduce((total, cliente) => total + cliente.gananciaGenerada, 0);
   }
 
+  /**
+   * metodo que calcula el total gastado por cliente
+   * @returns 
+   */
   calcularTotalGastado(): number {
     return this.clientes.reduce((total, cliente) => total + cliente.totalGastado, 0);
   }
 
+  /**
+   * metodo que calcula el total de las compras
+   * @returns 
+   */
   calcularTotalCompras(): number {
     return this.clientes.reduce((total, cliente) => total + cliente.totalCompras, 0);
   }

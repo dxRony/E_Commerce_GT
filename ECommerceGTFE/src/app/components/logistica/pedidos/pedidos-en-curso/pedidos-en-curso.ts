@@ -31,6 +31,10 @@ export class PedidosEnCurso implements OnInit {
     this.cargarEntregasEnCurso();
   }
 
+  /**
+   * metodo que obtiene las entregas en curso para 
+   * que el usuario las pueda ver
+   */
   cargarEntregasEnCurso(): void {
     this.isLoading = true;
     this.logisticaService.obtenerEntregasEnCurso().subscribe({
@@ -46,6 +50,11 @@ export class PedidosEnCurso implements OnInit {
     });
   }
 
+  /**
+   * metodo que aplica filtros sobre las entregas obtenidas
+   * nombre del usuario, direccion, compra, estado
+   * @returns 
+   */
   aplicarFiltros(): EntregaResponse[] {
     let filtered = this.entregas;
 
@@ -106,6 +115,9 @@ export class PedidosEnCurso implements OnInit {
     this.newFechaEstimada = '';
   }
 
+  /**
+   * metodo que actualiza la fecha estimada de la entrega
+   */
   actualizarFechaEstimada(): void {
     if (this.selectedEntrega && this.newFechaEstimada) {
       console.error('new fechaEstimada:', this.newFechaEstimada);
@@ -130,17 +142,21 @@ export class PedidosEnCurso implements OnInit {
     }
   }
 
+  /**
+   * metodo que cuenta los detalles entregas listos para mostrar el progreso de la compra-entrega
+   * @param detalles 
+   * @returns 
+   */
   contarDetallesListos(detalles: DetalleEntregaResponse[] | undefined): number {
     if (!detalles) return 0;
     return detalles.filter(detalle => detalle.listo).length;
   }
 
-  calcularProgreso(detalles: DetalleEntregaResponse[] | undefined): number {
-    if (!detalles || detalles.length === 0) return 0;
-    const listos = this.contarDetallesListos(detalles);
-    return (listos / detalles.length) * 100;
-  }
-
+  /**
+   * metodo que marca el detalle como listo
+   * @param detalle 
+   * @param entregaId 
+   */
   marcarDetalleListo(detalle: DetalleEntregaResponse, entregaId: number): void {
     this.logisticaService.marcarDetalleListo(detalle.id).subscribe({
       next: (detalleActualizado) => {
@@ -156,13 +172,18 @@ export class PedidosEnCurso implements OnInit {
         this.success = '';
       },
       error: (error) => {
-        this.error = 'Error al marcar el artículo como listo.';
+        this.error = 'Error al marcar el articulo como listo.';
         console.error('Error marking detail as ready:', error);
         this.error = '';
       }
     });
   }
 
+  /**
+   * metodo que marca la entrega como entregada, una vez que todos los detalles de la entrega
+   * esten marcados como listos
+   * @param entrega 
+   */
   marcarComoEntregada(entrega: EntregaResponse): void {
     if (confirm(`seguro de que deseas marcar la entrega #${entrega.compraId} como entregada?`)) {
       this.logisticaService.marcarComoEntregada(entrega.id).subscribe({
@@ -184,11 +205,14 @@ export class PedidosEnCurso implements OnInit {
     this.selectedEstado = 'all';
   }
 
+  /**
+   * metoodo que verifica que todos los detalles entregas esten listos
+   * para poder marcar la venta como entregada
+   * @param detalles 
+   * @returns 
+   */
   todosDetallesListos(detalles: DetalleEntregaResponse[]): boolean {
     return detalles.every(detalle => detalle.listo);
   }
 
-  algunosDetallesListos(detalles: DetalleEntregaResponse[]): boolean {
-    return detalles.some(detalle => detalle.listo) && !this.todosDetallesListos(detalles);
-  }
 }

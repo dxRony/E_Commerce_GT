@@ -31,6 +31,11 @@ export class RegisterComponent {
     }, { validators: this.passwordMatchValidator });
   }
 
+  /**
+   * metodo que valida que las contrasenias sean iguales
+   * @param form
+   * @returns 
+   */
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
@@ -42,6 +47,9 @@ export class RegisterComponent {
     }
   }
 
+  /**
+   * disparador del registro de usuario comun
+   */
   onSubmit() {
     if (this.registerForm.valid) {
       this.loading.set(true);
@@ -59,7 +67,8 @@ export class RegisterComponent {
           if (error.error?.message) {
             this.error.set(error.error.message);
           } else {
-            this.error.set('Error en el registro. Por favor, intenta nuevamente.');
+            this.error.set('Error en el reqistro. Por favor, intenta nuevamente.');
+            alert(this.error);
           }
         }
       });
@@ -70,6 +79,12 @@ export class RegisterComponent {
       });
     }
   }
+
+  /**
+   * metodo para redirigir al registrar a un usuario
+   * soporta cualquier rol
+   * @param role 
+   */
   private redirectByRole(role: number): void {
 
     switch (role) {
@@ -85,8 +100,7 @@ export class RegisterComponent {
       case 4: this.router.navigate(['/admin']); {
         break;
       }
-      default: this.router.navigate(['/welcome']); {
-        console.warn('Rol de usuario desconocido, redirigiendo a la pantalla principal.');
+      default: this.router.navigate(['/welcome']); {        
       }
     }
   }

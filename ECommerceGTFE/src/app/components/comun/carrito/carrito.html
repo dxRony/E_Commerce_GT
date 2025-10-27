@@ -1,4 +1,4 @@
-<div *ngIf="mostrarAlerta" [class]="getAlertClasses()" class="notification-alert">
+<div *ngIf="mostrarAlerta" class="notification-alert">
     <div class="alert-content">
         <span class="alert-message">{{ mensajeAlerta }}</span>
     </div>
@@ -23,12 +23,11 @@
 
             <div class="seleccion-tarjeta">
                 <h3 class="seccion-title">Seleccionar Tarjeta</h3>
-                
+
                 <div *ngIf="!mostrarFormTarjeta" class="tarjetas-lista">
-                    <div *ngFor="let tarjeta of tarjetas" 
-                         class="tarjeta-item"
-                         [class.selected]="tarjetaSeleccionada === tarjeta.id"
-                         (click)="tarjetaSeleccionada = tarjeta.id">
+                    <div *ngFor="let tarjeta of tarjetas" class="tarjeta-item"
+                        [class.selected]="tarjetaSeleccionada === tarjeta.id"
+                        (click)="tarjetaSeleccionada = tarjeta.id">
                         <div class="tarjeta-info">
                             <span class="tarjeta-numero">{{ ocutlarNumeroTarjeta(tarjeta.numeracion) }}</span>
                             <span class="tarjeta-vencimiento">Vence: {{ tarjeta.fechaVencimiento }}</span>
@@ -37,34 +36,25 @@
                             <div class="check-icon" *ngIf="tarjetaSeleccionada === tarjeta.id">✓</div>
                         </div>
                     </div>
-
                     <button (click)="mostrarFormTarjeta = true" class="btn-agregar-tarjeta">
                         Agregar Nueva Tarjeta
                     </button>
                 </div>
 
                 <div *ngIf="mostrarFormTarjeta" class="form-tarjeta">
-                    <h4 class="form-title">Agregar Nueva Tarjeta</h4>                
+                    <h4 class="form-title">Agregar Nueva Tarjeta</h4>
                     <div class="form-group">
-                        <label class="form-label">Número de Tarjeta (16-19 digitos)</label>
-                        <input type="number" 
-                               [(ngModel)]="nuevaTarjeta.numeracion"
-                               class="form-input"
-                               maxlength="19">
+                        <label class="form-label">Numero de Tarjeta (16-19 digitos)</label>
+                        <input type="number" [(ngModel)]="nuevaTarjeta.numeracion" class="form-input" maxlength="19">
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Fecha de Vencimiento</label>
-                            <input type="date" 
-                                   [(ngModel)]="nuevaTarjeta.fechaVencimiento"
-                                   class="form-input">
+                            <input type="date" [(ngModel)]="nuevaTarjeta.fechaVencimiento" class="form-input">
                         </div>
                         <div class="form-group">
                             <label class="form-label">CVV (3-4 digitos)</label>
-                            <input type="number" 
-                                   [(ngModel)]="nuevaTarjeta.cvv"
-                                   class="form-input"
-                                   maxlength="4">
+                            <input type="number" [(ngModel)]="nuevaTarjeta.cvv" class="form-input" maxlength="4">
                         </div>
                     </div>
                     <div class="form-actions">
@@ -82,10 +72,8 @@
             <button (click)="cerrarModalPago()" class="btn-cancelar">
                 Cancelar
             </button>
-            <button (click)="procesarPago()" 
-                    [disabled]="!tarjetaSeleccionada || procesandoPago"
-                    class="btn-pagar"
-                    [class.loading]="procesandoPago">
+            <button (click)="procesarPago()" [disabled]="!tarjetaSeleccionada || procesandoPago" class="btn-pagar"
+                [class.loading]="procesandoPago">
                 <span *ngIf="!procesandoPago">Pagar {{ formatearPrecio(carrito?.totalPrecio || 0) }}</span>
                 <span *ngIf="procesandoPago">Procesando...</span>
             </button>
@@ -98,7 +86,7 @@
         <div class="carrito-header">
             <h1 class="carrito-title">Carrito de Compras</h1>
         </div>
-        <div *ngIf="!isLoading && !error && (!carrito || carrito.detalles.length === 0)" >
+        <div *ngIf="!isLoading && !error && (!carrito || carrito.detalles.length === 0)">
             <h3>Tu carrito esta vacio</h3>
         </div>
         <div *ngIf="!isLoading && !error && carrito && carrito.detalles.length > 0" class="cart-with-items">
@@ -107,7 +95,7 @@
                     <h2 class="cart-items-title">
                         Productos en el carrito ({{ carrito.totalDetalles }})
                     </h2>
-                    <button (click)="limpiarCarrito()" >
+                    <button (click)="limpiarCarrito()">
                         Limpiar Carrito
                     </button>
                 </div>

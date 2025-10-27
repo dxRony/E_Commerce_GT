@@ -42,6 +42,9 @@ export class ArticulosDisponibles implements OnInit {
     this.cargarProductos();
   }
 
+  /**
+   * carga los productos en una lista
+   */
   cargarProductos(): void {
     this.isLoading = true;
     this.usuarioIdActual = this.tokenService.obtenerIdUser()?.toString() || '';
@@ -59,11 +62,18 @@ export class ArticulosDisponibles implements OnInit {
     });
   }
 
+  /**
+   * obtiene las categorias existentes en los productos
+   */
   obtenerCategorias(): void {
     const categoriasUnicas = new Set(this.productos.map(p => p.categoria));
     this.categorias = Array.from(categoriasUnicas);
   }
 
+  /**
+   * metodo que aplica los filtros de busqueda
+   * nombre, descripcion, categoria, 
+   */
   aplicarFiltros(): void {
     let filtered = this.productos;
 
@@ -83,6 +93,11 @@ export class ArticulosDisponibles implements OnInit {
     this.productosFiltrados = filtered;
   }
 
+  /**
+   * metodo que ordena los productos por preciom nombre y rating (no hice el rating XD)
+   * @param productos 
+   * @returns 
+   */
   ordenarProductos(productos: ArticuloResponse[]): ArticuloResponse[] {
     switch (this.sortBy) {
       case 'price-low':
@@ -96,14 +111,23 @@ export class ArticulosDisponibles implements OnInit {
     }
   }
 
+  /**
+   * metodo que aplica los filtros al ir teclaando
+   */
   onSearchChange(): void {
     this.aplicarFiltros();
   }
 
+  /**
+   * metodo que aplica los filtros al ir teclaando
+   */
   onCategoryChange(): void {
     this.aplicarFiltros();
   }
 
+  /**
+   * metodo que aplica los filtros al ir teclaando
+   */
   onSortChange(): void {
     this.aplicarFiltros();
   }
@@ -132,14 +156,19 @@ export class ArticulosDisponibles implements OnInit {
     this.mostrarAlerta = false;
   }
 
+  /**
+   * metodo para agregar productos al carrito
+   * @param producto a agregar al carrito
+   * @returns 
+   */
   agregarAlCarrito(producto: any) {
     if (producto.stock === 0) {
-      this.mostrarNotificacion('Este producto está agotado', 'warning');
+      this.mostrarNotificacion('el producto no tiene stock', 'warning');
       return;
     }
 
     if (producto.usuarioId === this.usuarioIdActual) {
-      this.mostrarNotificacion('No puedes agregar tus propios productos al carrito', 'warning');
+      this.mostrarNotificacion('No puedes agregar tus productos al carrito', 'warning');
       return;
     }
 
@@ -150,7 +179,7 @@ export class ArticulosDisponibles implements OnInit {
 
     this.carritoService.agregarAlCarrito(request).subscribe({
       next: (response) => {
-        this.mostrarNotificacion('Producto agregado al carrito exitosamente');
+        this.mostrarNotificacion(' agregado al carrito ');
         console.log('Producto agregado:', response);
       },
       error: (error) => {

@@ -2,7 +2,6 @@
     <div class="page-header">
         <h1>Top 10 productos mas vendidos</h1>
     </div>
-
     <div class="filtros-card">
         <div class="filtros-header">
             <h3>Seleccionar intervalo</h3>
@@ -26,7 +25,6 @@
         </div>
     </div>
     <div *ngIf="mostrarResultados && !isLoading" class="resultados-container">
-
         <div class="tabla-container">
             <table class="reporte-table">
                 <thead>
@@ -51,9 +49,9 @@
                 </tbody>
             </table>
             <div>
-                <h5>Resumen</h5>
-                <div>                    
-                    <div>Unidades Vendidas: {{ calcularTotalUnidades() }}                    
+                <h5>Reporte</h5>
+                <div>
+                    <div>Unidades Vendidas: {{ calcularTotalUnidades() }}
                     </div>
                     <div>Total Vendido: {{ formatearPrecio(calcularTotalVendido()) }}
                     </div>

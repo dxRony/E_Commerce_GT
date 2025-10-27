@@ -24,6 +24,7 @@ export class MisArticulos implements OnInit {
   selectedEstadoAprobacion: string = 'all';
   categorias: string[] = [];
 
+  //estados de aprobacion trackeados
   estadosAprobacion = [
     { value: 'all', label: 'Todos los estados' },
     { value: 'Pendiente', label: 'Pendiente' },
@@ -37,6 +38,9 @@ export class MisArticulos implements OnInit {
     this.cargarMisArticulos();
   }
 
+  /**
+   * metodo que carga a los articulos del usuario en la tabla
+   */
   cargarMisArticulos(): void {
     this.isLoading = true;
     this.articleService.getMisArticulos().subscribe({
@@ -54,11 +58,19 @@ export class MisArticulos implements OnInit {
     });
   }
 
+  /**
+   * metodo que obtiene las categorias existentes en los articulos del
+   * usuario
+   */
   extraerCategorias(): void {
     const categoriasUnicas = new Set(this.articulos.map(p => p.categoria));
     this.categorias = Array.from(categoriasUnicas);
   }
 
+  /**
+   * metodo que aplica los filtros entre los productos
+   * nombre, descripcion, categoria, estado de aprobacionm 
+   */
   aplicarFiltros(): void {
     let filtered = this.articulos;
 
@@ -69,13 +81,11 @@ export class MisArticulos implements OnInit {
         articulo.descripcion.toLowerCase().includes(term)
       );
     }
-
     if (this.selectedCategoria !== 'all') {
       filtered = filtered.filter(articulo =>
         articulo.categoria === this.selectedCategoria
       );
     }
-
     if (this.selectedEstadoAprobacion !== 'all') {
       filtered = filtered.filter(articulo =>
         articulo.estadoAprobacion === this.selectedEstadoAprobacion
@@ -84,10 +94,18 @@ export class MisArticulos implements OnInit {
     this.articulosFiltrados = filtered;
   }
 
+  /**
+   * metodo que va aplicando los filtros a medida que se 
+   * modifique la busqueda
+   */
   onSearchChange(): void {
     this.aplicarFiltros();
   }
 
+  /**
+   * metodo que va aplicando los filtros a medida que se 
+   * modifique la busqueda
+   */
   onCategoryChange(): void {
     this.aplicarFiltros();
   }

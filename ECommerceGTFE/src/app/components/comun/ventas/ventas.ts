@@ -22,6 +22,9 @@ export class Ventas implements OnInit {
     this.cargarVentas();
   }
 
+  /**
+   * metodo que obtiene las ventas del usuario en sesion
+   */
   cargarVentas(): void {
     this.isLoading = true;
     this.compraService.obtenerMisVentas().subscribe({
@@ -37,6 +40,11 @@ export class Ventas implements OnInit {
     });
   }
 
+  /**
+   * metodo que formatea el precio en quetzales
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',

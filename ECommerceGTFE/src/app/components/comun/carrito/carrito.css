@@ -469,7 +469,8 @@
     background: #f9fafb;
 }
 
-.btn-guardar, .btn-pagar {
+.btn-guardar,
+.btn-pagar {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 0.5rem;
@@ -480,7 +481,8 @@
     transition: background-color 0.2s;
 }
 
-.btn-guardar:hover, .btn-pagar:hover {
+.btn-guardar:hover,
+.btn-pagar:hover {
     background: #ca8a04;
 }
 

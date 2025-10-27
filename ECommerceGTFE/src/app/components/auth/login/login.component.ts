@@ -13,6 +13,7 @@ import { LoginRequest } from '../../../models/auth.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -25,6 +26,10 @@ export class LoginComponent {
     password: ['', [Validators.required]]
   });
 
+  /**
+   * disparador de la autenticacion
+   * al iniciar sesion se es redirigido por rol
+   */
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.loading.set(true);
@@ -46,6 +51,11 @@ export class LoginComponent {
     }
   }
 
+  /**
+   * metodod que redirige al usuario por su rol 1-4
+   * si no tiene rol o algo es redirigido al inicio
+   * @param role 
+   */
   private redirectByRole(role: number): void {
 
     switch (role) {

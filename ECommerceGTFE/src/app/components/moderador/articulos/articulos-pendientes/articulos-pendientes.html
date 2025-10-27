@@ -1,9 +1,7 @@
 <div class="pending-products-container">
   <div class="page-header">
-    <h1>Productos Pendientes de Aprobacion</h1>
+    <h1>Productos pendientes de aprobacion</h1>
   </div>
-
-
   <div class="filters-card">
     <div class="filters-header">
       <h3>Filtros</h3>
@@ -12,19 +10,11 @@
     <div class="filters-grid">
       <div class="filter-group">
         <label class="filter-label">Buscar</label>
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          class="filter-input"
-        >
+        <input type="text" [(ngModel)]="searchTerm" class="filter-input">
       </div>
-
       <div class="filter-group">
         <label class="filter-label">Categoria</label>
-        <select
-          [(ngModel)]="selectedCategoria"
-          class="filter-select"
-        >
+        <select [(ngModel)]="selectedCategoria" class="filter-select">
           <option value="all">Todas las categorias</option>
           <option *ngFor="let categoria of categorias" [value]="categoria">
             {{ categoria }}
@@ -34,14 +24,10 @@
     </div>
   </div>
 
-
   <div class="products-card">
-
     <div *ngIf="!isLoading">
-
       <div *ngIf="articulosFiltrados.length > 0" class="products-grid">
         <div *ngFor="let articulo of articulosFiltrados" class="product-card">
-
           <div class="product-info">
             <div class="product-header">
               <h3 class="product-name">{{ articulo.nombre }}</h3>
@@ -51,32 +37,23 @@
             <div class="seller-info">
               <strong>Vendedor:</strong> {{ articulo.usuarioNombre }}
             </div>
-
             <div class="product-details">
               <div class="price">{{ formatearPrecio(articulo.precio) }}</div>
               <div class="stock">Stock: {{ articulo.stock }}</div>
             </div>
-
             <div class="product-status">
               <span class="status-pending">Selecciona una opcion</span>
             </div>
-
             <div class="product-actions">
-              <button 
-                class="btn-approve"
-                (click)="aprobarArticulo(articulo)"
-                title="Aprobar producto">Aprobar</button>
-              <button 
-                class="btn-reject"
-                (click)="rechazarArticulo(articulo)"
+              <button class="btn-approve" (click)="aprobarArticulo(articulo)" title="Aprobar producto">Aprobar</button>
+              <button class="btn-reject" (click)="rechazarArticulo(articulo)"
                 title="Rechazar producto">Rechazar</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div *ngIf="articulosFiltrados.length === 0 && !isLoading" class="empty-state">        
-        <h3>No hay productos pendientes para aprobar</h3>       
+      <div *ngIf="articulosFiltrados.length === 0 && !isLoading" class="empty-state">
+        <h3>No hay productos pendientes para aprobar</h3>
       </div>
     </div>
   </div>

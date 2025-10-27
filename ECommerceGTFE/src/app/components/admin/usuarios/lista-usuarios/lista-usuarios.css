@@ -4,7 +4,6 @@
   margin: 0 auto;
 }
 
-/* Header */
 .page-header {
   margin-bottom: 2rem;
 }
@@ -20,7 +19,6 @@
   margin: 0;
 }
 
-/* Cards */
 .filters-card,
 .table-card {
   background: white;
@@ -57,7 +55,6 @@
   background: #5a6268;
 }
 
-/* Filters Grid */
 .filters-grid {
   padding: 1.5rem;
   display: grid;
@@ -193,16 +190,6 @@
 
 .cell-phone {
   color: #666;
-}
-
-.estado-activo {
-  color: #28a745;
-  font-weight: 600;
-}
-
-.estado-suspendido {
-  color: #dc3545;
-  font-weight: 600;
 }
 
 .cell-actions {

@@ -21,8 +21,9 @@ export class EditarUsuario implements OnInit {
   error: string = '';
   success: string = '';
 
+  //roles de empleados
   roles = [
-    { id: 1, nombre: 'Administrador' },
+    { id: 4, nombre: 'Administrador' },
     { id: 2, nombre: 'Moderador' },
     { id: 3, nombre: 'Logistica' }
   ];
@@ -45,6 +46,9 @@ export class EditarUsuario implements OnInit {
     this.cargarEmpleado();
   }
 
+  /**
+   * metodo que carga al empleado seleccionado
+   */
   cargarEmpleado(): void {
     this.isLoading = true;
     this.adminService.obtenerEmpleado(this.empleadoId).subscribe({
@@ -61,6 +65,9 @@ export class EditarUsuario implements OnInit {
     });
   }
 
+  /**
+   * metodo que carga los datos en el form de edicion
+   */
   cargarDatosEnForm(): void {
     if (this.empleado) {
       this.editForm.patchValue({
@@ -71,6 +78,9 @@ export class EditarUsuario implements OnInit {
     }
   }
 
+  /**
+   * disparador de la edicion del empleado
+   */
   onSubmit(): void {
     if (this.editForm.valid && this.empleado) {
       this.isSubmitting = true;
@@ -105,6 +115,9 @@ export class EditarUsuario implements OnInit {
     }
   }
 
+  /**
+   * metodo que suspende al empleado
+   */
   suspenderEmpleado(): void {
     if (this.empleado && confirm(`seguro de que deseas ${this.empleado.suspendido ? 'activar' : 'suspender'} a ${this.empleado.nombre}?`)) {
       this.adminService.alternarActivoEmpleado(this.empleadoId).subscribe({
@@ -122,6 +135,11 @@ export class EditarUsuario implements OnInit {
     }
   }
 
+  /**
+   * medoto para obtener el nombre del rol
+   * @param rol 
+   * @returns 
+   */
   getRolNombre(rol: number): string {
     const rolEncontrado = this.roles.find(r => r.id === rol);
     return rolEncontrado ? rolEncontrado.nombre : 'Desconocido';
@@ -129,10 +147,6 @@ export class EditarUsuario implements OnInit {
 
   getEstadoTexto(suspendido: boolean): string {
     return suspendido ? 'Suspendido' : 'Activo';
-  }
-
-  getEstadoClase(suspendido: boolean): string {
-    return suspendido ? 'estado-suspendido' : 'estado-activo';
   }
 
   volverALista(): void {

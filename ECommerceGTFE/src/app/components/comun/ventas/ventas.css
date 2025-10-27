@@ -1,4 +1,5 @@
-.compras-container, .ventas-container {
+.compras-container,
+.ventas-container {
     min-height: 100vh;
     background: #f8f9fa;
     padding: 2rem;
@@ -17,19 +18,22 @@
     color: #666;
 }
 
-.compras-table-container, .ventas-table-container {
+.compras-table-container,
+.ventas-table-container {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.compras-table, .ventas-table {
+.compras-table,
+.ventas-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.compras-table th, .ventas-table th {
+.compras-table th,
+.ventas-table th {
     background: #f8f9fa;
     padding: 1rem;
     text-align: left;
@@ -38,12 +42,14 @@
     border-bottom: 2px solid #dee2e6;
 }
 
-.compras-table td, .ventas-table td {
+.compras-table td,
+.ventas-table td {
     padding: 1rem;
     border-bottom: 1px solid #dee2e6;
 }
 
-.compra-row:hover, .venta-row:hover {
+.compra-row:hover,
+.venta-row:hover {
     background: #f8f9fa;
 }
 
@@ -90,5 +96,5 @@
     padding: 3rem;
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

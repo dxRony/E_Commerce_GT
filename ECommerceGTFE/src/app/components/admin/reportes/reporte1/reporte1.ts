@@ -1,4 +1,4 @@
-import { Component, OnInit, inject} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Reporte1Response, ReporteRequest } from '../../../../models/reporte.model';
@@ -12,11 +12,11 @@ import { AdminService } from '../../../../services/admin.service';
   styleUrl: './reporte1.css'
 })
 export class Reporte1 implements OnInit {
-   private adminService = inject(AdminService);
+  private adminService = inject(AdminService);
 
   fechaInicio: string = '';
   fechaFin: string = '';
-  
+
   productos: Reporte1Response[] = [];
   isLoading: boolean = false;
   error: string = '';
@@ -26,16 +26,23 @@ export class Reporte1 implements OnInit {
     this.establecerFechasPorDefecto();
   }
 
+  /**
+   * metodoq que carga las fechas por defecto (hoy)
+   */
   establecerFechasPorDefecto(): void {
     const hoy = new Date();
-    
     this.fechaFin = hoy.toISOString().split('T')[0];
     this.fechaInicio = hoy.toISOString().split('T')[0];
   }
 
+  /**
+   * metodo que generea los reportes dados las fechas
+   * @returns 
+   */
   generarReporte(): void {
     if (!this.fechaInicio || !this.fechaFin) {
-      this.error = 'Por favor selecciona ambas fechas';
+      this.error = 'selecciona ambas fechas';
+      alert(this.error);
       return;
     }
 
@@ -44,7 +51,6 @@ export class Reporte1 implements OnInit {
       alert(this.error);
       return;
     }
-
     this.isLoading = true;
     this.error = '';
     this.mostrarResultados = false;
@@ -68,6 +74,11 @@ export class Reporte1 implements OnInit {
     });
   }
 
+  /**
+   * metodo que formatea el precioa  la moneda local
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',
@@ -75,10 +86,18 @@ export class Reporte1 implements OnInit {
     }).format(precio);
   }
 
+  /**
+   * calcula el total de las ventas (suma los presio de los productos vendidos)
+   * @returns 
+   */
   calcularTotalVendido(): number {
     return this.productos.reduce((total, producto) => total + producto.totalVendido, 0);
   }
 
+  /**
+   * calcula el total de las unidades vendidades (suma las cantidades vendidas de cada producto)
+   * @returns 
+   */
   calcularTotalUnidades(): number {
     return this.productos.reduce((total, producto) => total + producto.cantidadVendida, 0);
   }

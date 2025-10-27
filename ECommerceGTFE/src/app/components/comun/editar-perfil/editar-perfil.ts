@@ -44,6 +44,9 @@ export class EditarPerfil implements OnInit {
     this.cargarPerfil();
   }
 
+  /**
+   * metodo que obtiene y carga el perfil del usuario
+   */
   cargarPerfil(): void {
     this.isLoading = true;
     this.userService.getMiPerfil().subscribe({
@@ -60,6 +63,9 @@ export class EditarPerfil implements OnInit {
     });
   }
 
+  /**
+   * metodo que carga los datos del usuario en el form
+   */
   cargarDatosEnFormulario(): void {
     if (this.usuario) {
       this.profileForm.patchValue({
@@ -72,22 +78,26 @@ export class EditarPerfil implements OnInit {
     }
   }
 
+  /**
+   * disparador para realizar la edicion del usuario
+   */
   onSubmit(): void {
     if (this.profileForm.valid && this.usuario) {
       this.isSubmitting = true;
       this.error = '';
       this.success = '';
-
+      // creabdo request del usuariu
       const request: ActualizarVendedorRequest = {
         nombre: this.profileForm.get('nombre')?.value,
         celular: Number(this.profileForm.get('celular')?.value),
         direccion: this.profileForm.get('direccion')?.value
       };
 
+      //actualizando el perfil
       this.userService.updatePerfil(request).subscribe({
         next: (usuarioActualizado) => {
           this.usuario = usuarioActualizado;
-          this.success = 'Perfil actualizado correctamente.';
+          this.success = 'Perfil actualizado.';
           this.isSubmitting = false;
 
           this.tokenService.guardarUsuario({

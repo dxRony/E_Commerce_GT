@@ -22,6 +22,9 @@ export class Compras implements OnInit {
     this.cargarCompras();
   }
 
+  /**
+   * metodo que carga las compras de un usuario
+   */
   cargarCompras(): void {
     this.isLoading = true;
     this.compraService.obtenerMisCompras().subscribe({
@@ -37,19 +40,16 @@ export class Compras implements OnInit {
     });
   }
 
+  /**
+   * metodo que formatea el precio de un producto
+   * @param precio 
+   * @returns 
+   */
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-GT', {
       style: 'currency',
       currency: 'GTQ'
     }).format(precio);
-  }
-
-  formatearFecha(fecha: string): string {
-    return new Date(fecha).toLocaleDateString('es-GT', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
   }
 
   getEstadoTexto(estado: string): string {

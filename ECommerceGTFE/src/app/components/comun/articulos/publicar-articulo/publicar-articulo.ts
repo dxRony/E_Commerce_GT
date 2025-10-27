@@ -18,6 +18,7 @@ export class PublicarArticulo {
   error: string = '';
   success: string = '';
 
+  //categorias trackeadas
   categorias = [
     'Tecnologia',
     'Hogar',
@@ -26,6 +27,7 @@ export class PublicarArticulo {
     'Otro'
   ];
 
+  //Estados trackeados
   estadoArticulo = [
     { value: 'Nuevo', label: 'Nuevo' },
     { value: 'Usado', label: 'Usado' }
@@ -46,12 +48,16 @@ export class PublicarArticulo {
     });
   }
 
+  /**
+   * disparador para publicar un articulo
+   */
   onSubmit(): void {
     if (this.productForm.valid) {
       this.isSubmitting = true;
       this.error = '';
       this.success = '';
 
+      //creando request del articulo
       const request: ArticuloRequest = {
         nombre: this.productForm.get('nombre')?.value,
         descripcion: this.productForm.get('descripcion')?.value,
@@ -62,9 +68,10 @@ export class PublicarArticulo {
         categoria: this.productForm.get('categoria')?.value
       };
 
+      //llamando al servicio para crear el articulo en la api
       this.articleService.crearArticulo(request).subscribe({
         next: (articuloCreado: ArticuloResponse) => {
-          this.success = 'Producto publicado!! En esperada de ser aprobado.';
+          this.success = 'Producto publicado!! En esperada de ser aprobado :D';
           this.isSubmitting = false;
           this.productForm.reset();
           alert(this.success);

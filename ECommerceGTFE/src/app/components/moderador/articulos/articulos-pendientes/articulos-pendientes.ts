@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ArticuloResponse } from '../../../../models/articulos.model';
 import { ModeratorService } from '../../../../services/moderador.service';
@@ -29,6 +29,9 @@ export class ArticulosPendientes implements OnInit {
     this.cargarArticulosPendientes();
   }
 
+  /**
+   * metodo que obtiene los articulos pendientes de revision
+   */
   cargarArticulosPendientes(): void {
     this.isLoading = true;
     this.moderatorService.getArticulosPendientes().subscribe({
@@ -45,11 +48,21 @@ export class ArticulosPendientes implements OnInit {
     });
   }
 
+  /**
+   * metidi que obtiene las categorias de los 
+   * productos obtenidos
+   */
   extraerCategorias(): void {
     const categoriasUnicas = new Set(this.articulosPendientes.map(p => p.categoria));
     this.categorias = Array.from(categoriasUnicas);
   }
 
+  /**
+   * metodo que va aplicando los filtros entre los productos pendientes
+   *  de revision
+   * nomnbre, descripcion, dueño, categoria
+   * @returns 
+   */
   aplicarFiltros(): ArticuloResponse[] {
     let filtered = this.articulosPendientes;
 
@@ -74,6 +87,11 @@ export class ArticulosPendientes implements OnInit {
     return this.aplicarFiltros();
   }
 
+  /**
+   * metodo que realiza la aprobacion del articulo seleccionado
+   * solicitando una confirmacion de la aprobacion
+   * @param articulo 
+   */
   aprobarArticulo(articulo: ArticuloResponse): void {
     if (confirm(` seguro de que deseas aprobar el producto "${articulo.nombre}"?`)) {
       this.moderatorService.aprobarArticulo(articulo.id).subscribe({
@@ -91,6 +109,11 @@ export class ArticulosPendientes implements OnInit {
     }
   }
 
+  /**
+ * metodo que realiza el rechazo del articulo seleccionado
+ * solicitando una confirmacion del rechazdo
+ * @param articulo 
+ */
   rechazarArticulo(articulo: ArticuloResponse): void {
     if (confirm(`¿Estás seguro de que deseas rechazar el producto "${articulo.nombre}"?`)) {
       this.moderatorService.rechazarArticulo(articulo.id).subscribe({
