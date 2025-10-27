@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -47,6 +46,11 @@ public class ArticuloController {
     }
 
     // usuarios sin sesion
+    /**
+     * obtiene el catalogo publico de los articulos aprobados
+     *
+     * @return lista de articulos para el publico
+     */
     @GetMapping("/public/catalogo")
     public ResponseEntity<List<ArticuloResponse>> getCatalogoPublico() {
         List<Articulo> articulos = articuloService.findAprobados();
@@ -58,6 +62,12 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * busca articulos por su nombre
+     *
+     * @param nombre del articulo
+     * @return articulo si es encontrado
+     */
     @GetMapping("/public/buscar")
     public ResponseEntity<List<ArticuloResponse>> buscarArticulos(@RequestParam String nombre) {
         List<Articulo> articulos = articuloService.buscarPorNombre(nombre);
@@ -69,6 +79,12 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene los articulos por categoria
+     *
+     * @param categoria de articulos a buscar
+     * @return lista de articulos con la categoria
+     */
     @GetMapping("/public/categoria/{categoria}")
     public ResponseEntity<List<ArticuloResponse>> getArticulosPorCategoria(@PathVariable String categoria) {
         List<Articulo> articulos = articuloService.findByCategoria(categoria);
@@ -84,6 +100,11 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene un articulo seleccionado 
+     * @param id del articulo
+     * @return articulo si existe
+     */
     @GetMapping("/public/{id}")
     public ResponseEntity<ArticuloResponse> getArticuloPublico(@PathVariable Integer id) {
         Articulo articulo = articuloService.findById(id)
@@ -92,12 +113,15 @@ public class ArticuloController {
         if (!"Aprobado".equals(articulo.getEstadoAprobacion())) {
             throw new RuntimeException("articulo no disponible");
         }
-
         ArticuloResponse response = crearResponse(articulo);
         return ResponseEntity.ok(response);
     }
 
     // usuarios comunes en sesion
+    /**
+     * obtiene los articulos de un usuario comun
+     * @return lista de articulos
+     */
     @GetMapping("/mis-articulos")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<List<ArticuloResponse>> getMisArticulos() {
@@ -110,10 +134,14 @@ public class ArticuloController {
         List<ArticuloResponse> response = articulos.stream()
                 .map(this::crearResponse)
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * crea un articulo del usuario comun
+     * @param articuloRequest del articulo a crear
+     * @return confirmacion de la operacion
+     */
     @PostMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<ArticuloResponse> crearArticulo(@Valid @RequestBody ArticuloRequest articuloRequest) {
@@ -135,7 +163,12 @@ public class ArticuloController {
         ArticuloResponse response = crearResponse(articuloCreado);
         return ResponseEntity.ok(response);
     }
-    
+
+    /**
+     * obtiene un articulo por su id
+     * @param id del articulo
+     * @return articulo si existe
+     */
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<ArticuloResponse> obtenerArticulo(@PathVariable Integer id) {
@@ -145,6 +178,12 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * actualiza un articulo
+     * @param id del articulo
+     * @param articuloRequest del articulo a actualizar
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<ArticuloResponse> updateArticulo(
@@ -158,7 +197,6 @@ public class ArticuloController {
         if (!articuloExistente.getUsuario().getId().equals(usuarioId)) {
             throw new RuntimeException("nno puedes actualizar este articulo");
         }
-
         Articulo articuloActualizado = new Articulo();
         articuloActualizado.setNombre(articuloRequest.getNombre());
         articuloActualizado.setDescripcion(articuloRequest.getDescripcion());
@@ -169,12 +207,15 @@ public class ArticuloController {
         articuloActualizado.setCategoria(articuloRequest.getCategoria());
 
         Articulo articulo = articuloService.updateArticulo(id, articuloActualizado);
-
         ArticuloResponse response = crearResponse(articulo);
         return ResponseEntity.ok(response);
     }
 
     // moderadores en sesion
+    /**
+     * obtiene los articulos pendientes de revision
+     * @return lista de articulos
+     */
     @GetMapping("/moderador/pendientes")
     @PreAuthorize("hasRole('MODERADOR')")
     public ResponseEntity<List<ArticuloResponse>> getArticulosPendientes() {
@@ -187,6 +228,11 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * aprueba un articulo, para ser puesto en venta
+     * @param id del articulo
+     * @return confirmacion de la opperacion
+     */
     @PutMapping("/moderador/{id}/aprobar")
     @PreAuthorize("hasRole('MODERADOR')")
     public ResponseEntity<ArticuloResponse> aprobarArticulo(@PathVariable Integer id) {
@@ -196,6 +242,11 @@ public class ArticuloController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * rechaza un articulo, para no ser puesto en venta
+     * @param id del articulo
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/moderador/{id}/rechazar")
     @PreAuthorize("hasRole('MODERADOR')")
     public ResponseEntity<ArticuloResponse> rechazarArticulo(@PathVariable Integer id) {
@@ -222,6 +273,11 @@ public class ArticuloController {
         return response;
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

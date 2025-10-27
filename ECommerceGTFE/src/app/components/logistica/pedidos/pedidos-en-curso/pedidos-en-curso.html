@@ -78,7 +78,7 @@
                                 [disabled]="!todosDetallesListos(entrega.detalles || [])"
                                 [class.disabled]="!todosDetallesListos(entrega.detalles || [])"
                                 title="{{ todosDetallesListos(entrega.detalles || []) ? 'Marcar entrega como entregada' : 'Todos los artículos deben estar listos' }}">
-                            {{ todosDetallesListos(entrega.detalles || []) ? 'Marcar Entregado' : 'Esperando artículos (' + contarDetallesListos(entrega.detalles) + '/' + (entrega.detalles?.length || 0) + ')' }}
+                            {{ todosDetallesListos(entrega.detalles || []) ? 'Marcar como entregado' : 'Esperando artículos (' + contarDetallesListos(entrega.detalles) + '/' + (entrega.detalles?.length || 0) + ')' }}
                         </button>
                     </div>
                 </div>

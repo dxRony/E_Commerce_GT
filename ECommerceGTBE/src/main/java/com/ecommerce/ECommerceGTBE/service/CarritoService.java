@@ -26,6 +26,13 @@ public class CarritoService {
     @Autowired
     private ArticuloService articuloService;
 
+    /**
+     * agrega un articulo al carrito
+     * @param idArticulo del articulo
+     * @param cantidad de unidades a agregar
+     * @param usuario poseedor del carrito
+     * @return confirmacion de la operacion
+     */
     public DetalleCarrito agregarArticuloCarrito(Integer idArticulo, Integer cantidad, Usuario usuario) {
         Articulo articulo = articuloService.findById(idArticulo)
                 .orElseThrow(() -> new RuntimeException("articulo no encontrado"));
@@ -59,10 +66,22 @@ public class CarritoService {
         }
     }
 
+    /**
+     * obtiene los dealltes carrito de un usuario
+     * @param usuario dueño del carrito
+     * @return lista de detalles carrito
+     */
     public List<DetalleCarrito> obtenerCarrito(Usuario usuario) {
         return detalleCarritoRepository.findByUsuario(usuario);
     }
 
+    /**
+     * actualiza la cantidad de unidades de un carrito
+     * @param itemId ide del detalle carrito
+     * @param nuevaCantidad a actualizar en el detalle
+     * @param usuario dueño del carrito
+     * @return confirmacion de la operacion
+     */
     public DetalleCarrito actualizarCarrito(Integer itemId, Integer nuevaCantidad, Usuario usuario) {
         DetalleCarrito detalle = detalleCarritoRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("detalle carrito no encontrado"));
@@ -80,6 +99,11 @@ public class CarritoService {
         }
     }
 
+    /**
+     * elimina un detalle del carrito
+     * @param itemId del detalle carrito
+     * @param usuario poseedor del carrito
+     */
     public void eliminarDelCarrito(Integer itemId, Usuario usuario) {
         DetalleCarrito item = detalleCarritoRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("detalle carrito no encontrado"));
@@ -87,15 +111,30 @@ public class CarritoService {
         detalleCarritoRepository.delete(item);
     }
 
+    /**
+     * vacia todos los detalles carrito
+     * @param usuario poseedor del carrito
+     */
     public void limpiarCarrito(Usuario usuario) {
         List<DetalleCarrito> items = detalleCarritoRepository.findByUsuario(usuario);
         detalleCarritoRepository.deleteAll(items);
     }
 
+    /**
+     * obtiene el precio de todos los articulos en el carrito
+     * @param usuario deuño del carrito
+     * @return valor del carrtio
+     */
     public Integer obtenerCantidadTotalCarrito(Usuario usuario) {
         return detalleCarritoRepository.sumCantidadByUsuario(usuario);
     }
 
+    /**
+     * valida si un articulo ya esta en el carrito
+     * @param usuario deuño del carrito
+     * @param articulo a buscar 
+     * @return confirmacion de la busqyeda
+     */
     public boolean existeEnCarrito(Usuario usuario, Articulo articulo) {
         return detalleCarritoRepository.existsByUsuarioAndArticulo(usuario, articulo);
     }

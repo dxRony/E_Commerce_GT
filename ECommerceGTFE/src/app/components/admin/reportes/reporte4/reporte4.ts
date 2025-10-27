@@ -15,7 +15,6 @@ export class Reporte4 implements OnInit {
 
   private adminService = inject(AdminService);
 
-  // Fechas por defecto (último mes)
   fechaInicio: string = '';
   fechaFin: string = '';
 
@@ -30,11 +29,9 @@ export class Reporte4 implements OnInit {
 
   establecerFechasPorDefecto(): void {
     const hoy = new Date();
-    const haceUnMes = new Date();
-    haceUnMes.setMonth(hoy.getMonth() - 1);
 
     this.fechaFin = hoy.toISOString().split('T')[0];
-    this.fechaInicio = haceUnMes.toISOString().split('T')[0];
+    this.fechaInicio = hoy.toISOString().split('T')[0];
   }
 
   generarReporte(): void {

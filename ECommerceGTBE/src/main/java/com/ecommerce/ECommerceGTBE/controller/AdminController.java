@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +41,12 @@ public class AdminController {
     private ReporteService reporteService;
 
     // admins en sesion
+    /**
+     * registra un empleado
+     *
+     * @param request del empleado
+     * @return confirmacion de la operacion
+     */
     @PostMapping("/empleados")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<EmpleadoResponse> registrarEmpleado(@Valid @RequestBody RegistroEmpleadoRequest request) {
@@ -59,6 +64,10 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene todos los empleados rol 2-4
+     * @return lista de empleados
+     */
     @GetMapping("/empleados")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<EmpleadoResponse>> obtenerTodosEmpleados() {
@@ -71,6 +80,11 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene todos los empleados por su rol
+     * @param rol a buscar
+     * @return lista de empleados
+     */
     @GetMapping("/empleados/rol/{rol}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<EmpleadoResponse>> obtenerEmpleadosPorRol(@PathVariable Integer rol) {
@@ -83,6 +97,11 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene un empleado
+     * @param id del empleado
+     * @return empleado si existe
+     */
     @GetMapping("/empleados/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<EmpleadoResponse> obtenerEmpleado(@PathVariable Integer id) {
@@ -92,6 +111,12 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * actualiza un empleado
+     * @param id del empleado
+     * @param request del empleado a actualizar
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/empleados/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<EmpleadoResponse> actualizarEmpleado(
@@ -109,6 +134,11 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * alterna el atributo suspendido de un empleado
+     * @param id
+     * @return
+     */
     @PutMapping("/empleados/{id}/suspender")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<EmpleadoResponse> alternarActivoEmpleado(@PathVariable Integer id) {
@@ -118,6 +148,11 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene lista de productos del reporte1
+     * @param request del reporte 1
+     * @return lista de productos del reporte1
+     */
     @PostMapping("/reportes/top10-productos-vendidos")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<Reporte1Response>> obtenerTop10ProductosVendidos(
@@ -129,6 +164,11 @@ public class AdminController {
         return ResponseEntity.ok(productos);
     }
 
+    /**
+     * obtiene lista de clientes del reporte2
+     * @param request del reporte2
+     * @return lista de clientes del reporte2
+     */
     @PostMapping("/reportes/top5-clientes-ganancias")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<Reporte2Response>> obtenerTop5ClientesMasGanancias(
@@ -140,6 +180,11 @@ public class AdminController {
         return ResponseEntity.ok(clientes);
     }
 
+    /**
+     * obtiene la lista del reporte3
+     * @param request del reporte3
+     * @return lista de clientes del reporte3
+     */
     @PostMapping("/reportes/top5-clientes-ventas")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<Reporte3Response>> obtenerTop5ClientesMasVentas(
@@ -150,6 +195,11 @@ public class AdminController {
         return ResponseEntity.ok(vendedores);
     }
 
+    /**
+     * obtiene lista de clientes del reporte4
+     * @param request del reporte4
+     * @return lista de clientes del reporte4
+     */
     @PostMapping("/reportes/top10-clientes-pedidos")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<Reporte4Response>> obtenerTop10ClientesMasPedidos(
@@ -160,6 +210,10 @@ public class AdminController {
         return ResponseEntity.ok(clientes);
     }
 
+    /**
+     * lista de clientes del reporte5
+     * @return lista de clientes del reporte5
+     */
     @GetMapping("/reportes/top10-clientes-productos-venta")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<Reporte5Response>> obtenerTop10ClientesMasProductosVenta() {
@@ -182,6 +236,11 @@ public class AdminController {
         );
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

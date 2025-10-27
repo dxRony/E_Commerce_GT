@@ -36,6 +36,12 @@ public class ReporteService {
     @Autowired
     private ArticuloRepository articuloRepository;
 
+    /**
+     * obtiene una lista de los 10 productos mas vendidos por fecha
+     * @param fechaInicio de la busqueda
+     * @param fechaFin de la busqueda
+     * @return lista de productos
+     */
     public List<Reporte1Response> obtenerTop10ProductosMasVendidos(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.atTime(23, 59, 59);
@@ -58,6 +64,12 @@ public class ReporteService {
         );
     }
 
+    /**
+     * otiene una liosta de los 5 clientes con mas ganacias registradas
+     * @param fechaInicio de la busqueda
+     * @param fechaFin de la busqueda
+     * @return lista de los clientes
+     */
     public List<Reporte2Response> obtenerTop5ClientesMasGanancias(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.atTime(23, 59, 59);
@@ -79,6 +91,12 @@ public class ReporteService {
         );
     }
 
+    /**
+     * busca los 5 clientes con mas ventas
+     * @param fechaInicio de la busqueda
+     * @param fechaFin de la busqueda
+     * @return lis de los clientes
+     */
     public List<Reporte3Response> obtenerTop5ClientesMasVentas(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.atTime(23, 59, 59);
@@ -101,6 +119,12 @@ public class ReporteService {
         );
     }
 
+    /**
+     * obtiene una lista de los 10 clientes con mas pediidos
+     * @param fechaInicio de la busqueda
+     * @param fechaFin de la busqueda
+     * @return lista de clientes
+     */
     public List<Reporte4Response> obtenerTop10ClientesMasPedidos(LocalDate fechaInicio, LocalDate fechaFin) {
         LocalDateTime inicio = fechaInicio.atStartOfDay();
         LocalDateTime fin = fechaFin.atTime(23, 59, 59);
@@ -127,6 +151,10 @@ public class ReporteService {
         );
     }
 
+    /**
+     * obtiene una lista de los 10 clientes con mas productos en venta
+     * @return lista de los clientes 
+     */
     public List<Reporte5Response> obtenerTop10ClientesMasProductosVenta() {
         List<Object[]> resultados = articuloRepository.findTop10ClientesMasProductosVenta();
 

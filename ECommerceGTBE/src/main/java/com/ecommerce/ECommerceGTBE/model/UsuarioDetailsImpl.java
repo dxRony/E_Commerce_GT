@@ -35,13 +35,11 @@ public class UsuarioDetailsImpl implements UserDetails {
             case 4 ->
                 "ROLE_ADMINISTRADOR";
             default ->
-                "ROLE_COMUN"; // Por defecto
+                "ROLE_COMUN";
         };
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
     
-    
-
     @Override
     public String getPassword() {
         return usuario.getPassword();

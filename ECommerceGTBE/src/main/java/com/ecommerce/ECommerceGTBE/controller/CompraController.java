@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +38,16 @@ public class CompraController {
         if (userIdAttr != null) {
             return (Integer) userIdAttr;
         }
-
         throw new RuntimeException("no se pudo obtener el id del usuario");
     }
 
     // usuarios comunes en sesion
+
+    /**
+     * procesa el pago del carrito para un usuario
+     * @param pagoRequest de la compra, contiene la tarjeta a usar
+     * @return confirmacion de la operacion
+     */
     @PostMapping("/pagar")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<CompraResponse> procesarPago(@Valid @RequestBody CompraRequest pagoRequest) {
@@ -55,6 +59,10 @@ public class CompraController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene todas las compras de un usuario comun
+     * @return lista de compras 
+     */
     @GetMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<List<CompraResponse>> obtenerMisCompras() {
@@ -68,6 +76,11 @@ public class CompraController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene una compra especifica del usuario
+     * @param compraId de la compra a buscar
+     * @return compra si existe
+     */
     @GetMapping("/{compraId}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<CompraResponse> obtenerCompra(@PathVariable Integer compraId) {
@@ -84,6 +97,10 @@ public class CompraController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene todas las ventas del usuario comun en sesion
+     * @return lista de detales compra
+     */
     @GetMapping("/ventas")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<List<DetalleCompraResponse>> obtenerMisVentas() {
@@ -140,6 +157,11 @@ public class CompraController {
         );
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

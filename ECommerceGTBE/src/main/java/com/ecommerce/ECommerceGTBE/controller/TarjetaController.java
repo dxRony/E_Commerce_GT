@@ -46,6 +46,11 @@ public class TarjetaController {
     }
 
     // usuarios en sesion
+
+    /**
+     * obtiene todas las tarjetas de un usuario
+     * @return lista de tarjetas de un usuario
+     */
     @GetMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<List<TarjetaResponse>> getMisTarjetas() {
@@ -62,6 +67,11 @@ public class TarjetaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * agrega una tarjeta a un usuario
+     * @param tarjetaRequest de la tarjeta a crear
+     * @return confirmacion de la operacion
+     */
     @PostMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<?> agregarTarjeta(@Valid @RequestBody TarjetaRequest tarjetaRequest) {
@@ -80,6 +90,11 @@ public class TarjetaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * elimina una tarjeta de un usuario
+     * @param id de la tarjeta a eliminar
+     * @return confirmacion de la operacion
+     */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<MensajeResponse> eliminarTarjeta(@PathVariable Integer id) {
@@ -92,6 +107,11 @@ public class TarjetaController {
         return ResponseEntity.ok(new MensajeResponse("Tarjeta eliminada"));
     }
 
+    /**
+     * obtiene una tarjeta especifica
+     * @param id de la tarjeta a buscar
+     * @return tarjeta buscada si existe
+     */
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<TarjetaResponse> getTarjeta(@PathVariable Integer id) {
@@ -117,6 +137,11 @@ public class TarjetaController {
         );
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

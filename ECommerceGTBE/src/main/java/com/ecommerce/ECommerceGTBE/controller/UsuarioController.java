@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
@@ -47,6 +46,11 @@ public class UsuarioController {
     }
 
     // usuarios en sesion
+
+    /**
+     * obtiene los datos modificables por el mismo usuario comun
+     * @return usuario con sus datos
+     */
     @GetMapping("/perfil")
     @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
     public ResponseEntity<VendedorResponse> getMiPerfil() {
@@ -56,7 +60,6 @@ public class UsuarioController {
         if (usuarioId == null) {
             return ResponseEntity.status(403).build();
         }
-
         Usuario usuario = usuarioService.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("user no encontrado"));
 
@@ -71,6 +74,11 @@ public class UsuarioController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * actualiza el perfil del usuario
+     * @param updateRequest del perfil a actualizar
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/perfil")
     @PreAuthorize("hasAnyRole('COMUN', 'MODERADOR', 'LOGISTICA', 'ADMINISTRADOR')")
     public ResponseEntity<VendedorResponse> updatePerfil(@Valid @RequestBody ActualizarVendedorRequest updateRequest) {
@@ -96,6 +104,11 @@ public class UsuarioController {
     }
 
     // admins en sesion
+
+    /**
+     * obtiene todos los usuarios para el admin
+     * @return lista de usuarios 
+     */
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<List<VendedorResponse>> getAllUsuarios() {
@@ -112,10 +125,14 @@ public class UsuarioController {
                 usuario.getSuspendido()
         ))
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene un usuario por su id
+     * @param id del usuario
+     * @return usuario encontrado
+     */
     @GetMapping("/admin/usuarios/{id}")
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     public ResponseEntity<VendedorResponse> getUsuarioById(@PathVariable Integer id) {
@@ -135,6 +152,11 @@ public class UsuarioController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * suspende a un usuario alternando su atributo suspendido
+     * @param id del usuario
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/admin/usuarios/{id}/suspender")
     @PreAuthorize("hasAnyRole('MODERADOR', 'ADMINISTRADOR')")
     public ResponseEntity<VendedorResponse> suspenderUsuario(@PathVariable Integer id) {
@@ -149,10 +171,14 @@ public class UsuarioController {
                 usuario.getRol(),
                 usuario.getSuspendido()
         );
-
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtieen a los usarios por su rol
+     * @param rol a buscar entre los usuarios
+     * @return lista de usuarios con el rol especificado
+     */
     @GetMapping("/admin/usuarios/rol/{rol}")
     @PreAuthorize("hasAnyRole('MODERADOR', 'ADMINISTRADOR')")
     public ResponseEntity<List<VendedorResponse>> getUsuariosByRol(@PathVariable Integer rol) {
@@ -173,6 +199,11 @@ public class UsuarioController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

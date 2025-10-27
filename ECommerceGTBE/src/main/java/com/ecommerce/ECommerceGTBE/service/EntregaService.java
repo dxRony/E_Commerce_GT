@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.context.annotation.Lazy;
@@ -36,21 +35,23 @@ public class EntregaService {
     private DetalleEntregaRepository detalleEntregaRepository;
 
     @Autowired
-    private DetalleCompraRepository detalleCompraRepository;
-    
-    @Autowired
     private CompraRepository compraRepository;
 
     @Autowired
     @Lazy
     private CompraService compraService;
-    
+
     @Autowired
     private UsuarioService usuarioService;
 
+    /**
+     * metodo que crea una entrega
+     *
+     * @param compra a registrar en la db
+     * @return confirmacion de la operacion
+     */
     @Transactional
     public Entrega crearEntrega(Compra compra) {
-
         //creando entrega
         Entrega entrega = new Entrega();
         entrega.setEstado("En curso");
@@ -71,6 +72,12 @@ public class EntregaService {
         return entregaRegistrada;
     }
 
+    /**
+     * obtiene las entregas de un usuario
+     *
+     * @param usuarioId dueño de las entregas
+     * @return lista de entregas de un usuario
+     */
     public List<Entrega> obtenerEntregasUsuario(Integer usuarioId) {
         Usuario usuario = usuarioService.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -82,21 +89,45 @@ public class EntregaService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * obtiene las entregas que estan en curso
+     *
+     * @return lista de entregas que estan en curso
+     */
     public List<Entrega> obtenerEntregasEnCurso() {
         return entregaRepository.findByEstado("En curso");
     }
 
+    /**
+     * obtiene una entrega por su id
+     *
+     * @param entregaId de la entrega
+     * @return entraga si existe
+     */
     public Entrega obtenerEntrega(Integer entregaId) {
         return entregaRepository.findById(entregaId)
                 .orElseThrow(() -> new RuntimeException("Entrega no encontrada"));
     }
 
+    /**
+     * actualiza la fecha estimada de una entrega
+     *
+     * @param entregaId de la entrega
+     * @param nuevaFechaEstimada a actualizar
+     * @return confirmacio nde la operacion
+     */
     public Entrega actualizarFechaEstimada(Integer entregaId, LocalDate nuevaFechaEstimada) {
         Entrega entrega = obtenerEntrega(entregaId);
         entrega.setFechaEstimada(nuevaFechaEstimada);
         return entregaRepository.save(entrega);
     }
 
+    /**
+     * maraca una entrega como entregada
+     *
+     * @param entregaId de la entrega
+     * @return confirmacion de la opeacion
+     */
     @Transactional
     public Entrega marcarEntregaComoEntregada(Integer entregaId) {
         Entrega entrega = obtenerEntrega(entregaId);
@@ -116,10 +147,15 @@ public class EntregaService {
         Compra compra = entrega.getCompra();
         compra.setEstadoEntrega("Finalizada");
         compraRepository.save(compra);
-
         return entregaRepository.save(entrega);
     }
 
+    /**
+     * marca un detalle de la entrega como listo
+     *
+     * @param detalleId del detalle entrega
+     * @return confirmacion de la operacion
+     */
     public DetalleEntrega marcarDetalleEntregaListo(Integer detalleId) {
         DetalleEntrega detalle = detalleEntregaRepository.findById(detalleId)
                 .orElseThrow(() -> new RuntimeException("detalleEntrega no existe"));
@@ -128,14 +164,15 @@ public class EntregaService {
         return detalleEntregaRepository.save(detalle);
     }
 
+    /**
+     * obtiene todos los detalles entregad euna entrega
+     *
+     * @param entregaId de la entrega
+     * @return lista de detalles entrega
+     */
     public List<DetalleEntrega> obtenerDetallesEntrega(Integer entregaId) {
         Entrega entrega = obtenerEntrega(entregaId);
         return detalleEntregaRepository.findByEntrega(entrega);
     }
 
-    public boolean puedeMarcarComoEntregada(Integer entregaId) {
-        Entrega entrega = obtenerEntrega(entregaId);
-        List<DetalleEntrega> detalles = detalleEntregaRepository.findByEntrega(entrega);
-        return detalles.stream().allMatch(DetalleEntrega::getListo);
-    }
 }

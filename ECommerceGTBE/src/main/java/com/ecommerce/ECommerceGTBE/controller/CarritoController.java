@@ -47,6 +47,11 @@ public class CarritoController {
     }
 
     // usuarios en sesion
+
+    /**
+     * obtiene todos los detallecarrito del usuario en sesion
+     * @return lista de detalles carrito
+     */
     @GetMapping
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<CarritoResponse> obtenerCarrito() {
@@ -64,6 +69,11 @@ public class CarritoController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * agrega un articulo al carrito
+     * @param carritoRequest del articulo a agregar
+     * @return confirmacion de la operacion
+     */
     @PostMapping("/agregar")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<CarritoDetalleResponse> agregarArticuloCarrito(@Valid @RequestBody CarritoDetalleRequest carritoRequest) {
@@ -81,6 +91,12 @@ public class CarritoController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * actializa la cantidad de un articulo en el carrito
+     * @param itemId del articulo del detalle carrito a actualizar
+     * @param cantidad a actualizar
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/{itemId}/cantidad")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<?> actualizarCarrito(
@@ -101,6 +117,11 @@ public class CarritoController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * elimina el detalle carrito del carrito
+     * @param itemId del detalle carrito
+     * @return confirmacion de la operacion
+     */
     @DeleteMapping("/{itemId}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<MensajeResponse> eliminarDelCarrito(@PathVariable Integer itemId) {
@@ -113,6 +134,10 @@ public class CarritoController {
         return ResponseEntity.ok(new MensajeResponse("detalle eliminado del carrito"));
     }
 
+    /**
+     * elimina todos los detalle carrito
+     * @return confirmacion de la operacion
+     */
     @DeleteMapping("/limpiar")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<MensajeResponse> limpiarCarrito() {
@@ -121,10 +146,13 @@ public class CarritoController {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         carritoService.limpiarCarrito(usuario);
-
-        return ResponseEntity.ok(new MensajeResponse("carrito limpiado exitosamente"));
+        return ResponseEntity.ok(new MensajeResponse("carrito limpiado"));
     }
 
+    /**
+     * obtiene el total de los productos que estan en el carrito
+     * @return total de la suma de los productos en el carrito
+     */
     @GetMapping("/cantidad-total")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<Integer> obtenerCantidadTotal() {
@@ -148,6 +176,11 @@ public class CarritoController {
         );
     }
 
+    /**
+     * manejador de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));

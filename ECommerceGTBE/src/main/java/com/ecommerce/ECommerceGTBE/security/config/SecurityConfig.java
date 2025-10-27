@@ -41,11 +41,21 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    /**
+     * crea y devuelve un jwtAuthFilter para validar los tokens
+     * en las solicitures
+     * @return
+     */
     @Bean
     public JwtAuthFilter authenticationJwtTokenFilter() {
         return new JwtAuthFilter();
     }
 
+    /**
+     * configura el proveedor de autenticacion y codificador de contraseñas
+     * para validar las credenciales
+     * @return
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -54,16 +64,33 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    /**
+     * crea y retorna un auth manager
+     * @param authConfig
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    /**
+     * crea y devuelve un password encoder
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * configura el http y administra los permisos que tiene cada rol en cada
+     * ruta
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -90,13 +117,16 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
                 );
-
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
+    /**
+     * configura el cosr para que permita las solicitudes de cualquer lado
+     * @return
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

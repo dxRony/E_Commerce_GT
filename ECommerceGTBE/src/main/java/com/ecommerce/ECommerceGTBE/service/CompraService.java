@@ -34,9 +34,6 @@ public class CompraService {
     private DetalleCompraRepository detalleCompraRepository;
 
     @Autowired
-    private DetalleCarritoRepository detalleCarritoRepository;
-
-    @Autowired
     private CarritoService carritoService;
 
     @Autowired
@@ -51,6 +48,12 @@ public class CompraService {
     @Autowired
     private EntregaService entregaService;
 
+    /**
+     * procesa el pago de una compra
+     * @param usuarioId del usuario que hace la compra
+     * @param tarjetaId de la tarjeta que realizara el pago
+     * @return compra registrada
+     */
     @Transactional
     public Compra procesarPago(Integer usuarioId, Integer tarjetaId) {
         Usuario usuario = usuarioService.findById(usuarioId)
@@ -102,6 +105,9 @@ public class CompraService {
         return compraRegistrada;
     }
 
+    /*
+    * calcula el total de una compra
+    */
     private BigDecimal calcularTotalCompra(List<DetalleCarrito> itemsCarrito) {
         return itemsCarrito.stream()
                 .map(item -> item.getArticulo().getPrecio().multiply(BigDecimal.valueOf(item.getCantidad())))
@@ -109,12 +115,23 @@ public class CompraService {
                 .setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * obtiene las compras de un usuario
+     * @param usuarioId del usuario
+     * @return lista de compras del usuario
+     */
     public List<Compra> obtenerComprasUsuario(Integer usuarioId) {
         Usuario usuario = usuarioService.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("user no encontrado"));
         return compraRepository.findByUsuario(usuario);
     }
 
+    /**
+     * obtiene una compra especifica
+     * @param compraId de la compra
+     * @param usuarioId del usuario
+     * @return compra si existe
+     */
     public Compra obtenerCompra(Integer compraId, Integer usuarioId) {
         Usuario usuario = usuarioService.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("user no encontrado"));
@@ -125,12 +142,22 @@ public class CompraService {
         return compra;
     }
 
+    /**
+     * obtiene los detalles de una compra
+     * @param compraId de la compra
+     * @return lista de detalles compra 
+     */
     public List<DetalleCompra> obtenerDetallesCompra(Integer compraId) {
         Compra compra = compraRepository.findById(compraId)
                 .orElseThrow(() -> new RuntimeException("compra no encontrada"));
         return detalleCompraRepository.findByCompra(compra);
     }
 
+    /**
+     * obtiene los detalles compra de un vendedor
+     * @param vendedorId del usuario vendedor
+     * @return lista de detalles compra
+     */
     public List<DetalleCompra> obtenerVentasVendedor(Integer vendedorId) {
         Usuario vendedor = usuarioService.findById(vendedorId)
                 .orElseThrow(() -> new RuntimeException("vendedor no encontrado"));

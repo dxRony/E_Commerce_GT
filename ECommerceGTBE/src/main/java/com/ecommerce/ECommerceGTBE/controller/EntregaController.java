@@ -43,6 +43,11 @@ public class EntregaController {
     }
 
     //usuarios comunes en sesion
+
+    /**
+     * obtiene las entregas de un usuario comun
+     * @return lista de entregas
+     */
     @GetMapping("/mis-entregas")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<List<EntregaResponse>> obtenerMisEntregas() {
@@ -57,6 +62,11 @@ public class EntregaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * obtiene una entrega especifica del usuario
+     * @param entregaId de la entrega a buscar
+     * @return entrega si existe
+     */
     @GetMapping("/{entregaId}")
     @PreAuthorize("hasRole('COMUN')")
     public ResponseEntity<EntregaResponse> obtenerEntrega(@PathVariable Integer entregaId) {
@@ -73,6 +83,11 @@ public class EntregaController {
     }
 
     // usuaarios de logistica en sesion
+
+    /**
+     * obtiene las entregas en curso para el usuario de logistica
+     * @return
+     */
     @GetMapping("/logistica/en-curso")
     @PreAuthorize("hasRole('LOGISTICA')")
     public ResponseEntity<List<EntregaResponse>> obtenerEntregasEnCurso() {
@@ -85,6 +100,12 @@ public class EntregaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * actualiza la fecha estimada de la entrega
+     * @param entregaId de la entrega
+     * @param request de la modificacion de fecha
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/logistica/{entregaId}/fecha-estimada")
     @PreAuthorize("hasRole('LOGISTICA')")
     public ResponseEntity<EntregaResponse> actualizarFechaEstimada(
@@ -97,6 +118,11 @@ public class EntregaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * marca un detalle entrega como listo
+     * @param detalleId del detalle entrega
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/logistica/detalles/{detalleId}/listo")
     @PreAuthorize("hasRole('LOGISTICA')")
     public ResponseEntity<DetalleEntregaResponse> marcarDetalleListo(@PathVariable Integer detalleId) {
@@ -106,6 +132,11 @@ public class EntregaController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * marca una entrega como entregada
+     * @param entregaId de la entrega
+     * @return confirmacion de la operacion
+     */
     @PutMapping("/logistica/{entregaId}/entregar")
     @PreAuthorize("hasRole('LOGISTICA')")
     public ResponseEntity<EntregaResponse> marcarComoEntregada(@PathVariable Integer entregaId) {
@@ -157,6 +188,11 @@ public class EntregaController {
                 .orElse(1);
     }
 
+    /**
+     * manejardo de errores
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeResponse> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(new MensajeResponse(ex.getMessage()));
