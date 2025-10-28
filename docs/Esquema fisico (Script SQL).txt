@@ -112,9 +112,7 @@ CREATE TABLE notificacion (
     tipo VARCHAR(30) NOT NULL,
     titulo VARCHAR(200) NOT NULL,
     descripcion VARCHAR(250) NOT NULL,
-    id_usuario INTEGER NOT NULL REFERENCES usuario(id),
-    id_entrega INTEGER NULL REFERENCES entrega(id),
-    id_articulo INTEGER NULL REFERENCES articulo(id),
+    id_referencia INTEGER NOT NULL REFERENCES usuario(id),    
     estado VARCHAR(20) NOT NULL,
     fecha_estimada TIMESTAMP NULL,
     leida BOOLEAN NOT NULL DEFAULT false

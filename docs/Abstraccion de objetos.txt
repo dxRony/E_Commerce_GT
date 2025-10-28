@@ -99,3 +99,22 @@
 	- id_articulo int null (si es de subida de articulo)
 	- estado String not null (si es entrega: "En curso" o "Entregado", si es de articulo: "Aprobado" o "Rechazado") 
 	- fecha_estimada LocalDateTime null (si es una entrega) 
+
+
+	ahora me puedes dar las relaciones del diagrama de paquetes?
+recuerda que en el backend hay:
+- ECommerceGTBE
+          - controller
+          - dto
+          - model
+          - repository
+          - security
+          - service
+y en el backend:
+- EcommerceGTFE/app
+	- components
+	- guards
+	- interceptors
+	- models
+	- services
+	- environments

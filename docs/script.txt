@@ -1,0 +1,147 @@
+INSERT INTO usuario (rol, nombre, celular, email, password, direccion, suspendido) VALUES
+(1, 'Comun 0', 12345678, 'comun0@xela.com', '$2a$10$M6yEnXz7oDN0m.qkGy9jKeQVxruKrZ0j6.naSnQZqpp5FpQFJzuHe', 'Zona 1, Quetzaltenango', false),
+(1, 'Comun 1', 11234567, 'comun1@xela.com', '$2a$10$t3zFmud5oNSvnAleoqGPieYKpveZPI3R0t1akOf44oDqF3MJP1GTq', 'Zona 2, Quetzaltenango', false),
+(1, 'Comun 2', 11123456, 'comun2@xela.com', '$2a$10$6SBNJwkqsymHFahNmtn1IuJqf8X1/i0B4lLVuypATd/qxiiFPq4VO', 'Zona 3, Quetzaltenango', false),
+(1, 'Comun 3', 11112345, 'comun3@xela.com', '$2a$10$xtJsI1q18e7lVFV23eZAs.mr7Q.07DxOhGSnObta0VbKTDm7JiyYC', 'Zona 4, Quetzaltenango', false),
+(1, 'Comun 4', 11111234, 'comun4@xela.com', '$2a$10$LLepsiCdZOtNOcN3zN.fuOjx6Y5V3C6DtrBGpx956keuF/UwqpM4q', 'Zona 5, Quetzaltenango', false),
+(1, 'Comun 5', 11111123, 'comun5@xela.com', '$2a$10$r6aXVhezS0Tx3OI/g9m3kuw..gGNHkj6uOu3gVQXBqX5UXjkKyOaK', 'Zona 6, Quetzaltenango', false),
+(1, 'Comun 6', 11111112, 'comun6@xela.com', '$2a$10$z/AaMRzWfdJcQ3kO5CJBY.8vlRMIE.TD7gJ5Jl1d6pyqML7VCq7c6', 'Zona 7, Quetzaltenango', false),
+(1, 'Comun 7', 11111111, 'comun7@xela.com', '$2a$10$GW/fzSofWcKjq5FQSnrf..tfg6aizlKiUVMC2/9YCPiJP5cb6XOXi', 'Zona 8, Quetzaltenango', false),
+(1, 'Comun 8', 21111111, 'comun8@xela.com', '$2a$10$bARAyCx2tX5n4mEUeLjKd.gJZQAoXa3RLaXf4ZD7JpeK4GUt7yGYu', 'Zona 9, Quetzaltenango', false),
+(1, 'Comun 9', 22111111, 'comun9@xela.com', '$2a$10$XV6Kac/NJKFFXL40JNIObuj/QfRF7DKsjlSTd4K5C41osei2EhxOa', 'Zona 10, Quetzaltenango', false);
+
+INSERT INTO usuario (rol, nombre, celular, email, password, direccion, suspendido) VALUES
+(2, 'Moderador 0', 22211111, 'mod0@mazate.com', '$2a$10$JH1CHLefipqQ63EegikthOHING0ECZnoxxLA0/Htg4XfK4q1Hjlqq', 'Zona 11, Mazatenango', false),
+(2, 'Moderador 1', 22221111, 'mod1@mazate.com', '$2a$10$OCWbPgxKEW6mJxfMbkKnZenXW.vPtHgUHV8c92a1HzQJvjcHWBNlS', 'Zona 12, Mazatenango', false),
+(2, 'Moderador 2', 22222111, 'mod2@mazate.com', '$2a$10$UbZ0eJIwDtsueb6c9JgLO.wt6APPv3ZubaoxFFFy0Fp.S5Vm5LEUi', 'Zona 13, Mazatenango', false),
+(2, 'Moderador 3', 22222211, 'mod3@mazate.com', '$2a$10$oauHuxtwI3ZjC58xKXsj7uQ6a.wCADSzda.eik7DxqwDuv9VgUyYy', 'Zona 14, Mazatenango', false),
+(2, 'Moderador 4', 22222221, 'mod9@mazate.com', '$2a$10$piNS5KdZvGIsI9hPGSzqcOi2S0tLt7U6TpOC22ltNxcfm0kgx.FdG', 'Zona 15, Mazatenango', false);
+
+INSERT INTO usuario (rol, nombre, celular, email, password, direccion, suspendido) VALUES
+(3, 'Logistica 0', 22222222, 'log0@huehue.com', '$2a$10$brRR2Le24oIRgLzZP0p.Lue12y6Q9vC5Ldj6DBLnZa6wj5jypNhRq', 'Zona 16, Huehuetenango', false),
+(3, 'Logistica 1', 32222222, 'log1@huehue.com', '$2a$10$gOgMkAiTV6D2kSfaaBXj1e5wYgm5O8BOfQLX0tvrg61zD6zRZVnFi', 'Zona 17, Huehuetenango', false),
+(3, 'Logistica 2', 33222222, 'log2@huehue.com', '$2a$10$6qGp2LEvILZD12EgLDMCSOXf00YVAVmOgwv6LxAerJxRFw3MbQlZa', 'Zona 18, Huehuetenango', false);
+
+INSERT INTO usuario (rol, nombre, celular, email, password, direccion, suspendido) VALUES
+(4, 'Administrador 0', 33322222, 'admin@guate.com', '$2a$10$SqWMb7IMYR5iLrKEWxO0FeAHfXxJbT2gqYNHkQdmFXkIIpT2yZBi6', 'Zona 9, Guatemala', false);
+
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Laptop hp',               'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente',  500.00,   1, 'Usado', 'Tecnologia', 'Aprobado', 1),
+('Samsung Galaxy',          'Samsung Galaxy A13, 64GB, 3GB RAM',                                     'Pendiente', 1200.00,   5, 'Usado', 'Tecnologia', 'Aprobado', 1),
+('Juego de Sartenes',       'Set de 3 sartenes mango ergonomico',                                    'pendiente',  650.00,  19, 'Usado', 'Hogar',      'Aprobado', 1),
+('Mesa de Centro',          'Mesa de centro de vidrio',                                              'pendiente',  850.00,   3, 'Usado', 'Hogar',      'Aprobado', 1),
+('Libro: El Dragon',        'Libro que se usa para lenguajes compi1 y compi2',                       'pendiente',  180.00,  10, 'Usado', 'Personal',   'Aprobado', 1),
+('Audifonos Sony',          'Audifonos inalambricos con cancelacion de ruido',                       'pendiente', 2200.00,   6, 'Nuevo', 'Personal',   'Aprobado', 1),
+('Camara Canon',            'Cámara réflex digital 24.1MP, kit con lente 18-55mm',                   'pendiente', 3800.00,   4, 'Nuevo', 'Decoracion', 'Aprobado', 1),
+('Zapatos Nike',            'Zapatos Nike Air para correr en terrenos rocosos',                      'pendiente',  750.00,  19, 'Nuevo', 'Decoracion', 'Aprobado', 1),
+('Mochila Impermeable',     'Mochila para laptop hasta 15 pulgadas, multiples compartimentos azul',  'pendiente',  820.00,  22, 'Nuevo', 'Otro',       'Aprobado', 1),
+('Reloj Casio',             'Reloj para caballero, con resistencia al agua',                         'pendiente',  980.00,   3, 'Nuevo', 'Otro',       'Aprobado', 1);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Computadora acer',        'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente', 1500.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 2),
+('Apple Iphone',            'Iphone 18 pro max , 64GB, 3GB RAM',                                     'Pendiente', 3200.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 2),
+('Juego de almohadas',      'Set de 3 almohadas comodas para dormir',                                'pendiente', 650.00,  12, 'Usado', 'Hogar',      'Aprobado', 2),
+('Mesa de esquina',         'Mesa de centro de vidrio',                                              'pendiente', 850.00,   3, 'Usado', 'Hogar',      'Aprobado', 2),
+('Libro: El Combi',         'Libro que se usa para dormir por lo acolchado que es',                  'pendiente', 180.00,  15, 'Usado', 'Personal',   'Aprobado', 2),
+('Audifonos Beats',         'Audifonos inalambricos con cancelacion de ruido activa',                'pendiente', 1200.00,  6, 'Nuevo', 'Personal',   'Aprobado', 2),
+('Camara Epson',            'Camara con lente 18-55mm',                                              'pendiente', 2800.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 2),
+('Zapatos Adidas',          'Zapatos Adidas para correr en terrenos planos',                         'pendiente', 350.00,  10, 'Nuevo', 'Decoracion', 'Aprobado', 2),
+('Mochila de acampar',      'Mochila para acampar en el cerro el baul en quetzaltenango guatemala',  'pendiente', 220.00,  20, 'Nuevo', 'Otro',       'Aprobado', 2),
+('Reloj Rolex',             'Reloj para caballero, original carisimo por cierto',                    'pendiente', 480.00,   7, 'Nuevo', 'Otro',       'Aprobado', 2);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Computadora asus',        'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente', 1100.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 3),
+('Xiaomi phone',            'Xiaomi phone 17 pro, 64GB, 3GB RAM',                                    'Pendiente', 3200.00,  2, 'Usado', 'Tecnologia', 'Aprobado', 3),
+('Juego de almohadas',      'Set de 3 almohadas comodas para dormir',                                'pendiente', 630.00,  13, 'Usado', 'Hogar',      'Aprobado', 3),
+('Mesa de noche',           'Mesa de noches de vidrio',                                              'pendiente', 840.00,   4, 'Usado', 'Hogar',      'Aprobado', 3),
+('Libro: El Barbuchin',     'Libro que se usa contar cuentos a ninios pequenios',                    'pendiente', 150.00,  15, 'Usado', 'Personal',   'Aprobado', 3),
+('Audifonos Beats',         'Audifonos inalambricos con cancelacion de ruido activa',                'pendiente', 1600.00,  6, 'Nuevo', 'Personal',   'Aprobado', 3),
+('Camara Sony',             'Camara con lente 18-55mm',                                              'pendiente', 2700.00,  7, 'Nuevo', 'Decoracion', 'Aprobado', 3),
+('Zapatos Converse',        'Zapatos Converse para caminatas largas en seco',                        'pendiente', 380.00,  17, 'Nuevo', 'Decoracion', 'Aprobado', 3),
+('Mochila de oficina',      'Mochila para llevar tus cosas a la oficina en qetzaltenango guatemala', 'pendiente', 290.00,  28, 'Nuevo', 'Otro',       'Aprobado', 3),
+('Reloj Twingo',            'Reloj para dama, un rolex por un casio',                                'pendiente', 400.00,   9, 'Nuevo', 'Otro',       'Aprobado', 3);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Computadora asus',        'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente', 1500.00,   9, 'Usado', 'Tecnologia', 'Aprobado', 4),
+('Redmin phone',            'Redmin phone para juegos, 64GB, 3GB RAM',                               'Pendiente', 3200.00,   8, 'Usado', 'Tecnologia', 'Aprobado', 4),
+('Juego de toallas',        'Set de 3 toallas comodas para baniarse',                                'pendiente',  650.00,  17, 'Usado', 'Hogar',      'Aprobado', 4),
+('Mesa de sala',            'Mesa de sala para la sala de vidrio',                                   'pendiente',  850.00,   6, 'Usado', 'Hogar',      'Aprobado', 4),
+('Libro: Fisica 2',         'Libro que se usa para estudiar y ganar fisica con Neto',                'pendiente',  180.00,  15, 'Usado', 'Personal',   'Aprobado', 4),
+('Audifonos XTECH',         'Audifonos alambricos genericos con cancelacion de ruido activa',        'pendiente', 1200.00,   4, 'Nuevo', 'Personal',   'Aprobado', 4),
+('Camara RAZER',            'Camara sin lente 18-55mm',                                              'pendiente', 2800.00,   3, 'Nuevo', 'Decoracion', 'Aprobado', 4),
+('Zapatos Pirma',           'Zapatos Pirma para jugar fuchibol en la cancha',                        'pendiente',  350.00,  12, 'Nuevo', 'Decoracion', 'Aprobado', 4),
+('Mochila de estudio',      'Mochila para llevar tus cosas a la escuela en qetzaltenango guatemala', 'pendiente',  220.00,  21, 'Nuevo', 'Otro',       'Aprobado', 4),
+('Reloj Huawei',            'Reloj unisex, para contar tus pasos en',                                'pendiente',  480.00,   1, 'Nuevo', 'Otro',       'Aprobado', 4);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Computadora dell',        'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente', 2501.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 5),
+('Acer phone',              'Acer phone   para juegos, 64GB, 3GB RAM',                               'Pendiente', 1202.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 5),
+('Juego de maquillaje',     'Set de maquillaje para ir a fiestassss',                                'pendiente',  653.00, 12, 'Usado', 'Hogar',      'Aprobado', 5),
+('Mesa de comedor',         'Mesa de comedor que me sobra en la cocina',                             'pendiente',  854.00,  3, 'Usado', 'Hogar',      'Aprobado', 5),
+('Libro: Fisica 1',         'Libro que se usa para estudiar y ganar fisica 1 con Neto',              'pendiente',  185.00, 15, 'Usado', 'Personal',   'Aprobado', 5),
+('Audifonos XTECH',         'Audifonos alambricos genericos con cancelacion de ruido activa',        'pendiente', 1206.00,  6, 'Nuevo', 'Personal',   'Aprobado', 5),
+('Camara RAZER',            'Camara sin lente 18-55mm',                                              'pendiente', 2807.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 5),
+('Zapatos Pirma',           'Zapatos Pirma para jugar fuchibol en la cancha',                        'pendiente',  358.00, 10, 'Nuevo', 'Decoracion', 'Aprobado', 5),
+('Mochila de estudio',      'Mochila para llevar tus cosas a la escuela en qetzaltenango guatemala', 'pendiente',  229.00, 20, 'Nuevo', 'Otro',       'Aprobado', 5),
+('Reloj Huawei',            'Reloj unisex, para contar tus pasos en',                                'pendiente',  481.00,  7, 'Nuevo', 'Otro',       'Aprobado', 5);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Computadora MSI',         'Laptop de 13 pulgadas, 8GB de RAM, 120GB de SSD, Intel i5',             'pendiente', 1500.00,   1, 'Usado', 'Tecnologia', 'Aprobado', 6),
+('AOC phone',               'AOC  phone   para juegos, 64GB, 3GB RAM',                               'Pendiente', 3200.00,   8, 'Usado', 'Tecnologia', 'Aprobado', 6),
+('Juego de libretas',       'Set de libretas para ir a la escuela j',                                'pendiente',  650.00,  22, 'Usado', 'Hogar',      'Aprobado', 6),
+('Mesa de banio',           'Mesa de banio para poner cosas utiles',                                 'pendiente',  850.00,   3, 'Usado', 'Hogar',      'Aprobado', 6),
+('Libro: Mate 1',           'Libro que se usa para estudiar y ganar Mate 1 con Punto',               'pendiente',  180.00,  45, 'Usado', 'Personal',   'Aprobado', 6),
+('Audifonos XTECH',         'Audifonos alambricos genericos con cancelacion de ruido activa',        'pendiente', 1200.00,   6, 'Nuevo', 'Personal',   'Aprobado', 6),
+('Camara OLED',             'Camara con tecnologia OLED',                                            'pendiente', 2800.00,   4, 'Nuevo', 'Decoracion', 'Aprobado', 6),
+('Zapatos Pirma',           'Zapatos Pirma para jugar fuchibol en la cancha',                        'pendiente',  350.00,  60, 'Nuevo', 'Decoracion', 'Aprobado', 6),
+('Mochila de fiestas',      'Mochila para llevar tus cosas a la fiesta en quetzaltenango guatemala', 'pendiente',  220.00,  80, 'Nuevo', 'Otro',       'Aprobado', 6),
+('Reloj FIT',               'Reloj unisex, para contar tus pasos en tu dia a dia',                   'pendiente',  480.00,   7, 'Nuevo', 'Otro',       'Aprobado', 6);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Tablet Lenovo',              'Tablet Lenovo de 10 pulgadas, ideal para estudiar y trabajar',    'pendiente', 1510.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 7),
+('Huawei P40',                 'Huawei P40 con cámara Leica, 128GB de almacenamiento',            'pendiente', 3220.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 7),
+('Kit de brochas',             'Set completo de brochas profesionales para maquillaje',           'pendiente',  630.00, 12, 'Usado', 'Hogar',      'Aprobado', 7),
+('Silla de oficina',           'Silla ergonómica para home office, color negro',                  'pendiente',  840.00,  3, 'Usado', 'Hogar',      'Aprobado', 7),
+('Libro: Matemáticas Básicas', 'Texto fundamental para aprender matemáticas desde cero',          'pendiente',  150.00, 15, 'Usado', 'Personal',   'Aprobado', 7),
+('Bocina JBL',                 'Bocina portátil con sonido surround y batería de larga duración', 'pendiente', 1260.00,  6, 'Nuevo', 'Personal',   'Aprobado', 7),
+('Webcam Logitech',            'Cámara web HD para reuniones virtuales y streaming',              'pendiente', 2870.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 7),
+('Tenis Adidas',               'Tenis deportivos para correr y hacer ejercicio',                  'pendiente',  380.00, 10, 'Nuevo', 'Decoracion', 'Aprobado', 7),
+('Mochila de viaje',           'Mochila resistente para viajes largos y excursiones',             'pendiente',  290.00, 20, 'Nuevo', 'Otro',       'Aprobado', 7),
+('Smartwatch Xiaomi',          'Reloj inteligente con monitor de sueño y actividad física',       'pendiente',  410.00,  7, 'Nuevo', 'Otro',       'Aprobado', 7);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('MacBook Air',              'MacBook Air 13 pulgadas, perfecta para diseño gráfico',     'pendiente', 1900.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 8),
+('iPhone 12',                'iPhone 12 en excelente estado, 64GB, color azul',           'pendiente', 3800.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 8),
+('Paleta de sombras',        'Paleta de sombras con 12 colores mate y brillantes',        'pendiente',  750.00, 12, 'Usado', 'Hogar',      'Aprobado', 8),
+('Escritorio moderno',       'Escritorio de madera para computadora, color natural',      'pendiente',  650.00,  3, 'Usado', 'Hogar',      'Aprobado', 8),
+('Libro: Programación Java', 'Guía completa para aprender programación en Java',          'pendiente',  580.00, 15, 'Usado', 'Personal',   'Aprobado', 8),
+('Micrófono Blue Yeti',      'Micrófono profesional para podcast y grabaciones',          'pendiente', 1400.00,  6, 'Nuevo', 'Personal',   'Aprobado', 8),
+('Drone DJI Mini',           'Drone compacto con cámara 4K y control remoto',             'pendiente', 2300.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 8),
+('Sandalias Crocs',          'Sandalias cómodas para uso diario y paseos',                'pendiente',  250.00, 10, 'Nuevo', 'Decoracion', 'Aprobado', 8),
+('Mochila para laptop',      'Mochila con compartimento acolchado para laptop 15"',       'pendiente',  120.00, 20, 'Nuevo', 'Otro',       'Aprobado', 8),
+('Reloj Fossil',             'Reloj elegante para ocasiones especiales, correa de cuero', 'pendiente',  380.00,  7, 'Nuevo', 'Otro',       'Aprobado', 8);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Chromebook ASUS',            'Chromebook ligero y rápido para tareas básicas',          'pendiente', 9500.00,  1, 'Usado', 'Tecnologia', 'Aprobado', 9),
+('Motorola Edge',              'Motorola Edge con pantalla curva y carga rápida',         'pendiente', 8200.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 9),
+('Base líquida',               'Base de maquillaje de larga duración, tono natural',      'pendiente', 7650.00, 12, 'Usado', 'Hogar',      'Aprobado', 9),
+('Mesa plegable',              'Mesa plegable para eventos y reuniones familiares',       'pendiente', 6850.00,  3, 'Usado', 'Hogar',      'Aprobado', 9),
+('Libro: Cocina Guatemalteca', 'Recetario tradicional de la cocina guatemalteca',         'pendiente', 5180.00, 15, 'Usado', 'Personal',   'Aprobado', 9),
+('Teclado mecánico',           'Teclado mecánico RGB para gaming y programación',         'pendiente', 4200.00,  6, 'Nuevo', 'Personal',   'Aprobado', 9),
+('Lámpara de escritorio',      'Lámpara LED ajustable para estudio y lectura',            'pendiente', 3800.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 9),
+('Botas de cuero',             'Botas elegantes de cuero genuino, color café',            'pendiente', 2350.00, 10, 'Nuevo', 'Decoracion', 'Aprobado', 9),
+('Mochila antitheft',          'Mochila con seguridad antirobo y compartimentos ocultos', 'pendiente', 1220.00, 20, 'Nuevo', 'Otro',       'Aprobado', 9),
+('Cronómetro deportivo',       'Reloj cronómetro para entrenamiento y competencias',      'pendiente',  480.00,  7, 'Nuevo', 'Otro',       'Aprobado', 9);
+
+INSERT INTO articulo (nombre, descripcion, imagen, precio, stock, estado_articulo, categoria, estado_aprobacion, id_usuario) VALUES
+('Surface Pro',                  'Microsoft Surface Pro, convertible tablet/laptop',      'pendiente', 1500.00,  2, 'Usado', 'Tecnologia', 'Aprobado', 10),
+('OnePlus Nord',                 'OnePlus Nord con pantalla AMOLED y 5G',                 'pendiente', 3200.00,  8, 'Usado', 'Tecnologia', 'Aprobado', 10),
+('Labial mate',                  'Labial de larga duración en varios tonos disponibles',  'pendiente',  650.00, 62, 'Usado', 'Hogar',      'Aprobado', 10),
+('Ropero de melamina',           'Ropero espacioso con 3 puertas y espejo',               'pendiente',  850.00,  3, 'Usado', 'Hogar',      'Aprobado', 10),
+('Libro: Historia de Guatemala', 'Texto sobre la historia y cultura guatemalteca',        'pendiente',  180.00, 65, 'Usado', 'Personal',   'Aprobado', 10),
+('Mouse gaming',                 'Mouse ergonómico para juegos con DPI ajustable',        'pendiente', 1200.00,  6, 'Nuevo', 'Personal',   'Aprobado', 10),
+('Cuadro decorativo',            'Cuadro abstracto para decorar paredes de hogar',        'pendiente', 2800.00,  4, 'Nuevo', 'Decoracion', 'Aprobado', 10),
+('Chanclas deportivas',          'Chanclas cómodas para playa y alberca',                 'pendiente',  350.00, 30, 'Nuevo', 'Decoracion', 'Aprobado', 10),
+('Mochila infantil',             'Mochila con diseños animados para niños',               'pendiente',  220.00, 10, 'Nuevo', 'Otro',       'Aprobado', 10),
+('Pulsera inteligente',          'Pulsera fitness con monitor cardiaco y notificaciones', 'pendiente',  480.00, 17, 'Nuevo', 'Otro',       'Aprobado', 10);
